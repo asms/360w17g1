@@ -84,13 +84,13 @@ public class Volunteer {
             //those methods below are basically I assume will include in Job class. 
             switch (workDuty) {
 	            case 1:
-	            	addedVolunteer = upcomingJobs.get(choice - 1).addVolunteer(volunteer.getVolunteer(),workDuty.LIGHT);
+	            	addedVolunteer = upcomingJobs.get(choice - 1).addVolunteer(volunteer, workDuty.LIGHT);
 	            	break;
 	            case 2:
-	            	addedVolunteer = upcomingJobs.get(choice - 1).addVolunteer(volunteer.getVolunteer(),workDuty.MEDIUM);
+	            	addedVolunteer = upcomingJobs.get(choice - 1).addVolunteer(volunteer, workDuty.MEDIUM);
 	            	break;
 	            case 3:
-	            	addedVolunteer = upcomingJobs.get(choice - 1).addVolunteer(volunteer.getVolunteer(),workDuty.HEAVY);	
+	            	addedVolunteer = upcomingJobs.get(choice - 1).addVolunteer(volunteer, workDuty.HEAVY);	
 	            	break;
 	            default:
 	            	System.out.println("Please enter a valid work category");

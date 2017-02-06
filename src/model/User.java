@@ -1,35 +1,70 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * User Class
  * @author Bryce
  * @version 1
  */
-public class User extends AbstractUser implements Serializable, UniqueObject {
+public class User implements Serializable, UniqueObject {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3776956632727737392L;
+	private String FirstName;
+	private String LastName;
+	
+	/**
+	 * Types of users.
+	 */
+	public enum Type { Volunteer, StaffMember, ParkManager, Guest };
 
-	protected User(String theUserName, String theUserType) {
-		super(theUserName, theUserType);
+	private String UserName;
+	private Type UserType;
+
+	protected User(String theUserName, Type theUserType) {
+		UserName = Objects.requireNonNull(theUserName);
+		UserType = Objects.requireNonNull(theUserType);
 		
 	}
+	
+	public Type getUserType(){
+		return UserType;
+	}
+	
+	public String getUserName() {
+		return UserName;
+	}
+	
 
+	public void getOptions() {
+		
+	}
 	
 	protected void login(String theUserName){
 		
 		
 	}
+	
+	protected String getFirstName() {
+		return FirstName;
+	}
+	
+	protected String getLastName() {
+		return LastName;
+	}
 
 
 	@Override
 	public String getKey() {
-		
-		return getUserName();
+		return UserName;
+	}
+
+	@Override
+	public String toString(){
+		return "User Name: "+ UserName + " User Type: " + UserType;
 	}
 	
 	

@@ -6,24 +6,32 @@
 
 package model;
 
+import java.util.ArrayList;
+
 /**
  * User Controller
+ * 
  * @author Bryce
  * @version 1
  *
  */
 public class UserController extends AbstractController<User> {
-	
 
-		public void addUser(final AbstractUser theUser){
-			add((User) theUser);
-		}
-	
-		
-		public AbstractUser getUser(final String theUser) {
-			
-			return myList.get(theUser);
-		}
-	
-	
+	/**
+	 * Adds a user 
+	 * @param theUser  A user being added
+	 */
+	public void addUser(final AbstractUser theUser) {
+
+		add((User) theUser);
+	}
+
+	/**
+	 *  @return A list of all the Users 
+	 */
+	public ArrayList<User> getUserList() {
+
+		return new ArrayList<User>(myList.values());
+	}
+
 }

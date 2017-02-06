@@ -22,13 +22,14 @@ public abstract class AbstractUser implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 973482604419746803L;
-	private String userName;
-	private String userType;
+
+	private String UserName;
+	private String UserType;
 
 	protected AbstractUser(String theUserName, String theUserType) {
 		
-		userName = Objects.requireNonNull(theUserName);
-		userType = Objects.requireNonNull(theUserType);
+		UserName = Objects.requireNonNull(theUserName);
+		UserType = Objects.requireNonNull(theUserType);
 		
 	}
 	
@@ -41,21 +42,22 @@ public abstract class AbstractUser implements Serializable {
 	}
 	
 	protected void setUserName(String theName){
-		userName = theName;
+		UserName = theName;
 	}
 	
 	protected void setUserType(String theType){
-		userType = theType;
+		UserType = theType;
 	}
 	
 	protected String getUserType(){
-		return userType;
+		return UserType;
 	}
 	
 	protected String getUserName() {
-		return userName;
+		return UserName;
 	}
 	
+
 	protected void getOptions() {
 		
 	}
@@ -63,7 +65,7 @@ public abstract class AbstractUser implements Serializable {
 	public String toString(){
 		
 		
-		return "User Name: "+ userName + " User Type: " + userType;
+		return "User Name: "+ UserName + " User Type: " + UserType;
 		
 	}
 	

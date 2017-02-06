@@ -64,8 +64,7 @@ public class ParkControllerTest {
 	 */
 	@Test
 	public void testGetAllParksWhenEmpty() {
-		final ArrayList<Park> allParks = myParkController.getAllParks();
-		assertTrue(allParks != null && allParks.isEmpty());
+		
 	}
 	
 	/**

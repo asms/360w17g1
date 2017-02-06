@@ -24,7 +24,7 @@ public class JobController extends AbstractController<Job>
      * Returns all upcoming jobs
      * @return all upcoming jobs
      */
-    public static  List<Job> getUpcomingJobs()
+    public List<Job> getUpcomingJobs()
     {
         return new ArrayList<Job>(myList.values());
     }             

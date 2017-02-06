@@ -213,6 +213,14 @@ public class Job implements Serializable, UniqueObject
         return volunteers;
     }
     
+    @Override
+    public boolean equals(final Object theObject) 
+    {
+        return (theObject instanceof Job)
+                && (myName.equals(((Job) theObject).myName))
+                && (myParkName.equals(((Job) theObject).myParkName));
+    }
+    
 
     @Override
     public String getKey()

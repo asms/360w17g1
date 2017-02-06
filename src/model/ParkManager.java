@@ -133,6 +133,7 @@ public class ParkManager {
             System.out.println();
             System.out.println("Volunteers:");
 
+            
             boolean volunteerFound = false;
             for (String volunteer : currentJobs.get(choice - 1)) {
                 for (User u : UserController.getUserList()) {   //get user from UserController

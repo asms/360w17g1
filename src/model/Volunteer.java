@@ -125,8 +125,8 @@ public class Volunteer {
         boolean nameFound = true;
         for (Job j : JobController.getUpcomingJobs()) {
 
-            for (String volunteer : j.getVolunteer()) {
-                if (volunteer.getName().equals(volunteer)) { //getName() from User
+            for (String v : j.getVolunteer()) {
+                if (v.equals(volunteer)) { //getName() from User
                     nameFound = true;
                     System.out.print(j.getJobName() + " at ");
                     System.out.print(j.getParkName() + " on ");

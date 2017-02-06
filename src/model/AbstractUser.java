@@ -22,11 +22,16 @@ public abstract class AbstractUser implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 973482604419746803L;
+	
+	/**
+	 * Types of users.
+	 */
+	public enum Type { Volunteer, StaffMember, ParkManager, Guest };
 
 	private String UserName;
-	private String UserType;
+	private Type UserType;
 
-	protected AbstractUser(String theUserName, String theUserType) {
+	protected AbstractUser(String theUserName, Type theUserType) {
 		
 		UserName = Objects.requireNonNull(theUserName);
 		UserType = Objects.requireNonNull(theUserType);
@@ -45,11 +50,7 @@ public abstract class AbstractUser implements Serializable {
 		UserName = theName;
 	}
 	
-	protected void setUserType(String theType){
-		UserType = theType;
-	}
-	
-	protected String getUserType(){
+	protected Type getUserType(){
 		return UserType;
 	}
 	

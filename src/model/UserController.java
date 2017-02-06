@@ -21,9 +21,9 @@ public class UserController extends AbstractController<User> {
 	 * Adds a user 
 	 * @param theUser  A user being added
 	 */
-	public void addUser(final AbstractUser theUser) {
+	public void addUser(final User theUser) {
 
-		add((User) theUser);
+		add(theUser);
 	}
 
 	/**

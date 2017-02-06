@@ -30,14 +30,10 @@ public class Job implements Serializable, UniqueObject
 
 
     /**
-     * The title of the job.
+     * The name of the job.
      */
     private String myName;
     
-    /**
-     * The name of the job.
-     */
-    private String myLocation;
     
     /**
      * The name of the park job is associated with
@@ -45,14 +41,9 @@ public class Job implements Serializable, UniqueObject
     private String myParkName;
     
     /**
-     * The date of the job.
+     * The date and time of the job.
      */
-    private Date myDate;
-    
-    /**
-     * The time of the job.
-     */
-    private Time myTime;
+    private String myDateTime;
     
     /**
      * The description of the job.
@@ -68,6 +59,21 @@ public class Job implements Serializable, UniqueObject
      * The volunteers for this job.
      */
     private List<String> volunteers;
+
+    /**
+     * The number of light duty volunteers.
+     */
+    private int numOfLightDuty;
+
+    /**
+     * The number of medium duty volunteers.
+     */
+    private int numOfMediumDuty;
+
+    /**
+     * The number of heavy duty volunteers.
+     */
+    private int numOfHeavyDuty;
     
     /**
      * Creates a job object.
@@ -80,22 +86,25 @@ public class Job implements Serializable, UniqueObject
      * @param theDescription the description of the job.
      * @param theDifficulty the difficulty of the job.
      */
-    public Job (final String theName, final String thePark, final String theLocation, final Date theDate, final Time theTime,
-                    final String theDescription, final int theDifficulty)
+    public Job (final String theName, final String thePark, final String theDateTime,
+                    final String theDescription, final int theLightDuty, final int theMediumDuty, final int theHeavyDuty)
     {
         myName = Objects.requireNonNull(theName);
         
         myParkName = Objects.requireNonNull(thePark);
         
-        myLocation = Objects.requireNonNull(theLocation);
+        myDateTime = Objects.requireNonNull(theDateTime);
         
-        myDate = Objects.requireNonNull(theDate);
-        
-        myTime = Objects.requireNonNull(theTime);
         
         myDescription = Objects.requireNonNull(theDescription);
         
-        myDifficulty = theDifficulty;
+        //myDifficulty = theDifficulty;
+        
+        numOfLightDuty = theLightDuty;
+        
+        numOfMediumDuty = theMediumDuty;
+        
+        numOfHeavyDuty = theHeavyDuty;
         
         volunteers = new ArrayList<String>();
         
@@ -119,32 +128,9 @@ public class Job implements Serializable, UniqueObject
         return myParkName;
     }
     
-    /**
-     * Returns the location of the job.
-     * @return returns the location of the job.
-     */
-    public String getLocation()
-    {
-        return myLocation;
-    }
+
     
-    /**
-     * Returns  the date of the job.
-     * @return returns the date of the job.
-     */
-    public Date getDate()
-    {
-        return myDate;
-    }
-    
-    /**
-     * Returns the time of the job.
-     * @return returns the time of the job.
-     */
-    public Time getTime()
-    {
-        return myTime;
-    }
+
     
     /**
      * Returns the description of the job.
@@ -172,29 +158,16 @@ public class Job implements Serializable, UniqueObject
         myName = theName;
     }
     
-    /**
-     * Sets the location of the job.
-     */
-    public void setLocation(String theLocation)
-    {
-        myLocation = theLocation;
-    }
     
     /**
-     * Sets the date of the job.
+     * Sets the date and time of the job.
      */
-    public void setDate(Date theDate)
+    public void setDateTime(String theDateTime)
     {
-        myDate = theDate;
+        myDateTime = theDateTime;
     }
     
-    /**
-     * Sets the time of the job.
-     */
-    public void setTime(Time theTime)
-    {
-        myTime = theTime;
-    }
+
     
     /**
      * Sets the description of the job.
@@ -218,11 +191,8 @@ public class Job implements Serializable, UniqueObject
      */
     public String getDateTime()
     {
-        StringBuilder s = new StringBuilder();
-        
-        s.append(this.getDate());
-        s.append(this.getTime());
-        return s.toString();
+
+        return myDateTime;
     }
     
     /**

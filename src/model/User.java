@@ -22,7 +22,7 @@ public class User implements Serializable, UniqueObject {
 
 	private String UserName;
 
-	protected User(final String theUserName) {
+	public User(final String theUserName) {
 		UserName = Objects.requireNonNull(theUserName);
 		
 	}

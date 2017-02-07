@@ -70,7 +70,7 @@ public class ParkManagerView extends AbstractView {
 		final String name = getString("Enter job title");
 		final Park park = getSelectionFromList("Parks",
 				"Enter park number",
-				new Park[] {new Park(), new Park(), new Park()});
+				new Park[] {new Park("Name 1", "Location 1"), new Park("Name 2", "Location 2"), new Park("Name 3", "Location 3")});
 		final Date date = getDate("Enter date(MM/DD/YYYY)");
 		final Date startTime = getTime("Enter start time(HH:MM AM/PM)");
 		final Date endTime = getTime("Enter end time(HH:MM AMP/PM)");
@@ -91,10 +91,10 @@ public class ParkManagerView extends AbstractView {
 					numHeavyVolunteers
 				);
 		displayTitle(job.toString());
-		final boolean shouldSubmit = getBooleanYesNo("Are you sure you want to submit this job");
+		final boolean shouldSubmit = getBooleanYesNo("Are you sure you want to submit this job (Y/N)");
 		
 		if (shouldSubmit) {
-			//jobController.addJob(job);
+			myJobController.addJob(job);
 		} else {
 			//TODO: message
 		}

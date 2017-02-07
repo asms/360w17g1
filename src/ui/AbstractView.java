@@ -11,6 +11,9 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import model.JobController;
+import model.ParkController;
+import model.UserController;
 import users.User;
 
 public abstract class AbstractView {
@@ -32,12 +35,18 @@ public abstract class AbstractView {
 	
 	protected final Scanner myScanner;
 	protected final User myUser;
+	protected final JobController myJobController;
+	protected final UserController myUserController;
+	protected final ParkController myParkController;
 	
 	protected Status myStatus = Status.RUN;
 	
 	public AbstractView(final Scanner theScanner, final User theUser) {
 		myScanner = theScanner;
 		myUser = theUser;
+		myJobController = new JobController();
+		myParkController = new ParkController();
+		myUserController = new UserController();
 	}
 
 	public abstract void show();

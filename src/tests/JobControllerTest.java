@@ -7,6 +7,7 @@ package tests;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -45,9 +46,9 @@ public class JobControllerTest
         final ArrayList<Job> jobs = new ArrayList<Job>();
         for (int i = 0; i < 100; i++)
         {
-            jobs.add(new Job("Trail Clearing", "BirchCreek Park", "10/10/2017 10:00", 
+            jobs.add(new Job("Trail Clearing", new Park("BirchCreek Park", "address"), new Date(),  new Date(),  new Date(), 
                              "This job involves a lot of walking", i, 2, 4));
-            myJobController.addJob(new Job("Trail Clearing", "BirchCreek Park", "10/10/2017 10:00", 
+            myJobController.addJob(new Job("Trail Clearing", new Park("BirchCreek Park", "address"), new Date(), new Date(), new Date(), 
                                            "This job involves a lot of walking", i, 2, 4));
         }
         final ArrayList<Job> allJobs = (ArrayList<Job>) myJobController.getUpcomingJobs();
@@ -71,7 +72,7 @@ public class JobControllerTest
     @Test
     public void testGetJob()
     {
-        final Job expectedJob = new Job("Trail Clearing", "BirchCreek Park", "10/10/2017 10:00", 
+        final Job expectedJob = new Job("Trail Clearing", new Park("BirchCreek Park", "address"), new Date(), new Date(), new Date(), 
                                         "This job involves a lot of walking", 1, 2, 4);
         myJobController.addJob(expectedJob);
         final Job job = myJobController.getJob(expectedJob.getJobName());

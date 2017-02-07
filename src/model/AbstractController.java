@@ -33,23 +33,23 @@ public abstract class AbstractController<T extends UniqueObject> {
 	 */
 	private final void serializeToDisk() {
 		// For each elemet in the hashmap
-		for (Map.Entry<String, HashMap> entry : myList.entrySet()) {
-			String key = myList.getKey();
-			HashMap value = myList.getValue();
-			outFileName = key + ".ser";
-			try {
-				FileOutputStream fileOut = new FileOutputStream(SRC_DIR
-						+ outFileName);
-				ObjectOutputStream out = new ObjectOutputStream(fileOut);
-				out.writeObject(e);
-				out.close();
-				fileOut.close();
-				System.out.printf("Serialized data is saved in " + SRC_DIR
-						+ outFileName);
-			} catch (IOException i) {
-				i.printStackTrace();
-			}
-		}
+//		for (Map.Entry<String, HashMap> entry : myList.entrySet()) {
+//			String key = myList.getKey();
+//			HashMap value = myList.getValue();
+//			outFileName = key + ".ser";
+//			try {
+//				FileOutputStream fileOut = new FileOutputStream(SRC_DIR
+//						+ outFileName);
+//				ObjectOutputStream out = new ObjectOutputStream(fileOut);
+//				out.writeObject(e);
+//				out.close();
+//				fileOut.close();
+//				System.out.printf("Serialized data is saved in " + SRC_DIR
+//						+ outFileName);
+//			} catch (IOException i) {
+//				i.printStackTrace();
+//			}
+//		}
 	}
 
 	/**
@@ -57,32 +57,32 @@ public abstract class AbstractController<T extends UniqueObject> {
 	 */
 	private final void deserializeFromDisk() {
 		// Look at all the files in the dir
-		File folder = new File(SRC_DIR);
-		File[] listOfFiles = folder.listFiles();
-
-		for (File file : listOfFiles) {
-			if (file.isFile()) {
-				String key = file.getName();
-				User u = null;
-				try {
-					FileInputStream fileIn = new FileInputStream(
-							SCR_DIR + key);
-					ObjectInputStream in = new ObjectInputStream(fileIn);
-					u = (User) in.readObject();
-					//Adds the object and name to list
-					myList.put(key, u);
-					in.close();
-					fileIn.close();
-				} catch (IOException i) {
-					i.printStackTrace();
-					return;
-				} catch (ClassNotFoundException c) {
-					System.out.println("User class not found");
-					c.printStackTrace();
-					return;
-				}
-			}
-		}
+//		File folder = new File(SRC_DIR);
+//		File[] listOfFiles = folder.listFiles();
+//
+//		for (File file : listOfFiles) {
+//			if (file.isFile()) {
+//				String key = file.getName();
+//				User u = null;
+//				try {
+//					FileInputStream fileIn = new FileInputStream(
+//							SCR_DIR + key);
+//					ObjectInputStream in = new ObjectInputStream(fileIn);
+//					u = (User) in.readObject();
+//					//Adds the object and name to list
+//					myList.put(key, u);
+//					in.close();
+//					fileIn.close();
+//				} catch (IOException i) {
+//					i.printStackTrace();
+//					return;
+//				} catch (ClassNotFoundException c) {
+//					System.out.println("User class not found");
+//					c.printStackTrace();
+//					return;
+//				}
+//			}
+//		}
 		// TODO: Deserialize list from file to myList.
 		myList = new HashMap<String, T>(); // Temporary placeholder
 	}

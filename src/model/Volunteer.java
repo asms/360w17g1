@@ -15,7 +15,7 @@ import model.JobController;
 import model.ParkController;
 import model.UserController;
 
-public class Volunteer {
+public class Volunteer{
 	
 	private static Scanner keyboard;
     public static User volunteer;

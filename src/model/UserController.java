@@ -8,6 +8,8 @@ package model;
 
 import java.util.ArrayList;
 
+
+
 /**
  * User Controller
  * 
@@ -25,6 +27,24 @@ public class UserController extends AbstractController<User> {
 
 		add(theUser);
 	}
+	
+	
+	/**
+	 * Returns a User with a specific user name.
+	 * @param theName the name of a User
+	 * @return the User that has the specified name
+	 */
+	public User getUserByName(final String theName) {
+		return myList.get(theName);
+	}
+	
+	/**
+	 * Gets all the users
+	 * @return all of the users in the system.
+	 */
+	public ArrayList<User> getAllUsers() {
+		return new ArrayList<User>(myList.values());
+	}
 
 	/**
 	 *  @return A list of all the Users 
@@ -33,5 +53,9 @@ public class UserController extends AbstractController<User> {
 
 		return new ArrayList<User>(myList.values());
 	}
+
+
+
+
 
 }

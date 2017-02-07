@@ -6,11 +6,10 @@
 package model;
 
 import java.io.Serializable;
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 
 /**
@@ -55,10 +54,8 @@ public class Job implements Serializable, UniqueObject
      */
     private int myDifficulty;
     
-    /**
-     * The volunteers for this job.
-     */
-    private List<String> volunteers;
+    /** Maps of volunteer's email, and work categories. */
+    private Map<String, WorkDuty> volunteers;
 
     /**
      * The number of light duty volunteers.
@@ -98,16 +95,23 @@ public class Job implements Serializable, UniqueObject
         
         myDescription = Objects.requireNonNull(theDescription);
         
-        //myDifficulty = theDifficulty;
-        
         numOfLightDuty = theLightDuty;
         
         numOfMediumDuty = theMediumDuty;
         
         numOfHeavyDuty = theHeavyDuty;
         
-        volunteers = new ArrayList<String>();
+        volunteers =  new HashMap<String, Job.WorkDuty>();
         
+    }
+    
+    /**
+     * A copy constructor that creates a copy of the existing job.
+     * @param job job to be cloned.
+     */
+    public Job(Job job) {
+        this(job.getJobName(), job.getParkName(), job.getDateTime(),
+        		job.getDescription(), job.numOfLightDuty, job.numOfMediumDuty, job.numOfHeavyDuty);
     }
     
     /**
@@ -198,19 +202,58 @@ public class Job implements Serializable, UniqueObject
     /**
      * Adds a volunteer to the list of volunteers for this job.
      * @param theVolunteer the volunteer to be added.
+     * @return 
      */
-    public void addVolunteer(String theVolunteer)
-    {
-        volunteers.add(theVolunteer);
+    public boolean addVolunteer(String theVolunteer, WorkDuty workDuty)   {
+    	switch(workDuty) {
+    		case LIGHT:
+    			volunteers.put(theVolunteer, WorkDuty.LIGHT);
+    		case MEDIUM:
+    			volunteers.put(theVolunteer, WorkDuty.MEDIUM);
+    		case HEAVY:
+    			volunteers.put(theVolunteer, WorkDuty.HEAVY);
+    	}
+    	return false;
     }
 
     /**
      * Gets the list of volunteers for this job.
      * @return returns the list of volunteers for this job.
      */
-    public List<String> getVolunteer()
+    public Set<String> getVolunteer()
     {
-        return volunteers;
+        return volunteers.keySet();
+    }
+    
+    /**
+     * List of volunteers sign up for a job.
+     * @return A string containing the list of all the volunteers in this job
+     */
+    public String getVolunteerString() {
+        if (volunteers.isEmpty()) {
+            return null;
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        String light = "";
+        String medium = "";
+        String heavy = "";
+
+        for (String vol : volunteers.keySet()) {
+            if (volunteers.get(vol) == WorkDuty.LIGHT)
+                light += vol + ",";
+            else if (volunteers.get(vol) == WorkDuty.MEDIUM)
+                medium += vol + ",";
+            else
+                heavy += vol + ",";
+        }
+        sb.append(light);
+        sb.append(medium);
+        sb.append(heavy);
+        if (sb.length() > 0) {
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        return sb.toString();
     }
     
     @Override
@@ -228,5 +271,11 @@ public class Job implements Serializable, UniqueObject
         return myName;
     }
     
+    /**
+     * This represents different work categories that can be used.
+     */
+    public enum WorkDuty {
+        LIGHT, MEDIUM, HEAVY;
+    }
     
 }

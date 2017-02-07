@@ -8,7 +8,7 @@ import java.util.Objects;
  * @author Bryce
  * @version 1
  */
-public class User implements Serializable, UniqueObject {
+public abstract class User implements Serializable, UniqueObject {
 
 	/**
 	 * 
@@ -19,23 +19,12 @@ public class User implements Serializable, UniqueObject {
 	 */
 	private String FirstName;
 	private String LastName;
-	
-	/**
-	 * Types of users.
-	 */
-	public enum Type { Volunteer, StaffMember, ParkManager, Guest };
 
 	private String UserName;
-	private Type UserType;
 
-	protected User(String theUserName, Type theUserType) {
+	protected User(final String theUserName) {
 		UserName = Objects.requireNonNull(theUserName);
-		UserType = Objects.requireNonNull(theUserType);
 		
-	}
-	
-	public Type getUserType(){
-		return UserType;
 	}
 	
 	public String getUserName() {
@@ -68,7 +57,7 @@ public class User implements Serializable, UniqueObject {
 
 	@Override
 	public String toString(){
-		return "User Name: "+ UserName + " User Type: " + UserType;
+		return "User Name: "+ UserName + " User Type: " + getClass().getSimpleName();
 	}
 	
 	

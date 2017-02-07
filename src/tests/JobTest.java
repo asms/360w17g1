@@ -1,153 +1,123 @@
 /**
- * 
+ * Group 1
  */
-package tests;
+package test;
 
 import static org.junit.Assert.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * 
- * @author Mohamed Mohamed
- * @version 1.0
- */
-public class JobTest
-{
+import model.Job;
+import model.Job.WorkDuty;
+import model.User;
 
+public class JobTest {
+    
+    /** This represents different jobs for testing. */
+    private Job testJob1, testJob2, testJob3;
+    
+    /** This represents volunteers sign up for all work categories. */
+    private Map<String, WorkDuty> volunteer;
+    
+    /** This represents volunteers sign up for light work category. */
+    private Map<String, WorkDuty> volunteerLight;
+    
+    /** This represents volunteers sign up for medium work category. */
+    private Map<String, WorkDuty> volunteerMed;
+    
+    /** This represents volunteers sign up for heavy work category. */
+    private Map<String, WorkDuty> volunteerHeavy;
+    
+    /** This represents a user. */
+    private User user;
+    
     /**
+     * Initialize the objects.
+     *
      * @throws java.lang.Exception
      */
     @Before
-    public void setUp()
-    {
+    public void setUp() throws Exception {
+        
+        //represent a user (volunteer)
+        user = new User("volunteer");
+        
+        //represent volunteers sign up for light work category
+        volunteerLight = new HashMap<String, WorkDuty>();
+        volunteerLight.put("volunteerLight", WorkDuty.LIGHT);
+        volunteerLight.put("volunteerLight2", WorkDuty.LIGHT);
+        
+        //represent volunteers sign up for medium work category
+        volunteerMed = new HashMap<String, WorkDuty>();
+        volunteerMed.put("volunteerMedium", WorkDuty.MEDIUM);
+        
+        //represent volunteers sign up for heavy work category
+        volunteerHeavy = new HashMap<String, WorkDuty>();
+        volunteerHeavy.put("volunteerHeavy", WorkDuty.HEAVY);
+        
+        //represent volunteers sign up for all work category
+        volunteer = new HashMap<String, WorkDuty>();
+        volunteer.put("volunteerLight", WorkDuty.LIGHT);
+        volunteer.put("volunteerMedium", WorkDuty.MEDIUM);
+        volunteer.put("volunteerHeavy", WorkDuty.HEAVY);
     }
-
-    /**
-     * Test method for {@link model.Job#Job(java.lang.String, java.lang.String, java.lang.String, java.lang.String, int, int, int)}.
-     */
+    
     @Test
-    public void testJob()
-    {
-        fail("Not yet implemented");
+    public void testOnParkName() {
+        assertEquals("Park name is different.", "Cherry Park", testJob1.getParkName());
     }
-
-    /**
-     * Test method for {@link model.Job#getJobName()}.
-     */
+    
     @Test
-    public void testGetJobName()
-    {
-        fail("Not yet implemented");
+    public void testOnJobName() {
+        assertEquals("Job name should be the same.", "Park Cleanup", testJob1.getJobName());
     }
-
-    /**
-     * Test method for {@link model.Job#getParkName()}.
-     */
+    
     @Test
-    public void testGetParkName()
-    {
-        fail("Not yet implemented");
+    public void testOnJobDescription() {
+        assertEquals("Job Description is different", "Cleaning up litter", testJob1.getDescription());
     }
-
-    /**
-     * Test method for {@link model.Job#getDescription()}.
-     */
+    
     @Test
-    public void testGetDescription()
-    {
-        fail("Not yet implemented");
+    public void testOnJobDifficultity() {
+        assertEquals("Job Difficulity should be the same.", 3 , testJob1.getDifficulty());
     }
-
-    /**
-     * Test method for {@link model.Job#getDifficulty()}.
-     */
+    
     @Test
-    public void testGetDifficulty()
-    {
-        fail("Not yet implemented");
+    public void testOnJobDateTime() {
+        assertEquals("Job Date and Time is different.", "02/25/2017 10:00", testJob1.getDateTime());
     }
-
-    /**
-     * Test method for {@link model.Job#setJobName(java.lang.String)}.
-     */
+    
     @Test
-    public void testSetJobName()
-    {
-        fail("Not yet implemented");
+    public void testOnVolunteerSignedUpForLight() {
+        assertEquals("Volunteer who signed up for Light",
+                     volunteerLight.get("volunteerLight"), WorkDuty.LIGHT);
     }
-
-    /**
-     * Test method for {@link model.Job#setDateTime(java.lang.String)}.
-     */
+    
     @Test
-    public void testSetDateTime()
-    {
-        fail("Not yet implemented");
+    public void testOnVolunteerSignedUpForMedium() {
+        assertEquals("Volunteer who signed up for Medium",
+                     volunteerMed.get("volunteerMedium"), WorkDuty.MEDIUM);
     }
-
-    /**
-     * Test method for {@link model.Job#setDescription(java.lang.String)}.
-     */
+    
     @Test
-    public void testSetDescription()
-    {
-        fail("Not yet implemented");
+    public void testOnVolunteerSignedUpForHeavy() {
+        assertEquals("Volunteer who signed up for Heavy",
+                     volunteerHeavy.get("volunteerHeavy"), WorkDuty.HEAVY);
     }
-
-    /**
-     * Test method for {@link model.Job#setDifficulty(int)}.
-     */
+    
     @Test
-    public void testSetDifficulty()
-    {
-        fail("Not yet implemented");
+    public void testContainOnHaveVolunteer() {
+        assertTrue("This job doesn't contain a volunteer with that username.", testJob2.contains(user.getUserName()));
     }
-
-    /**
-     * Test method for {@link model.Job#getDateTime()}.
-     */
+    
     @Test
-    public void testGetDateTime()
-    {
-        fail("Not yet implemented");
+    public void testContainOnNoVolunteer() {
+        assertFalse("This job contain a volunteer with that username.", testJob3.contains(user.getUserName()));
     }
-
-    /**
-     * Test method for {@link model.Job#addVolunteer(java.lang.String)}.
-     */
-    @Test
-    public void testAddVolunteer()
-    {
-        fail("Not yet implemented");
-    }
-
-    /**
-     * Test method for {@link model.Job#getVolunteer()}.
-     */
-    @Test
-    public void testGetVolunteer()
-    {
-        fail("Not yet implemented");
-    }
-
-    /**
-     * Test method for {@link model.Job#equals(java.lang.Object)}.
-     */
-    @Test
-    public void testEqualsObject()
-    {
-        fail("Not yet implemented");
-    }
-
-    /**
-     * Test method for {@link model.Job#getKey()}.
-     */
-    @Test
-    public void testGetKey()
-    {
-        fail("Not yet implemented");
-    }
-
+    
+    
 }

@@ -8,7 +8,7 @@ import java.util.Objects;
  * @author Bryce
  * @version 1
  */
-public abstract class User implements Serializable, UniqueObject {
+public class User implements Serializable, UniqueObject {
 
 	/**
 	 * 

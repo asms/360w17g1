@@ -61,4 +61,22 @@ public abstract class User implements Serializable, UniqueObject {
 	}
 	
 	
+	@Override
+	public boolean equals(final Object theObject) {
+		
+		return (theObject instanceof User) 
+				&& (getKey().equals(((User)theObject).getKey())
+				&& (getClass().getSimpleName().equals(((User) theObject).getClass().getSimpleName())));
+	}
+
+
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getKey(), getClass().getSimpleName(), FirstName, LastName);
+	}
+		
+
+	
 }

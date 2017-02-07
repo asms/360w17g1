@@ -1,7 +1,7 @@
 /**
  * Group 1
  */
-package test;
+package tests;
 
 import static org.junit.Assert.*;
 
@@ -14,6 +14,7 @@ import org.junit.Test;
 import model.Job;
 import model.Job.WorkDuty;
 import model.User;
+import model.Volunteer;
 
 public class JobTest {
     
@@ -44,7 +45,7 @@ public class JobTest {
     public void setUp() throws Exception {
         
         //represent a user (volunteer)
-        user = new User("volunteer");
+        user = new Volunteer("volunteer");
         
         //represent volunteers sign up for light work category
         volunteerLight = new HashMap<String, WorkDuty>();

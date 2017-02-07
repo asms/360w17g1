@@ -1,11 +1,12 @@
-package model;
+package tests;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import model.StaffMember; 
+import model.StaffMember;
+import model.Volunteer; 
 
 public class StaffMemberTest {
 	
@@ -18,7 +19,7 @@ public class StaffMemberTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		myVolunteer = new Volunteer(USERNAME);
+		myStaffMember = new Volunteer(USERNAME);
 	}
 
 	@Test

@@ -13,6 +13,10 @@ import java.util.HashMap;
  */
 public abstract class AbstractController<T extends UniqueObject> {
 	
+	public class UniqueObjectTest {
+
+	}
+
 	/**
 	 * Deserializes the collection at instantiation.
 	 */

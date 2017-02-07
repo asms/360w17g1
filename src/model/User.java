@@ -41,11 +41,11 @@ public abstract class User implements Serializable, UniqueObject {
 		
 	}
 	
-	protected String getFirstName() {
+	public String getFirstName() {
 		return FirstName;
 	}
 	
-	protected String getLastName() {
+	public String getLastName() {
 		return LastName;
 	}
 

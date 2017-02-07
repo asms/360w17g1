@@ -3,7 +3,7 @@
  * Assignment: Deliverable 2
  */
 
-package model;
+package view;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

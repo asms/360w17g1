@@ -1,7 +1,4 @@
-/**
- * Group 1
- */
-package tests;
+package test;
 
 import static org.junit.Assert.*;
 
@@ -13,16 +10,11 @@ import org.junit.Test;
 
 import model.Job;
 import model.Job.WorkDuty;
-import model.User;
-import model.Volunteer;
 
 public class JobTest {
     
     /** This represents different jobs for testing. */
-    private Job testJob1, testJob2, testJob3;
-    
-    /** This represents volunteers sign up for all work categories. */
-    private Map<String, WorkDuty> volunteer;
+    private Job testJob1;
     
     /** This represents volunteers sign up for light work category. */
     private Map<String, WorkDuty> volunteerLight;
@@ -33,9 +25,6 @@ public class JobTest {
     /** This represents volunteers sign up for heavy work category. */
     private Map<String, WorkDuty> volunteerHeavy;
     
-    /** This represents a user. */
-    private User user;
-    
     /**
      * Initialize the objects.
      *
@@ -44,13 +33,12 @@ public class JobTest {
     @Before
     public void setUp() throws Exception {
         
-        //represent a user (volunteer)
-        user = new Volunteer("volunteer");
+        testJob1 = new Job("Cherry Park","Park Cleanup", "Cleaning up litter",
+                           "02/25/2017 10:00", 1, 3, 5);
         
         //represent volunteers sign up for light work category
         volunteerLight = new HashMap<String, WorkDuty>();
         volunteerLight.put("volunteerLight", WorkDuty.LIGHT);
-        volunteerLight.put("volunteerLight2", WorkDuty.LIGHT);
         
         //represent volunteers sign up for medium work category
         volunteerMed = new HashMap<String, WorkDuty>();
@@ -59,12 +47,6 @@ public class JobTest {
         //represent volunteers sign up for heavy work category
         volunteerHeavy = new HashMap<String, WorkDuty>();
         volunteerHeavy.put("volunteerHeavy", WorkDuty.HEAVY);
-        
-        //represent volunteers sign up for all work category
-        volunteer = new HashMap<String, WorkDuty>();
-        volunteer.put("volunteerLight", WorkDuty.LIGHT);
-        volunteer.put("volunteerMedium", WorkDuty.MEDIUM);
-        volunteer.put("volunteerHeavy", WorkDuty.HEAVY);
     }
     
     @Test
@@ -109,16 +91,5 @@ public class JobTest {
         assertEquals("Volunteer who signed up for Heavy",
                      volunteerHeavy.get("volunteerHeavy"), WorkDuty.HEAVY);
     }
-    
-    @Test
-    public void testContainOnHaveVolunteer() {
-        assertTrue("This job doesn't contain a volunteer with that username.", testJob2.contains(user.getUserName()));
-    }
-    
-    @Test
-    public void testContainOnNoVolunteer() {
-        assertFalse("This job contain a volunteer with that username.", testJob3.contains(user.getUserName()));
-    }
-    
     
 }

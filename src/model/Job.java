@@ -277,14 +277,5 @@ public class Job implements Serializable, UniqueObject
     public enum WorkDuty {
         LIGHT, MEDIUM, HEAVY;
     }
-    
-    /**
-     * This method used to check if the volunteer is in the job as a volunteer.
-     * @param volunteer username
-     * @return True if the passed volunteer is in the job; otherwise,
-     *         false.
-     */
-    public boolean contains(String username) {
-        return volunteers.containsKey(username);
-    }
+
 }

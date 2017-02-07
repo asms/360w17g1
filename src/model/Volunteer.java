@@ -9,16 +9,15 @@ import java.util.List;
 import java.util.Scanner;
 
 import model.Job;
-import model.Park;
 import model.User;
+import model.Job.WorkDuty;
 import model.JobController;
-import model.ParkController;
-import model.UserController;
 
 public class Volunteer {
 	
 	private static Scanner keyboard;
-    public static User volunteer;
+    public static User volunteer; 
+    private static JobController jobController = new JobController();
     
 	/**
      * This method is views list of upcoming jobs 
@@ -30,7 +29,7 @@ public class Volunteer {
         System.out.println("Available upcoming jobs:");
         System.out.println();
 
-        final List<Job> upcomingJobs = JobController.getUpcomingJobs(); //calling Job class and getUpComingJobs() from JobController class 
+        final List<Job> upcomingJobs = jobController.getUpcomingJobs(); //calling Job class and getUpComingJobs() from JobController class 
 
         int i = 1;
         for (Job j : upcomingJobs) {
@@ -84,13 +83,13 @@ public class Volunteer {
             //those methods below are basically I assume will include in Job class. 
             switch (workDuty) {
 	            case 1:
-	            	addedVolunteer = upcomingJobs.get(choice - 1).addVolunteer(volunteer, workDuty.LIGHT);
+	            	addedVolunteer = upcomingJobs.get(choice - 1).addVolunteer(volunteer.getUserName(),WorkDuty.LIGHT);
 	            	break;
 	            case 2:
-	            	addedVolunteer = upcomingJobs.get(choice - 1).addVolunteer(volunteer, workDuty.MEDIUM);
+	            	addedVolunteer = upcomingJobs.get(choice - 1).addVolunteer(volunteer.getUserName(), WorkDuty.MEDIUM);
 	            	break;
 	            case 3:
-	            	addedVolunteer = upcomingJobs.get(choice - 1).addVolunteer(volunteer, workDuty.HEAVY);	
+	            	addedVolunteer = upcomingJobs.get(choice - 1).addVolunteer(volunteer.getUserName(), WorkDuty.HEAVY);	
 	            	break;
 	            default:
 	            	System.out.println("Please enter a valid work category");
@@ -123,7 +122,7 @@ public class Volunteer {
         System.out.println();
         
         boolean nameFound = true;
-        for (Job j : JobController.getUpcomingJobs()) {
+        for (Job j : jobController.getUpcomingJobs()) {
 
             for (String v : j.getVolunteer()) {
                 if (v.equals(volunteer)) { //getName() from User
@@ -138,7 +137,8 @@ public class Volunteer {
 
         // The case when volunteer has no jobs:
         if (!nameFound) {
-            Scanner console = new Scanner(System.in);
+            @SuppressWarnings("resource")
+			Scanner console = new Scanner(System.in);
             System.out.println("You have not signed up for any jobs yet!");
             System.out.println("Do you want to sign up a job? Y/N: ");
             String answer = console.next();

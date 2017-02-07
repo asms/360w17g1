@@ -33,10 +33,10 @@ public abstract class AbstractController<T extends UniqueObject> {
 	 */
 	private final void serializeToDisk() {
 		// For each elemet in the hashmap
-//		for (Map.Entry<String, HashMap> entry : myList.entrySet()) {
+		for (Map.Entry<String, HashMap> entry : myList.entrySet()) {
 //			String key = myList.getKey();
 //			HashMap value = myList.getValue();
-//			outFileName = key + ".ser";
+//			String outFileName = key + ".ser";
 //			try {
 //				FileOutputStream fileOut = new FileOutputStream(SRC_DIR
 //						+ outFileName);
@@ -49,7 +49,7 @@ public abstract class AbstractController<T extends UniqueObject> {
 //			} catch (IOException i) {
 //				i.printStackTrace();
 //			}
-//		}
+		}
 	}
 
 	/**

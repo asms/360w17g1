@@ -16,7 +16,7 @@ import model.JobController;
 import model.UserController;
 
 
-public class ParkManager {
+public class ParkManagerView {
 	
 	private static Scanner keyboard;
 	

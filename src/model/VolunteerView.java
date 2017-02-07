@@ -13,7 +13,7 @@ import model.User;
 import model.Job.WorkDuty;
 import model.JobController;
 
-public class Volunteer {
+public class VolunteerView {
 	
 	private static Scanner keyboard;
     public static User volunteer; 

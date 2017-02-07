@@ -13,6 +13,10 @@ public class User implements Serializable, UniqueObject {
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
 	private String FirstName;
 	private String LastName;
 	

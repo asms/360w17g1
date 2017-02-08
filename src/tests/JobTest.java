@@ -1,4 +1,4 @@
-package test;
+package tests;
 
 import static org.junit.Assert.*;
 
@@ -33,8 +33,7 @@ public class JobTest {
     @Before
     public void setUp() throws Exception {
         
-        testJob1 = new Job("Cherry Park","Park Cleanup", "Cleaning up litter",
-                           "02/25/2017 10:00", 1, 3, 5);
+        testJob1 = new Job("Park Cleanup", "Cherry Park",  "02/25/2017 10:00", "Cleaning up litter", 1, 3, 5);
         
         //represent volunteers sign up for light work category
         volunteerLight = new HashMap<String, WorkDuty>();
@@ -51,7 +50,7 @@ public class JobTest {
     
     @Test
     public void testOnParkName() {
-        assertEquals("Park name is different.", "Cherry Park", testJob1.getParkName());
+        assertEquals("Park name should be different", "Cherry Park", testJob1.getParkName());
     }
     
     @Test
@@ -64,11 +63,18 @@ public class JobTest {
         assertEquals("Job Description is different", "Cleaning up litter", testJob1.getDescription());
     }
     
+    /**
+     * THIS TEST WILL NOT PASS BECAUSE THERE IS NO DIFFICULTY BEING SET
+     * FOR THE JOB AS A WHOLE. WE WILL NEED GETTERS FOR EACH DIFFICULTY 
+     * LEVEL FOR THIS TO WORK.
+     */
     @Test
     public void testOnJobDifficultity() {
+    	System.out.println(testJob1.getDifficulty());
         assertEquals("Job Difficulity should be the same.", 3 , testJob1.getDifficulty());
     }
     
+  
     @Test
     public void testOnJobDateTime() {
         assertEquals("Job Date and Time is different.", "02/25/2017 10:00", testJob1.getDateTime());

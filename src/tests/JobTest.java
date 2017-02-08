@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.junit.Test;
 
 import model.Job;
 import model.Job.WorkDuty;
+import model.Park;
 
 public class JobTest {
     
@@ -33,7 +35,7 @@ public class JobTest {
     @Before
     public void setUp() throws Exception {
         
-        testJob1 = new Job("Park Cleanup", "Cherry Park",  "02/25/2017 10:00", "Cleaning up litter", 1, 3, 5);
+        testJob1 = new Job("Park Cleanup", new Park("Cherry Park", "Park Location"),  new Date(), new Date(), new Date(), "Cleaning up litter", 1, 3, 5);
         
         //represent volunteers sign up for light work category
         volunteerLight = new HashMap<String, WorkDuty>();
@@ -50,7 +52,7 @@ public class JobTest {
     
     @Test
     public void testOnParkName() {
-        assertEquals("Park name should be different", "Cherry Park", testJob1.getParkName());
+        assertEquals("Park name should be different", new Park("", ""), testJob1.getPark());
     }
     
     @Test
@@ -77,7 +79,7 @@ public class JobTest {
   
     @Test
     public void testOnJobDateTime() {
-        assertEquals("Job Date and Time is different.", "02/25/2017 10:00", testJob1.getDateTime());
+        assertEquals("Job Date and Time is different.", new Date(), testJob1.getDate());
     }
     
     @Test

@@ -10,13 +10,15 @@ import java.util.Scanner;
 
 import model.Job;
 import model.User;
+import model.Volunteer;
 import model.Job.WorkDuty;
 import model.JobController;
+import model.Park;
 
 public class VolunteerView {
 	
 	private static Scanner keyboard;
-    public static User volunteer; 
+    public static Volunteer volunteer; 
     private static JobController jobController = new JobController();
     
 	/**
@@ -35,8 +37,8 @@ public class VolunteerView {
         for (Job j : upcomingJobs) {
             System.out.print(i++ + ") ");
             System.out.println(j.getJobName() + " at\t");
-            System.out.println(j.getParkName() + " on\t");
-            System.out.println(j.getDateTime());
+            System.out.println(j.getPark() + " on\t");
+            System.out.println(j.getDate());
             System.out.println();
         }
 
@@ -75,7 +77,7 @@ public class VolunteerView {
             System.out.println();
 
             String jobName = upcomingJobs.get(choice - 1).getJobName();
-            String parkName = upcomingJobs.get(choice - 1).getParkName();
+            Park parkName = upcomingJobs.get(choice - 1).getPark();
 
             boolean addedVolunteer = false;
             
@@ -83,13 +85,13 @@ public class VolunteerView {
             //those methods below are basically I assume will include in Job class. 
             switch (workDuty) {
 	            case 1:
-	            	addedVolunteer = upcomingJobs.get(choice - 1).addVolunteer(volunteer.getUserName(),WorkDuty.LIGHT);
+	            	addedVolunteer = upcomingJobs.get(choice - 1).addVolunteer(volunteer,WorkDuty.LIGHT);
 	            	break;
 	            case 2:
-	            	addedVolunteer = upcomingJobs.get(choice - 1).addVolunteer(volunteer.getUserName(), WorkDuty.MEDIUM);
+	            	addedVolunteer = upcomingJobs.get(choice - 1).addVolunteer(volunteer, WorkDuty.MEDIUM);
 	            	break;
 	            case 3:
-	            	addedVolunteer = upcomingJobs.get(choice - 1).addVolunteer(volunteer.getUserName(), WorkDuty.HEAVY);	
+	            	addedVolunteer = upcomingJobs.get(choice - 1).addVolunteer(volunteer, WorkDuty.HEAVY);	
 	            	break;
 	            default:
 	            	System.out.println("Please enter a valid work category");
@@ -124,12 +126,12 @@ public class VolunteerView {
         boolean nameFound = true;
         for (Job j : jobController.getUpcomingJobs()) {
 
-            for (String v : j.getVolunteer()) {
+            for (Volunteer v : j.getVolunteers()) {
                 if (v.equals(volunteer)) { //getName() from User
                     nameFound = true;
                     System.out.print(j.getJobName() + " at ");
-                    System.out.print(j.getParkName() + " on ");
-                    System.out.println(j.getDateTime());
+                    System.out.print(j.getPark() + " on ");
+                    System.out.println(j.getDate());
                     System.out.println();
                 }
             }

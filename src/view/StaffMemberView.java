@@ -31,8 +31,8 @@ public class StaffMemberView {
 		for (Job j : upcomingJobs) {
 			System.out.print(i++ + ") ");
 			System.out.println(j.getJobName() + " at\t");
-			System.out.println(j.getParkName() + " on\t");
-			System.out.println(j.getDateTime());
+			System.out.println(j.getPark() + " on\t");
+			System.out.println(j.getDate());
 			System.out.println();
 		}
 
@@ -56,8 +56,8 @@ public class StaffMemberView {
 		for (Job j : previousJobs) {
 			System.out.print(i++ + ") ");
 			System.out.println(j.getJobName() + " at\t");
-			System.out.println(j.getParkName() + " on\t");
-			System.out.println(j.getDateTime());
+			System.out.println(j.getPark() + " on\t");
+			System.out.println(j.getDate());
 			System.out.println();
 		}
 

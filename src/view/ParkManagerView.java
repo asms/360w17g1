@@ -13,6 +13,7 @@ import java.util.Scanner;
 import model.Job;
 import model.User;
 import model.JobController;
+import model.Park;
 import model.UserController;
 
 
@@ -79,7 +80,7 @@ public class ParkManagerView {
         String answer = keyboard.nextLine();
         
         if (answer.equals("Y")) {
-            Job j = new Job(jobName, parkName, dayTime, jobDescription, lightDuty, mediumDuty, heavyDuty);
+            Job j = new Job(jobName, new Park("", ""), new Date(), new Date(), new Date(), jobDescription, lightDuty, mediumDuty, heavyDuty);
         	jobController.addJob(j); //add job calling JobController method		
         																					  //I assume there is a addJob() method in 
 	        System.out.println();
@@ -111,8 +112,8 @@ public class ParkManagerView {
             for (Job j : currentJobs) {
                 System.out.print(i++ + ") ");
                 System.out.print(j.getJobName() + " at ");
-                System.out.print(j.getParkName() + " on ");
-                System.out.println(j.getDateTime());
+                System.out.print(j.getPark() + " on ");
+                System.out.println(j.getDate());
                 System.out.println();
             }
 
@@ -130,6 +131,8 @@ public class ParkManagerView {
             System.out.println("Volunteers:");
 
             boolean volunteerFound = false;
+            // TODO: Fix the below code.
+            /*
             for (String volunteer : currentJobs.get(choice-1).getVolunteer()) {
                 for (User u : userController.getUserList()) {   //get user from UserController
                     if (u.equals(volunteer)) {
@@ -139,6 +142,7 @@ public class ParkManagerView {
                     }
                 }
             }
+            */
             if (!volunteerFound) {
                 System.out.println("No volunteers have signed up yet!");
             }

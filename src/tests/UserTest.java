@@ -6,9 +6,14 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 import org.junit.Before;
 import org.junit.Test;
 
+import model.Park;
+import model.ParkManager;
 import model.User;
 
 /**
@@ -19,10 +24,20 @@ import model.User;
  */
 public class UserTest
 {
+	
+	public String USERNAME = "user0001";
+	public Park PARK_1 = new Park("Cherry Park", "1234 N 56th");
+
+	public HashSet<Park> ASSOCIATED_PARK = new HashSet<Park>(Arrays.asList(PARK_1));
+	
+	
+	
     /**
      * User object to user for testing.
      */
-    User myUser;
+   ParkManager myUser;
+   
+
 
     /**
      * Tests constructor and sets up user object.
@@ -30,7 +45,9 @@ public class UserTest
     @Before
     public void setUp()
     {
-        myUser = new User("mohamedm21");
+        myUser = new ParkManager(USERNAME, ASSOCIATED_PARK);
+        myUser.setFirstName("Bryce");
+        myUser.setLastName("Anderson");
     }
 
 
@@ -41,44 +58,46 @@ public class UserTest
     @Test
     public void testGetUserName()
     {
-        assertEquals("mohamedm21", myUser.getUserName());
+        assertEquals(USERNAME, myUser.getUserName());
     }
 
-    /*/**
+   /**
      * Test method for {@link model.User#getOptions()}.
-     
-    @Test
-    public void testGetOptions()
-    {
-        fail("Not yet implemented");
-    }
+   */
+    
+//    @Test
+//    public void testGetOptions()
+//    {
+//        fail("Not yet implemented");
+//    }
 
     /**
      * Test method for {@link model.User#login(java.lang.String)}.
-     
-    @Test
-    public void testLogin()
-    {
-        fail("Not yet implemented");
-    }
-
-    /**
-     * Test method for {@link model.User#getFirstName()}.
-     
+     */
+//    @Test
+//    public void testLogin()
+//    {
+//        fail("Not yet implemented");
+//    }
+	/**
+	 *  Test method for {@link model.User#getFirstName()}.
+	 */
+	    
+	     
     @Test
     public void testGetFirstName()
     {
-        fail("Not yet implemented");
+        assertEquals("Bryce", myUser.getFirstName());
     }
 
     /**
-     * Test method for {@link model.User#getLastName()}.
-     
+     Test method for {@link model.User#getLastName()}.
+    */
     @Test
     public void testGetLastName()
     {
-        fail("Not yet implemented");
-    }*/
+    	 assertEquals("Anderson", myUser.getLastName());
+    }
 
     /**
      * Test method for {@link model.User#getKey()}.
@@ -86,17 +105,18 @@ public class UserTest
     @Test
     public void testGetKey()
     {
-        assertEquals("mohamedm21", myUser.getKey());
+        assertEquals(USERNAME, myUser.getKey());
     }
 
-    /*/**
-     * Test method for {@link model.User#toString()}.
-    
+    /**
+      Test method for {@link model.User#toString()}.
+    */
     @Test
     public void testToString()
     {
-        fail("Not yet implemented");
+        assertEquals("User Name: user0001 User Type: ParkManager", myUser.toString());
     }
+    
 
     /**
      * Test method for {@link model.User#equals(java.lang.Object)}.
@@ -104,8 +124,7 @@ public class UserTest
     @Test
     public void testEqualsObject()
     {
-        User u = new User("mohamedm21");
-        assertEquals(true, u.equals(myUser) );
+       
     }
 
 }

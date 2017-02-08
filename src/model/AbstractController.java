@@ -33,7 +33,7 @@ public abstract class AbstractController<T extends UniqueObject> {
 		if (null == myList){
 			myList = new  HashMap<String, T>();
 		}
-		// deserializeFromDisk();
+		deserializeFromDisk();
 	}
 
 	public static final String SRC_DIR = "/";
@@ -48,7 +48,7 @@ public abstract class AbstractController<T extends UniqueObject> {
 	 */
 	private final void serializeToDisk() {
 		try {
-			FileOutputStream fos = new FileOutputStream("hashmap.ser");
+			FileOutputStream fos = new FileOutputStream("hashmap_" + getClass().getSimpleName() + ".ser");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(myList);
 			oos.close();
@@ -67,7 +67,7 @@ public abstract class AbstractController<T extends UniqueObject> {
 		
 	      try
 	      {
-	         FileInputStream fis = new FileInputStream("hashmap.ser");
+	         FileInputStream fis = new FileInputStream("hashmap_" + getClass().getSimpleName() + ".ser");
 	         ObjectInputStream ois = new ObjectInputStream(fis);
 	         myList = (HashMap) ois.readObject();
 	         ois.close();

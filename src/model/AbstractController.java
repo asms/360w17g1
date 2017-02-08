@@ -13,6 +13,13 @@ import java.util.HashMap;
  * @version 1.0
  */
 public abstract class AbstractController<T extends UniqueObject> {
+<<<<<<< HEAD
+=======
+	
+	public class UniqueObjectTest {
+
+	}
+>>>>>>> branch 'dev' of https://github.com/asms/360w17g1.git
 
 	/**
 	 * Deserializes the collection at instantiation.

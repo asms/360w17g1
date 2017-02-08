@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * TCSS 360: Group 1
  * Assignment: Deliverable 2
@@ -150,3 +151,20 @@ public class Volunteer{
     }
 }
 	
+=======
+package model;
+
+public class Volunteer extends User {
+
+	/**
+	 * Generated serial version UID.
+	 */
+	private static final long serialVersionUID = -1831128233221318812L;
+
+	public Volunteer(String theUserName) {
+		super(theUserName);
+		// TODO Auto-generated constructor stub
+	}
+
+}
+>>>>>>> branch 'dev' of https://github.com/asms/360w17g1.git

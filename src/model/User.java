@@ -8,7 +8,7 @@ import java.util.Objects;
  * @author Bryce
  * @version 1
  */
-public class User implements Serializable, UniqueObject {
+public abstract class User implements Serializable, UniqueObject {
 
 	/**
 	 * 
@@ -50,6 +50,14 @@ public class User implements Serializable, UniqueObject {
 	}
 
 
+	public void setFirstName(String theName) {
+		FirstName = theName;
+	}
+	
+	public void setLastName(String theName) {
+		LastName = theName;
+	}
+	
 	@Override
 	public String getKey() {
 		return UserName;

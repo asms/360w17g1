@@ -46,9 +46,8 @@ public abstract class AbstractController<T extends UniqueObject> {
 			oos.writeObject(myList);
 			oos.close();
 			fos.close();
-			System.out.printf("Serialized HashMap data is saved in hashmap.ser");
 		} catch (IOException ioe) {
-			ioe.printStackTrace(); //TODO: Remove for production
+			//ioe.printStackTrace(); //TODO: Remove for production
 		}
 
 	}
@@ -66,9 +65,9 @@ public abstract class AbstractController<T extends UniqueObject> {
 	         os.close();
 	         wasSuccessful = true;
 	      } catch(IOException ioe) {
-	         ioe.printStackTrace(); //TODO: Remove for prodcution
+	         //ioe.printStackTrace(); //TODO: Remove for prodcution
 	      } catch(ClassNotFoundException c) {
-	         c.printStackTrace(); //TODO: Remove for prodcution
+	         //c.printStackTrace(); //TODO: Remove for prodcution
 	      }
 	      return wasSuccessful;
 	}
@@ -81,7 +80,6 @@ public abstract class AbstractController<T extends UniqueObject> {
 	 */
 	protected final void add(final T theListItem) {
 		myList.put(theListItem.getKey(), theListItem);
-		System.out.println("HERE");
 		serializeToDisk();
 	}
 

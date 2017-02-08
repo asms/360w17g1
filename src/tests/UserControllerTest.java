@@ -4,18 +4,13 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import model.User;
 import model.UserController;
 import model.Park;
 import model.ParkManager;
-import model.Volunteer;
 
 
 

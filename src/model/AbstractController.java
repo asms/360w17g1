@@ -4,15 +4,12 @@
  */
 package model;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 
 /**
  * Abstract controller class.
@@ -22,18 +19,14 @@ import java.util.Map.Entry;
  */
 public abstract class AbstractController<T extends UniqueObject> {
 
-	public class UniqueObjectTest {
-
-	}
-
 	/**
 	 * Deserializes the collection at instantiation.
 	 */
 	protected AbstractController() {
-		if (null == myList){
+		if (!deserializeFromDisk()){
 			myList = new  HashMap<String, T>();
+			serializeToDisk();
 		}
-		// deserializeFromDisk();
 	}
 
 	public static final String SRC_DIR = "/";
@@ -48,40 +41,36 @@ public abstract class AbstractController<T extends UniqueObject> {
 	 */
 	private final void serializeToDisk() {
 		try {
-			FileOutputStream fos = new FileOutputStream("hashmap.ser");
+			FileOutputStream fos = new FileOutputStream("hashmap_" + getClass().getSimpleName() + ".ser");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(myList);
 			oos.close();
 			fos.close();
 			System.out.printf("Serialized HashMap data is saved in hashmap.ser");
 		} catch (IOException ioe) {
-			ioe.printStackTrace();
+			ioe.printStackTrace(); //TODO: Remove for production
 		}
 
 	}
 
 	/**
 	 * Deserializes the collection from a file.
+	 * @return whether deserialization was successful
 	 */
-	private final void deserializeFromDisk() {
-		
-	      try
-	      {
-	         FileInputStream fis = new FileInputStream("hashmap.ser");
-	         ObjectInputStream ois = new ObjectInputStream(fis);
-	         myList = (HashMap) ois.readObject();
-	         ois.close();
-	         fis.close();
-	      }catch(IOException ioe)
-	      {
-	         ioe.printStackTrace();
-	         return;
-	      }catch(ClassNotFoundException c)
-	      {
-	         System.out.println("Class not found");
-	         c.printStackTrace();
-	         return;
+	private final boolean deserializeFromDisk() {
+		boolean wasSuccessful = false;
+	      try {
+	    	 ObjectInputStream os = new ObjectInputStream(new FileInputStream("hashmap_"
+	    			 					+ getClass().getSimpleName() + ".ser"));
+	         myList = (HashMap<String, T>) os.readObject();
+	         os.close();
+	         wasSuccessful = true;
+	      } catch(IOException ioe) {
+	         ioe.printStackTrace(); //TODO: Remove for prodcution
+	      } catch(ClassNotFoundException c) {
+	         c.printStackTrace(); //TODO: Remove for prodcution
 	      }
+	      return wasSuccessful;
 	}
 
 	/**

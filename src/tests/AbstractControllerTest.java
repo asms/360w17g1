@@ -6,12 +6,13 @@ package tests;
 
 import static org.junit.Assert.*;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import model.AbstractController;
-import model.UniqueObject;
+import model.User;
+import model.UserController;
+import model.Volunteer;
 
 /**
  * Tests the AbstractController class.
@@ -25,11 +26,11 @@ import model.UniqueObject;
  */
 public class AbstractControllerTest {
 	
-	private ConcreteController<AbstractControllerTest.UniqueObjectTest> myController;
+	private UserController myController;
 
 	@Before
 	public void setUp() {
-		myController = new ConcreteController<AbstractControllerTest.UniqueObjectTest>();
+		myController = new UserController();
 	}
 	
 	/*
@@ -38,41 +39,16 @@ public class AbstractControllerTest {
 	@Test
 	public void testSerialization() {
 		final String random = String.valueOf(Math.random());
-		UniqueObjectTest testObject = new UniqueObjectTest(random);
-		myController.addObject(testObject);
-		System.out.println("");
-		myController = new ConcreteController<AbstractControllerTest.UniqueObjectTest>();
-		assertTrue(myController.getObjects().containsKey(random));
-	}
-	
-	public class UniqueObjectTest implements UniqueObject {
-		/**
-		 * Generated Serial ID
-		 */
-		private static final long serialVersionUID = 3540871923394708864L;
+		Volunteer testObject = new Volunteer("username");
+		myController.addUser(testObject);
 		
-		private final String myKey;
-		public UniqueObjectTest(final String theKey) {
-			myKey = theKey;
-		}
-		@Override
-		public String getKey() {
-			return myKey;
-		}
-	}
-	
-	public class ConcreteController<T extends UniqueObject> extends AbstractController<T> {
 		
-		public ConcreteController() {
-			super();
+		myController = new UserController();
+		ArrayList<User> objects = myController.getAllUsers();
+		for (User user : objects) {
+			System.out.println(user.getUserName());
 		}
-		
-		public void addObject(T theObject) {
-			add(theObject);
-		}
-		public HashMap<String, T> getObjects() {
-			return (HashMap<String, T>) myList.clone();
-		}
+		assertTrue(objects.contains(testObject));
 	}
 
 }

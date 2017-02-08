@@ -6,11 +6,14 @@
 package model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
 
 /**
  * Job model class.
@@ -27,22 +30,46 @@ public class Job implements Serializable, UniqueObject
      */
     private static final long serialVersionUID = -4115864921352899827L;
 
+    /**
+     * String format for toString method.
+     */
+    private static final String STRING_FORMAT = ""
+    		+ "name:        %s" + System.lineSeparator()
+    		+ "Park:        %s" + System.lineSeparator()
+    		+ "Date:        %s" + System.lineSeparator()
+    		+ "Start Time:  %s" + System.lineSeparator()
+    		+ "End Time:    %s" + System.lineSeparator()
+    		+ "Description: %s" + System.lineSeparator()
+    		+ "Volunteers:"       + System.lineSeparator()
+    		+ "Light Duty:  %s" + System.lineSeparator()
+    		+ "Medium Duty: %s" + System.lineSeparator()
+    		+ "Heavy Duty:  %s";
+
 
     /**
      * The name of the job.
      */
     private String myName;
     
+    /**
+     * The park the job is associated with.
+     */
+    private Park myPark;
     
     /**
-     * The name of the park job is associated with
+     * The date of the job.
      */
-    private String myParkName;
+    private Date myDate;
     
     /**
-     * The date and time of the job.
+     * The start time of the job.
      */
-    private String myDateTime;
+    private Date myStartTime;
+    
+    /**
+     * The end time of the job.
+     */
+    private Date myEndTime;
     
     /**
      * The description of the job.
@@ -55,7 +82,7 @@ public class Job implements Serializable, UniqueObject
     private int myDifficulty;
     
     /** Maps of volunteer's email, and work categories. */
-    private Map<String, WorkDuty> volunteers;
+    private Map<Volunteer, WorkDuty> volunteers;
 
     /**
      * The number of light duty volunteers.
@@ -83,14 +110,19 @@ public class Job implements Serializable, UniqueObject
      * @param theDescription the description of the job.
      * @param theDifficulty the difficulty of the job.
      */
-    public Job (final String theName, final String thePark, final String theDateTime,
-                    final String theDescription, final int theLightDuty, final int theMediumDuty, final int theHeavyDuty)
+    public Job (final String theName, final Park thePark, final Date theDate, final Date theStartTime,
+    		final Date theEndTime, final String theDescription, final int theLightDuty, final int theMediumDuty,
+    		final int theHeavyDuty)
     {
         myName = Objects.requireNonNull(theName);
         
-        myParkName = Objects.requireNonNull(thePark);
+        myPark = Objects.requireNonNull(thePark);
         
-        myDateTime = Objects.requireNonNull(theDateTime);
+        myDate = Objects.requireNonNull(theDate);
+        
+        myStartTime = Objects.requireNonNull(theStartTime);
+        
+        myEndTime = Objects.requireNonNull(theEndTime);
         
         
         myDescription = Objects.requireNonNull(theDescription);
@@ -101,8 +133,7 @@ public class Job implements Serializable, UniqueObject
         
         numOfHeavyDuty = theHeavyDuty;
         
-        volunteers =  new HashMap<String, Job.WorkDuty>();
-        
+        volunteers =  new HashMap<Volunteer, Job.WorkDuty>();
     }
     
     /**
@@ -110,7 +141,7 @@ public class Job implements Serializable, UniqueObject
      * @param job job to be cloned.
      */
     public Job(Job job) {
-        this(job.getJobName(), job.getParkName(), job.getDateTime(),
+        this(job.getJobName(), job.getPark(), job.getDate(), job.getStartTime(), job.getEndTime(),
         		job.getDescription(), job.numOfLightDuty, job.numOfMediumDuty, job.numOfHeavyDuty);
     }
     
@@ -124,12 +155,12 @@ public class Job implements Serializable, UniqueObject
     }
     
     /**
-     * Returns the park name job is associated with.
+     * Returns the park job is associated with.
      * @return returns the park name job is associated with.
      */
-    public String getParkName()
+    public Park getPark()
     {
-        return myParkName;
+        return myPark;
     }
     
 
@@ -164,11 +195,27 @@ public class Job implements Serializable, UniqueObject
     
     
     /**
-     * Sets the date and time of the job.
+     * Sets the date of the job.
      */
-    public void setDateTime(String theDateTime)
+    public void setDate(Date theDate)
     {
-        myDateTime = theDateTime;
+        myDate = Objects.requireNonNull(theDate);
+    }
+    
+    /**
+     * Sets the start time of the job.
+     */
+    public void setStartTime(Date theStartTime)
+    {
+        myStartTime = Objects.requireNonNull(theStartTime);
+    }
+    
+    /**
+     * Sets the end time of the job.
+     */
+    public void setEndTime(final Date theEndTime)
+    {
+        myEndTime = Objects.requireNonNull(theEndTime);
     }
     
 
@@ -190,70 +237,48 @@ public class Job implements Serializable, UniqueObject
     }
 
     /**
-     * Returns the date and time of the job.
-     * @return returns the date and time of the job.
-     */
-    public String getDateTime()
-    {
-
-        return myDateTime;
-    }
-    
-    /**
-     * Adds a volunteer to the list of volunteers for this job.
-     * @param theVolunteer the volunteer to be added.
-     * @return 
-     */
-    public boolean addVolunteer(String theVolunteer, WorkDuty workDuty)   {
-    	switch(workDuty) {
-    		case LIGHT:
-    			volunteers.put(theVolunteer, WorkDuty.LIGHT);
-    		case MEDIUM:
-    			volunteers.put(theVolunteer, WorkDuty.MEDIUM);
-    		case HEAVY:
-    			volunteers.put(theVolunteer, WorkDuty.HEAVY);
-    	}
-    	return false;
-    }
-
-    /**
      * Gets the list of volunteers for this job.
      * @return returns the list of volunteers for this job.
      */
-    public Set<String> getVolunteer()
+    public Set<Volunteer> getVolunteers()
     {
         return volunteers.keySet();
     }
     
     /**
-     * List of volunteers sign up for a job.
-     * @return A string containing the list of all the volunteers in this job
+     * Returns the date of the job.
+     * @return returns the date of the job.
      */
-    public String getVolunteerString() {
-        if (volunteers.isEmpty()) {
-            return null;
-        }
-        
-        StringBuilder sb = new StringBuilder();
-        String light = "";
-        String medium = "";
-        String heavy = "";
-
-        for (String vol : volunteers.keySet()) {
-            if (volunteers.get(vol) == WorkDuty.LIGHT)
-                light += vol + ",";
-            else if (volunteers.get(vol) == WorkDuty.MEDIUM)
-                medium += vol + ",";
-            else
-                heavy += vol + ",";
-        }
-        sb.append(light);
-        sb.append(medium);
-        sb.append(heavy);
-        if (sb.length() > 0) {
-            sb.deleteCharAt(sb.length() - 1);
-        }
-        return sb.toString();
+    public Date getDate()
+    {
+        return myDate;
+    }
+    
+    /**
+     * Returns the start time of the job.
+     * @return returns the date of the job.
+     */
+    public Date getStartTime()
+    {
+        return myStartTime;
+    }
+    
+    /**
+     * Returns the end time of the job.
+     * @return returns the date of the job.
+     */
+    public Date getEndTime()
+    {
+        return myEndTime;
+    }
+    
+    /**
+     * Adds a volunteer to the list of volunteers for this job.
+     * @param theVolunteer the volunteer to be added.
+     */
+    public void addVolunteer(Volunteer theVolunteer, WorkDuty theWorkDuty)
+    {
+        volunteers.put(theVolunteer, theWorkDuty);
     }
     
     @Override
@@ -261,14 +286,23 @@ public class Job implements Serializable, UniqueObject
     {
         return (theObject instanceof Job)
                 && (myName.equals(((Job) theObject).myName))
-                && (myParkName.equals(((Job) theObject).myParkName));
+                && (myPark.equals(((Job) theObject).myPark));
     }
     
-
     @Override
-    public String getKey()
-    {
-        return myName;
+    public String toString() {
+    	DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+    	DateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+    	return String.format(STRING_FORMAT,
+    			myName,
+				myPark,
+				dateFormat.format(myDate),
+				timeFormat.format(myStartTime),
+				timeFormat.format(myEndTime),
+				myDescription,
+				numOfLightDuty,
+				numOfMediumDuty,
+				numOfHeavyDuty);
     }
     
     /**
@@ -278,4 +312,10 @@ public class Job implements Serializable, UniqueObject
         LIGHT, MEDIUM, HEAVY;
     }
 
+	@Override
+	public String getKey() {
+		//TODO: provide key
+		return null;
+	}
+    
 }

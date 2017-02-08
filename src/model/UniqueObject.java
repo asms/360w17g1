@@ -4,12 +4,14 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  * An interface that defines an object as unique by defining a unique key value.
  * @author Steven Smith
  * @version 1.0
  */
-public interface UniqueObject {
+public interface UniqueObject extends Serializable {
 	
 	/**
 	 * Returns a unique key value.

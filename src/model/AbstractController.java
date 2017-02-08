@@ -4,7 +4,15 @@
  */
 package model;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Abstract controller class.
@@ -13,19 +21,19 @@ import java.util.HashMap;
  * @version 1.0
  */
 public abstract class AbstractController<T extends UniqueObject> {
-<<<<<<< HEAD
-=======
-	
+
 	public class UniqueObjectTest {
 
 	}
->>>>>>> branch 'dev' of https://github.com/asms/360w17g1.git
 
 	/**
 	 * Deserializes the collection at instantiation.
 	 */
 	protected AbstractController() {
-		deserializeFromDisk();
+		if (null == myList){
+			myList = new  HashMap<String, T>();
+		}
+		// deserializeFromDisk();
 	}
 
 	public static final String SRC_DIR = "/";
@@ -39,59 +47,41 @@ public abstract class AbstractController<T extends UniqueObject> {
 	 * Serializes the collection and writes it to a file.
 	 */
 	private final void serializeToDisk() {
-		// For each elemet in the hashmap
-		for (Map.Entry<String, HashMap> entry : myList.entrySet()) {
-//			String key = myList.getKey();
-//			HashMap value = myList.getValue();
-//			String outFileName = key + ".ser";
-//			try {
-//				FileOutputStream fileOut = new FileOutputStream(SRC_DIR
-//						+ outFileName);
-//				ObjectOutputStream out = new ObjectOutputStream(fileOut);
-//				out.writeObject(e);
-//				out.close();
-//				fileOut.close();
-//				System.out.printf("Serialized data is saved in " + SRC_DIR
-//						+ outFileName);
-//			} catch (IOException i) {
-//				i.printStackTrace();
-//			}
+		try {
+			FileOutputStream fos = new FileOutputStream("hashmap.ser");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(myList);
+			oos.close();
+			fos.close();
+			System.out.printf("Serialized HashMap data is saved in hashmap.ser");
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
 		}
+
 	}
 
 	/**
 	 * Deserializes the collection from a file.
 	 */
 	private final void deserializeFromDisk() {
-		// Look at all the files in the dir
-//		File folder = new File(SRC_DIR);
-//		File[] listOfFiles = folder.listFiles();
-//
-//		for (File file : listOfFiles) {
-//			if (file.isFile()) {
-//				String key = file.getName();
-//				User u = null;
-//				try {
-//					FileInputStream fileIn = new FileInputStream(
-//							SCR_DIR + key);
-//					ObjectInputStream in = new ObjectInputStream(fileIn);
-//					u = (User) in.readObject();
-//					//Adds the object and name to list
-//					myList.put(key, u);
-//					in.close();
-//					fileIn.close();
-//				} catch (IOException i) {
-//					i.printStackTrace();
-//					return;
-//				} catch (ClassNotFoundException c) {
-//					System.out.println("User class not found");
-//					c.printStackTrace();
-//					return;
-//				}
-//			}
-//		}
-		// TODO: Deserialize list from file to myList.
-		myList = new HashMap<String, T>(); // Temporary placeholder
+		
+	      try
+	      {
+	         FileInputStream fis = new FileInputStream("hashmap.ser");
+	         ObjectInputStream ois = new ObjectInputStream(fis);
+	         myList = (HashMap) ois.readObject();
+	         ois.close();
+	         fis.close();
+	      }catch(IOException ioe)
+	      {
+	         ioe.printStackTrace();
+	         return;
+	      }catch(ClassNotFoundException c)
+	      {
+	         System.out.println("Class not found");
+	         c.printStackTrace();
+	         return;
+	      }
 	}
 
 	/**
@@ -102,6 +92,7 @@ public abstract class AbstractController<T extends UniqueObject> {
 	 */
 	protected final void add(final T theListItem) {
 		myList.put(theListItem.getKey(), theListItem);
+		System.out.println("HERE");
 		serializeToDisk();
 	}
 

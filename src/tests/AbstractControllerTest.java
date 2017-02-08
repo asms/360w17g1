@@ -40,11 +40,17 @@ public class AbstractControllerTest {
 		final String random = String.valueOf(Math.random());
 		UniqueObjectTest testObject = new UniqueObjectTest(random);
 		myController.addObject(testObject);
+		System.out.println("");
 		myController = new ConcreteController<AbstractControllerTest.UniqueObjectTest>();
 		assertTrue(myController.getObjects().containsKey(random));
 	}
 	
 	public class UniqueObjectTest implements UniqueObject {
+		/**
+		 * Generated Serial ID
+		 */
+		private static final long serialVersionUID = 3540871923394708864L;
+		
 		private final String myKey;
 		public UniqueObjectTest(final String theKey) {
 			myKey = theKey;

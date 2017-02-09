@@ -69,8 +69,12 @@ public class JobController extends AbstractController<Job> {
        add(theJob);
     }
 
-	public boolean canAddToDate(final Date date) {
-		return myList.entrySet().stream().filter(x -> x.getValue().getDate().equals(date)).count() < MAX_JOBS_PER_DAY;
+	public boolean canAddWithDate(final Date theDate) {
+		return myList.entrySet().stream().filter(x -> x.getValue().getDate().equals(theDate)).count() < MAX_JOBS_PER_DAY;
+	}
+	
+	public boolean canAddWithNameAtPark(final String theName, final String theParkName) {
+		return !myList.containsKey(theName + theParkName);
 	}
 
 

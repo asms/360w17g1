@@ -83,6 +83,14 @@ public abstract class AbstractController<T extends UniqueObject> {
 		myList.put(theListItem.getKey(), theListItem);
 		serializeToDisk();
 	}
+	
+	/**
+	 * Clears all persistent data.
+	 */
+	public void clear() {
+		myList = new HashMap<String, T>();
+		serializeToDisk();
+	}
 
 	// Functionality not used in the user stories.
 	/*

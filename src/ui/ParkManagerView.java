@@ -116,15 +116,14 @@ public class ParkManagerView extends AbstractView {
 		final String name = getString("Enter job title");
 		final Park park = getSelectionFromList("Parks",
 				"Enter park number",
-				new Park[] {new Park("Name 1", "Location 1"), new Park("Name 2", "Location 2"), new Park("Name 3", "Location 3")});
+				myParkController.getAllParks().toArray(new Park[]{}));
 		final Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.MONTH, MAX_FUTURE_DATE);
-		
 		Date date;
 		boolean validDate = false;
 		do {
 			date = getDate("Enter date(MM/DD/YYYY)", new Date(System.currentTimeMillis()), calendar.getTime());
-			if (myJobController.canAddToDate(date)) {
+			if (myJobController.canAddWithDate(date)) {
 				validDate = true;
 			} else {
 				printError("Maximum jobs per day (" + JobController.MAX_JOBS_PER_DAY + ") already reached.");

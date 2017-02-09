@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,6 +31,12 @@ public class ParkControllerTest {
 	@Before
 	public void setup() {
 		myParkController = new ParkController();
+		myParkController.clear();
+	}
+	
+	@After
+	public void cleanup() {
+		myParkController.clear();
 	}
 	
 	/**

@@ -6,6 +6,8 @@ package ui;
 
 import java.util.Scanner;
 
+import model.Park;
+import model.ParkController;
 import users.ParkManager;
 
 /**
@@ -18,6 +20,11 @@ public final class Driver {
 	private Driver() {}
 
 	public static void main(String[] args) {
+		ParkController pm = new ParkController();
+		if (pm.getAllParks().isEmpty()) {
+			pm.addPark(new Park("Test Park", "Location of test park"));
+		}
+		
 		final Scanner scanner = new Scanner(System.in);
 		//new LoginView(scanner).show();
 		new ParkManagerView(scanner, new ParkManager("Steven")).show();

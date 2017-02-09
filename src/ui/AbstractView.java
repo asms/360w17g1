@@ -13,8 +13,8 @@ import java.util.Scanner;
 
 import model.JobController;
 import model.ParkController;
+import model.User;
 import model.UserController;
-import users.User;
 
 /**
  * Abstract view class.
@@ -121,7 +121,7 @@ public abstract class AbstractView {
 	 * Displays the header.
 	 */
 	protected void displayHeader() {
-		System.out.println(String.format(HEADER, myUser.getName(), myUser.getClass().getSimpleName()));
+		System.out.println(String.format(HEADER, myUser.getUserName(), myUser.getClass().getSimpleName()));
 	}
 	
 	/**

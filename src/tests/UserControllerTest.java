@@ -43,9 +43,7 @@ private UserController myUserController;
 	 */
 	@Test
 	public void testGetUserByUserName() {
-		final HashSet<Park> associatedParks = new HashSet<Park>();
-		associatedParks.add(new Park("Cherry Park", "1234 N 56th St"));
-		final User expectedManagerUser = new ParkManager("Ba2012", associatedParks);
+		final User expectedManagerUser = new ParkManager("Ba2012");
 
 		myUserController.addUser(expectedManagerUser);
 		System.out.println(expectedManagerUser.toString());
@@ -64,11 +62,11 @@ private UserController myUserController;
 	@Test
 	public void testGetUserByUserNameFromMany() {
 		for (int i = 0; i < 50; i++) {
-			myUserController.addUser(new ParkManager("Ba2012 " + i, new HashSet<Park>()));
+			myUserController.addUser(new ParkManager("Ba2012 " + i));
 			
 		}
 		
-		final User expectedManagerUser = new ParkManager("Ba2012 10", new HashSet<Park>());
+		final User expectedManagerUser = new ParkManager("Ba2012 10");
 		final User same = myUserController.getUserByName(expectedManagerUser.getKey());
 		System.out.println(expectedManagerUser.toString() +"\n"+ same.toString());
 		assertEquals(expectedManagerUser, same);
@@ -86,8 +84,8 @@ private UserController myUserController;
 		
 		final ArrayList<User> users = new ArrayList<User>();
 		for (int i = 0; i < 100; i++) {
-			users.add(new ParkManager("Ba2012 " + i, new HashSet<Park>()));
-			myUserController.addUser(new ParkManager("Ba2012 " + i, new HashSet<Park>()));
+			users.add(new ParkManager("Ba2012 " + i));
+			myUserController.addUser(new ParkManager("Ba2012 " + i));
 		}
 		final ArrayList<User> allUsers = myUserController.getAllUsers();
 		assertTrue(allUsers.containsAll(users) && users.containsAll(allUsers));

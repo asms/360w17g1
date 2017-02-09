@@ -27,8 +27,6 @@ public class UserTest
 	
 	public String USERNAME = "user0001";
 	public Park PARK_1 = new Park("Cherry Park", "1234 N 56th");
-
-	public HashSet<Park> ASSOCIATED_PARK = new HashSet<Park>(Arrays.asList(PARK_1));
 	
 	
 	
@@ -45,7 +43,7 @@ public class UserTest
     @Before
     public void setUp()
     {
-        myUser = new ParkManager(USERNAME, ASSOCIATED_PARK);
+        myUser = new ParkManager(USERNAME);
         myUser.setFirstName("Bryce");
         myUser.setLastName("Anderson");
     }

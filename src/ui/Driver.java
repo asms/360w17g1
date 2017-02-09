@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 import model.Park;
 import model.ParkController;
-import users.ParkManager;
+import model.ParkManager;
 
 /**
  * Entry point of the program.

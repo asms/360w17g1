@@ -4,12 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import users.User;
-
 public class LoginView extends AbstractView {
 	
 	public LoginView(Scanner theScanner) {
-		super(theScanner, User.GUEST.getInstance());
+		super(theScanner, null);
 	}
 
 	@Override

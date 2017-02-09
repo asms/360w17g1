@@ -28,21 +28,15 @@ public class ParkManagerTest {
 	
 	private static final String USERNAME = "user0001";
 	private static final Park PARK_1 = new Park("Cherry Park", "1234 N 56th");
-	private static final HashSet<Park> ASSOCIATED_PARKS = new HashSet<Park>(Arrays.asList(PARK_1));
 
 	@Before
 	public void setUp() {
-		myParkManager = new ParkManager(USERNAME, ASSOCIATED_PARKS);
+		myParkManager = new ParkManager(USERNAME);
 	}
 	
 	@Test
 	public void getUsernameTest() {
 		assertEquals(USERNAME, myParkManager.getUserName());
-	}
-
-	@Test
-	public void getAssociatedParksTest() {
-		assertTrue(myParkManager.getAssociatedParks().containsAll((HashSet<Park>) ASSOCIATED_PARKS.clone()));
 	}
 
 }

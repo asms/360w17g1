@@ -13,8 +13,8 @@ import java.util.Scanner;
 import model.Job;
 import model.JobController;
 import model.Park;
+import model.User;
 import ui.Command.CommandExecutor;
-import users.User;
 
 /**
  * View for park managers only

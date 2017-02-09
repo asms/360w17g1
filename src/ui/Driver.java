@@ -33,10 +33,9 @@ public final class Driver {
 		}
 
 		UserController uc = new UserController();
-		if (uc.getAllUsers().isEmpty()) {
-			uc.addUser(new ParkManager("dev"));// Creates a park manager called
-												// dev.
-		}
+		ParkManager dev = new ParkManager("dev");
+		uc.addUser(dev);
+		dev.associate(pc.getParkByName("Test Park"));
 
 		uc.addUser(new StaffMember("amy"));
 		uc.addUser(new Volunteer("eli"));

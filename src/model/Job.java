@@ -29,6 +29,11 @@ public class Job implements Serializable, UniqueObject
      * Generated serial version id.
      */
     private static final long serialVersionUID = -4115864921352899827L;
+    
+    /**
+     * BR: A maximum of 30 volunteers for any job.
+     */
+    private static final int MAX_VOLUNTEERS = 30;
 
     /**
      * String format for toString method.
@@ -278,8 +283,14 @@ public class Job implements Serializable, UniqueObject
      */
     public boolean addVolunteer(Volunteer theVolunteer, WorkDuty theWorkDuty)
     {
-        volunteers.put(theVolunteer, theWorkDuty);
-        return true;
+    	final boolean wasAdded;
+    	if (volunteers.size() < MAX_VOLUNTEERS) {
+    		volunteers.put(theVolunteer, theWorkDuty);
+    		wasAdded = true;
+    	} else {
+    		wasAdded = false;
+    	}
+        return wasAdded;
     }
     
     @Override

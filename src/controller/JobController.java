@@ -3,13 +3,12 @@
  * Assignment: Deliverable 2
  */
 
-package model;
+package controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
+import model.Job;
 
 /**
  * Simulates a database for jobs.

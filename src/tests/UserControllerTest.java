@@ -3,15 +3,12 @@ package tests;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import controller.UserController;
 import model.User;
-import model.UserController;
-import model.Park;
 import model.ParkManager;
 
 

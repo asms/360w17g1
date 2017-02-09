@@ -11,10 +11,10 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import model.JobController;
-import model.ParkController;
+import controller.JobController;
+import controller.ParkController;
+import controller.UserController;
 import model.User;
-import model.UserController;
 
 /**
  * Abstract view class.
@@ -121,7 +121,11 @@ public abstract class AbstractView {
 	 * Displays the header.
 	 */
 	protected void displayHeader() {
-		System.out.println(String.format(HEADER, myUser.getUserName(), myUser.getClass().getSimpleName()));
+		if (myUser != null) {
+			System.out.println(String.format(HEADER, myUser != null ? myUser.getUserName() : "guest", myUser.getClass().getSimpleName()));
+		} else {
+			System.out.println("Urban Parks");
+		}
 	}
 	
 	/**

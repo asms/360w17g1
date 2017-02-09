@@ -6,15 +6,11 @@ package tests;
 
 import static org.junit.Assert.*;
 
-import java.util.Arrays;
-import java.util.HashSet;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import model.Park;
 import model.ParkManager;
-import model.User;
 
 /**
  * Test Suite for User class.

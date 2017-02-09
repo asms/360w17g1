@@ -4,9 +4,11 @@
  * Assignment: Deliverable 2
  */
 
-package model;
+package controller;
 
 import java.util.ArrayList;
+
+import model.User;
 
 
 
@@ -24,7 +26,6 @@ public class UserController extends AbstractController<User> {
 	 * @param theUser  A user being added
 	 */
 	public void addUser(final User theUser) {
-
 		add(theUser);
 	}
 	

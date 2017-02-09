@@ -11,16 +11,16 @@ import java.util.Objects;
 public abstract class User implements Serializable, UniqueObject {
 
 	/**
-	 * 
+	 * Generated serial version UID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4039931473200511934L;
 	/**
 	 * 
 	 */
 	private String FirstName;
 	private String LastName;
 
-	private String UserName;
+	private final String UserName;
 
 	public User(final String theUserName) {
 		UserName = Objects.requireNonNull(theUserName);

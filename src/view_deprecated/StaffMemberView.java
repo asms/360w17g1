@@ -1,16 +1,14 @@
-package view;
+package view_deprecated;
 
 import java.util.List;
-import java.util.Scanner;
 
+import controller.JobController;
 import model.Job;
-import model.JobController;
 import model.StaffMember;
 import model.User;
 
 public class StaffMemberView {
 
-	private static Scanner keyboard;
 	public static User staffMember;
 	private static JobController jobController = new JobController();
 

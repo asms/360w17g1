@@ -10,8 +10,7 @@ import org.junit.Test;
 import model.Job;
 import model.Park;
 import model.StaffMember;
-import model.Volunteer;
-import view.StaffMemberView;
+import view_deprecated.StaffMemberView;
 
 public class StaffMemberTest {
 

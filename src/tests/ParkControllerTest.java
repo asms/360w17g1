@@ -12,8 +12,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import controller.ParkController;
 import model.Park;
-import model.ParkController;
 
 /**
  * Test suite for {@link ParkController}.

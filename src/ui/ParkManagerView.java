@@ -116,9 +116,21 @@ public class ParkManagerView extends AbstractView {
 	 */
 	private void createNewJob() {
 		displayTitle("Create a new job");
-		final String name = getString("Enter job title");
 		final Park park = getSelectionFromList("Parks", "Enter park number",
 				myParkController.getAllParks().toArray(new Park[] {}));
+		
+	
+		String name;
+		boolean validName = false;
+		do {
+			name = getString("Enter job title");
+			if (myJobController.canAddWithNameAtPark(name, park)) {
+				validName = true;
+			} else {
+				printError("A job by that name already exists for this park.");
+			}
+		} while (!validName);
+		
 		final Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.MONTH, MAX_FUTURE_DATE);
 		Date date;
@@ -132,11 +144,14 @@ public class ParkManagerView extends AbstractView {
 			}
 		} while (!validDate);
 		final Date startTime = getTime("Enter start time(HH:MM AM/PM)");
-		final Date endTime = getTime("Enter end time(HH:MM AMP/PM)");
+		final Date endTime = getTime("Enter end time(HH:MM AMP/PM)", startTime);
 		final String description = getString("Enter description");
-		final int numLightVolunteers = getInteger("Enter number of light-duty volunteers");
-		final int numMediumVolunteers = getInteger("Enter number of medium-duty volunteers");
-		final int numHeavyVolunteers = getInteger("Enter number of heavy-duty volunteers");
+		final int numLightVolunteers = getInteger("Enter number of light-duty volunteers",
+										0, Job.MAX_VOLUNTEERS);
+		final int numMediumVolunteers = getInteger("Enter number of medium-duty volunteers",
+										0, Job.MAX_VOLUNTEERS - numLightVolunteers);
+		final int numHeavyVolunteers = getInteger("Enter number of heavy-duty volunteers",
+										0, Job.MAX_VOLUNTEERS - numLightVolunteers - numMediumVolunteers);
 
 		final Job job = new Job(name, park, date, startTime, endTime, description, numLightVolunteers,
 				numMediumVolunteers, numHeavyVolunteers);

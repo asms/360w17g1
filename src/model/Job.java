@@ -20,10 +20,7 @@ import java.util.Set;
  * @version 1.0
  */
 public class Job implements Serializable, UniqueObject
-{
-    
-
-    
+{   
     /**
      * Generated serial version id.
      */
@@ -32,7 +29,7 @@ public class Job implements Serializable, UniqueObject
     /**
      * BR: A maximum of 30 volunteers for any job.
      */
-    private static final int MAX_VOLUNTEERS = 30;
+    public static final int MAX_VOLUNTEERS = 30;
 
     /**
      * String format for toString method.

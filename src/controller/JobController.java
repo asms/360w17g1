@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import model.Job;
+import model.Park;
 
 /**
  * Simulates a database for jobs.
@@ -73,8 +74,8 @@ public class JobController extends AbstractController<Job> {
 		return myList.entrySet().stream().filter(x -> x.getValue().getDate().equals(theDate)).count() < MAX_JOBS_PER_DAY;
 	}
 	
-	public boolean canAddWithNameAtPark(final String theName, final String theParkName) {
-		return !myList.containsKey(theName + theParkName);
+	public boolean canAddWithNameAtPark(final String theName, final Park thePark) {
+		return !myList.containsKey(theName + thePark);
 	}
 
 

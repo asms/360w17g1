@@ -150,12 +150,28 @@ public abstract class AbstractView {
 	/**
 	 * Prompts the user for integer input.
 	 * @param thePrompt the prompt
+	 * @param theMin the minimum value
+	 * @param theMax the maximum value
 	 * @return the input integer
 	 */
-	protected int getInteger(final String thePrompt) {
-		//TODO: validate
-		System.out.print(String.format(PROMPT, thePrompt));
-		return Integer.parseInt(myScanner.nextLine()); 
+	protected int getInteger(final String thePrompt, final int theMin, final int theMax) {
+		int integer = 0;
+		boolean validated = false;
+		
+		while (!validated) {
+			try {
+				System.out.print(String.format(PROMPT, thePrompt));
+				integer = Integer.parseInt(myScanner.nextLine());
+				if (integer >= theMin && integer <= theMax) {
+					validated = true;
+				} else {
+					printError("Out of range."); //TODO: be more descriptive
+				}
+			} catch(NumberFormatException e) {
+				printError("Invalid number."); //TODO: be more descriptive
+			}
+		}
+		return integer;
 	}
 	
 	/**
@@ -199,9 +215,8 @@ public abstract class AbstractView {
 	 */
 	protected <T> T getSelectionFromList(final String theTitle, final String thePrompt, final T[] theList) {
 		displayTitle(theTitle);
-		//TODO: validate that the index exists in the list
 		displayNumberedList(theList);
-		final int index = getInteger(thePrompt);
+		final int index = getInteger(thePrompt, 0, theList.length - 1);
 		return theList[index];
 	}
 	
@@ -214,7 +229,7 @@ public abstract class AbstractView {
 	protected Command getCommand(final String thePrompt, final Command[] theCommands) {
 		displayNumberedList(theCommands);
 		try {
-			int commandNumber = getInteger(thePrompt);
+			int commandNumber = getInteger(thePrompt, 0, theCommands.length - 1);
 			if(commandNumber >= 0 && commandNumber < theCommands.length) {
 				return theCommands[commandNumber];
 			} else {
@@ -244,10 +259,10 @@ public abstract class AbstractView {
 				if (date.after(theMin) && date.before(theMax)) {
 					validated = true;
 				} else {
-					throw new ParseException("", 0);
+					printError("Out of range."); //TODO: be more descriptive
 				}
 			} catch(final ParseException e) {
-				printError("Invalid date.");
+				printError("Invalid date."); //TODO: be more descriptive
 			}
 		}
 		return date;
@@ -256,9 +271,29 @@ public abstract class AbstractView {
 	/**
 	 * Prompts the user for a time
 	 * @param thePrompt the prompt, include time format (HH:MM AM/PM)
+	 * @param theMin the lower bound on the time
 	 * @return the input time as a date object
 	 */
-	protected Date getTime(final String thePrompt) {
+	protected Date getTime(final String thePrompt, final Date theMin) {
+		final DateFormat format = new SimpleDateFormat("hh:mm a");
+		Date time = null;
+		boolean validated = false;
+		while (!validated) {
+			try {
+				time = format.parse(getString(thePrompt));
+				if (time.after(theMin)) {
+					validated = true;
+				} else {
+					printError("Out of range."); //TODO: be more descriptive
+				}
+			} catch(final ParseException e) {
+				printError("Invaid time."); //TODO: be more descriptive
+			}
+		}
+		return time;
+	}
+	
+	protected Date getTime(final String thePrompt) { //TODO: reduce code redundancy
 		final DateFormat format = new SimpleDateFormat("hh:mm a");
 		Date time = null;
 		boolean validated = false;
@@ -267,7 +302,7 @@ public abstract class AbstractView {
 				time = format.parse(getString(thePrompt));
 				validated = true;
 			} catch(final ParseException e) {
-				System.out.println("Invaid time.");
+				printError("Invaid time."); //TODO: be more descriptive
 			}
 		}
 		return time;

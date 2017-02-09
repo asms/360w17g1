@@ -116,6 +116,7 @@ public abstract class AbstractView {
 	 */
 	public abstract void show();
 	
+	
 	/**
 	 * Displays the header.
 	 */

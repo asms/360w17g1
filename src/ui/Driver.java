@@ -12,21 +12,26 @@ import users.ParkManager;
 
 /**
  * Entry point of the program.
+ * 
  * @author Steven Smith
  * @version 0.1
  */
 public final class Driver {
-	
-	private Driver() {}
+
+	private static ParkManagerView pmv;
+
+	private Driver() {
+	}
 
 	public static void main(String[] args) {
+
 		ParkController pm = new ParkController();
 		if (pm.getAllParks().isEmpty()) {
 			pm.addPark(new Park("Test Park", "Location of test park"));
 		}
-		
+
 		final Scanner scanner = new Scanner(System.in);
-		//new LoginView(scanner).show();
+		// new LoginView(scanner).show();
 		new ParkManagerView(scanner, new ParkManager("Steven")).show();
 		scanner.close();
 	}

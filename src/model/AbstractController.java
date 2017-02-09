@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -39,7 +40,7 @@ public abstract class AbstractController<T extends UniqueObject> {
 	/**
 	 * Serializes the collection and writes it to a file.
 	 */
-	private final void serializeToDisk() {
+	protected final void serializeToDisk() {
 		try {
 			FileOutputStream fos = new FileOutputStream("hashmap_" + getClass().getSimpleName() + ".ser");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);

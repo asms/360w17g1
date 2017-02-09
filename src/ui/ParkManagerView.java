@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import model.Job;
+import model.JobController;
 import model.Park;
 import ui.Command.CommandExecutor;
 import users.User;
@@ -20,6 +21,7 @@ public class ParkManagerView extends AbstractView {
 	
 	private static enum COMMAND implements Command {
 		CREATE_NEW_JOB("Create a new job"),
+		VIEW_JOBS("View jobs"),
 		LOGOUT("Logout");
 		
 		private final String myValue;
@@ -43,6 +45,12 @@ public class ParkManagerView extends AbstractView {
 			@Override
 			public void execute() {
 				createNewJob();
+			}
+		});
+		commands.put(COMMAND.VIEW_JOBS, new CommandExecutor() {
+			@Override
+			public void execute() {
+				viewJobs();
 			}
 		});
 		commands.put(COMMAND.LOGOUT, new CommandExecutor() {
@@ -98,6 +106,12 @@ public class ParkManagerView extends AbstractView {
 		} else {
 			//TODO: message
 		}
+	}
+	
+	private void viewJobs() {
+		displayTitle("All Jobs");
+		displayNumberedList(myJobController.getUpcomingJobs().toArray());
+		myScanner.nextLine();
 	}
 	
 	private void logout() {

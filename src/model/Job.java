@@ -315,8 +315,7 @@ public class Job implements Serializable, UniqueObject
 
 	@Override
 	public String getKey() {
-		//TODO: provide key
-		return null;
+		return myName + myPark;
 	}
     
 }

@@ -242,7 +242,7 @@ public abstract class AbstractView {
 					throw new ParseException("", 0);
 				}
 			} catch(final ParseException e) {
-				System.out.println("Invaid date.");
+				printError("Invalid date.");
 			}
 		}
 		return date;
@@ -266,6 +266,14 @@ public abstract class AbstractView {
 			}
 		}
 		return time;
+	}
+	
+	/**
+	 * Prints an error to the console.
+	 * @param theError the error.
+	 */
+	protected void printError(final String theError) {
+		System.out.println(theError);
 	}
 	
 	/**

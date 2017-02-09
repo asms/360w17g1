@@ -6,7 +6,10 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Simulates a database for jobs.
@@ -14,6 +17,11 @@ import java.util.List;
  * @version 1.0
  */
 public class JobController extends AbstractController<Job> {
+	
+	/**
+	 * BR: There can be no more than two jobs on any given day.
+	 */
+	public static final int MAX_JOBS_PER_DAY = 2;
 	
 	// stores a copy of all jobs in the system. 
     private static ArrayList<Job> allJobs;
@@ -60,6 +68,10 @@ public class JobController extends AbstractController<Job> {
     {
        add(theJob);
     }
+
+	public boolean canAddToDate(final Date date) {
+		return myList.entrySet().stream().filter(x -> x.getValue().getDate().equals(date)).count() < MAX_JOBS_PER_DAY;
+	}
 
 
 

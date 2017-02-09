@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import model.Job;
+import model.JobController;
 import model.Park;
 import ui.Command.CommandExecutor;
 import users.User;
@@ -34,7 +35,7 @@ public class ParkManagerView extends AbstractView {
 	private static enum COMMAND implements Command {
 		CREATE_NEW_JOB("Create a new job"),
 		VIEW_JOBS("View jobs"),
-		VIEW_VOLUNTEERS("View jobs"),
+		VIEW_VOLUNTEERS("View volunteers"),
 		LOGOUT("Logout");
 		
 		/**
@@ -118,7 +119,17 @@ public class ParkManagerView extends AbstractView {
 				new Park[] {new Park("Name 1", "Location 1"), new Park("Name 2", "Location 2"), new Park("Name 3", "Location 3")});
 		final Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.MONTH, MAX_FUTURE_DATE);
-		final Date date = getDate("Enter date(MM/DD/YYYY)", new Date(System.currentTimeMillis()), calendar.getTime());
+		
+		Date date;
+		boolean validDate = false;
+		do {
+			date = getDate("Enter date(MM/DD/YYYY)", new Date(System.currentTimeMillis()), calendar.getTime());
+			if (myJobController.canAddToDate(date)) {
+				validDate = true;
+			} else {
+				printError("Maximum jobs per day (" + JobController.MAX_JOBS_PER_DAY + ") already reached.");
+			}
+		} while(!validDate);
 		final Date startTime = getTime("Enter start time(HH:MM AM/PM)");
 		final Date endTime = getTime("Enter end time(HH:MM AMP/PM)");
 		final String description = getString("Enter description");

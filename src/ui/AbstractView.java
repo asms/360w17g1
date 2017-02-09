@@ -225,17 +225,22 @@ public abstract class AbstractView {
 	/**
 	 * Prompts the user for a date.
 	 * @param thePrompt the prompt, include date format (MM/DD/YYYY)
+	 * @param theMin the lower bound on the date
+	 * @param theMax the upper bound on the date
 	 * @return the input date
 	 */
-	protected Date getDate(final String thePrompt) {
-		// TODO: validate
+	protected Date getDate(final String thePrompt, final Date theMin, final Date theMax) {
 		final DateFormat format = new SimpleDateFormat("MM/dd/yyyy");
 		Date date = null;
 		boolean validated = false;
 		while (!validated) {
 			try {
 				date = format.parse(getString(thePrompt));
-				validated = true;
+				if (date.after(theMin) && date.before(theMax)) {
+					validated = true;
+				} else {
+					throw new ParseException("", 0);
+				}
 			} catch(final ParseException e) {
 				System.out.println("Invaid date.");
 			}

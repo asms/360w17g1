@@ -4,7 +4,9 @@
  */
 package ui;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +20,11 @@ import ui.Command.CommandExecutor;
 import users.User;
 
 public class ParkManagerView extends AbstractView {
+	
+	/**
+	 * BR: A job cannot be scheduled more than one month in the future.
+	 */
+	private static final int MAX_FUTURE_DATE = 1;
 	
 	private static enum COMMAND implements Command {
 		CREATE_NEW_JOB("Create a new job"),
@@ -79,7 +86,9 @@ public class ParkManagerView extends AbstractView {
 		final Park park = getSelectionFromList("Parks",
 				"Enter park number",
 				new Park[] {new Park("Name 1", "Location 1"), new Park("Name 2", "Location 2"), new Park("Name 3", "Location 3")});
-		final Date date = getDate("Enter date(MM/DD/YYYY)");
+		final Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.MONTH, MAX_FUTURE_DATE);
+		final Date date = getDate("Enter date(MM/DD/YYYY)", new Date(System.currentTimeMillis()), calendar.getTime());
 		final Date startTime = getTime("Enter start time(HH:MM AM/PM)");
 		final Date endTime = getTime("Enter end time(HH:MM AMP/PM)");
 		final String description = getString("Enter description");
@@ -103,15 +112,17 @@ public class ParkManagerView extends AbstractView {
 		
 		if (shouldSubmit) {
 			myJobController.addJob(job);
+			//TODO: message
 		} else {
 			//TODO: message
 		}
+		getString("Press enter to continue...");
 	}
 	
 	private void viewJobs() {
 		displayTitle("All Jobs");
 		displayNumberedList(myJobController.getUpcomingJobs().toArray());
-		myScanner.nextLine();
+		getString("Press enter to continue...");
 	}
 	
 	private void logout() {

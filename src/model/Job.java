@@ -80,11 +80,6 @@ public class Job implements Serializable, UniqueObject
      */
     private String myDescription;
     
-    /**
-     * The level of difficulty of the job.
-     */
-    private int myDifficulty;
-    
     /** Maps of volunteer's email, and work categories. */
     private Map<Volunteer, WorkDuty> volunteers;
 
@@ -183,15 +178,6 @@ public class Job implements Serializable, UniqueObject
     }
     
     /**
-     * Returns the difficulty of the job. 
-     * @return returns the difficulty of the job.
-     */
-    public int getDifficulty()
-    {
-        return myDifficulty;
-    }
-    
-    /**
      * Sets the job name.
      */
     public void setJobName(String theName)
@@ -232,14 +218,6 @@ public class Job implements Serializable, UniqueObject
     public void setDescription(String theDescription)
     {
         myDescription = theDescription;
-    }
-    
-    /**
-     * Sets the difficulty of the job.
-     */
-    public void setDifficulty(int theDifficulty)
-    {
-        myDifficulty = theDifficulty;
     }
 
     /**

@@ -22,12 +22,11 @@ import model.Volunteer;
  */
 public final class Driver {
 
-	private static ParkManagerView pmv;
-
 	private Driver() {
 	}
 
 	public static void main(String[] args) {
+		/* START SETUP */
 		ParkController pc = new ParkController();
 		if (pc.getAllParks().isEmpty()) {
 			pc.addPark(new Park("Test Park", "Location of test park"));
@@ -41,17 +40,22 @@ public final class Driver {
 
 		uc.addUser(new StaffMember("amy"));
 		uc.addUser(new Volunteer("eli"));
+		/* END SETUP */
 
 		final Scanner scanner = new Scanner(System.in);
-		LoginView loginView = new LoginView(scanner);
-		loginView.show();
-		final User user = loginView.getUser();
-		if (user instanceof Volunteer) {
-			new VolunteerView(scanner, (Volunteer) user).show();
-		} else if (user instanceof ParkManager) {
-			new ParkManagerView(scanner, (ParkManager) user).show();
-		} else if (user instanceof StaffMember) {
-			new StaffMemberView(scanner, (StaffMember) user).show();
+		while (true) {
+			LoginView loginView = new LoginView(scanner);
+			loginView.show();
+			final User user = loginView.getUser();
+			if (user instanceof Volunteer) {
+				new VolunteerView(scanner, (Volunteer) user).show();
+			} else if (user instanceof ParkManager) {
+				new ParkManagerView(scanner, (ParkManager) user).show();
+			} else if (user instanceof StaffMember) {
+				new StaffMemberView(scanner, (StaffMember) user).show();
+			} else {
+				break;
+			}
 		}
 		scanner.close();
 	}

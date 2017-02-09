@@ -295,6 +295,7 @@ public abstract class AbstractView {
 	 * Puts the view into an exit state to break the loop.
 	 */
 	protected void exit() {
+		clear();
 		myStatus = Status.EXIT;
 	}
 }

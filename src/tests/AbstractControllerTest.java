@@ -43,11 +43,8 @@ public class AbstractControllerTest {
 	 */
 	@Test
 	public void testSerialization() {
-<<<<<<< HEAD
 		// Creates a random Volunteer and adds it to my controller.
 		// myController then should serialize the data.
-=======
->>>>>>> refs/remotes/origin/dev
 		Volunteer testObject = new Volunteer("username");
 		myController.addUser(testObject);
 

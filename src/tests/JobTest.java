@@ -1,6 +1,6 @@
 package tests;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -54,7 +54,7 @@ public class JobTest {
     public void testNotEqualDifferentParkName() {
     	final Job differentJobName = new Job(testJob1);
     	differentJobName.setJobName(String.valueOf(Math.random()));
-        assertNotEquals("Park name should be different", differentJobName, testJob1.getPark());
+        assertFalse(differentJobName.getJobName().equals(testJob1.getJobName()));
     }
     
     @Test
@@ -65,17 +65,6 @@ public class JobTest {
     @Test
     public void testOnJobDescription() {
         assertEquals("Job Description is different", "Cleaning up litter", testJob1.getDescription());
-    }
-    
-    /**
-     * THIS TEST WILL NOT PASS BECAUSE THERE IS NO DIFFICULTY BEING SET
-     * FOR THE JOB AS A WHOLE. WE WILL NEED GETTERS FOR EACH DIFFICULTY 
-     * LEVEL FOR THIS TO WORK.
-     */
-    @Test
-    public void testOnJobDifficultity() {
-    	System.out.println(testJob1.getDifficulty());
-        assertEquals("Job Difficulity should be the same.", 3 , testJob1.getDifficulty());
     }
     
   

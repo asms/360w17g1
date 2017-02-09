@@ -17,7 +17,7 @@ import model.Volunteer;
 /**
  * Entry point of the program.
  * @author Steven Smith
- * @version 0.1
+ * @version 1.0
  */
 public final class Driver {
 	
@@ -39,11 +39,11 @@ public final class Driver {
 		loginView.show();
 		final User user = loginView.getUser();
 		if (user instanceof Volunteer) {
-			new VolunteerView(scanner, user).show();
+			new VolunteerView(scanner, (Volunteer) user).show();
 		} else if (user instanceof ParkManager) {
-			new ParkManagerView(scanner, user).show();
+			new ParkManagerView(scanner, (ParkManager) user).show();
 		}else if (user instanceof StaffMember) {
-			new StaffMemberView(scanner, user).show();
+			new StaffMemberView(scanner, (StaffMember) user).show();
 		}
 		scanner.close();
 	}

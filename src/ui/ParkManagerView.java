@@ -13,6 +13,7 @@ import java.util.Scanner;
 import model.Job;
 import model.JobController;
 import model.Park;
+import model.ParkManager;
 import model.User;
 import ui.Command.CommandExecutor;
 
@@ -67,7 +68,7 @@ public class ParkManagerView extends AbstractView {
 	 * @param theScanner the scanner object
 	 * @param theUser the logged in user
 	 */
-	public ParkManagerView(final Scanner theScanner, final User theUser) {
+	public ParkManagerView(final Scanner theScanner, final ParkManager theUser) {
 		super(theScanner, theUser);
 		commands = new HashMap<Command, CommandExecutor>();
 		commands.put(COMMAND.CREATE_NEW_JOB, new CommandExecutor() {

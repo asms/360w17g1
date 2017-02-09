@@ -7,8 +7,11 @@ package ui;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import controller.JobController;
 import model.Job;
@@ -172,6 +175,7 @@ public class ParkManagerView extends AbstractView {
 	 */
 	private void viewJobs() {
 		displayTitle("All Jobs");
+		List<Job> list = ((ParkManager) myUser).getJobs();
 		displayNumberedList(myJobController.getUpcomingJobs().toArray());
 		getString("Press enter to continue...");
 	}

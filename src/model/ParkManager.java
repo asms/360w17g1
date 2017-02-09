@@ -1,6 +1,8 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ParkManager extends User {
 
@@ -34,6 +36,10 @@ public class ParkManager extends User {
 	
 	public void associate(final Park thePark) {
 		myParks.add(thePark);
+	}
+
+	public List<Job> getJobs() {
+		return myParks.stream().flatMap(x -> x.getAssociatedJobs().stream()).collect(Collectors.toList());
 	}
 
 }

@@ -6,12 +6,12 @@ package ui;
 
 import java.util.Scanner;
 
+import controller.ParkController;
+import controller.UserController;
 import model.Park;
-import model.ParkController;
 import model.ParkManager;
 import model.StaffMember;
 import model.User;
-import model.UserController;
 import model.Volunteer;
 
 /**

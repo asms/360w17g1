@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import controller.UserController;
 import model.User;
-import model.UserController;
 import model.Volunteer;
 
 /**
@@ -38,7 +38,6 @@ public class AbstractControllerTest {
 	 */
 	@Test
 	public void testSerialization() {
-		final String random = String.valueOf(Math.random());
 		Volunteer testObject = new Volunteer("username");
 		myController.addUser(testObject);
 		

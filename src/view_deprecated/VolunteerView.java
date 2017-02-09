@@ -3,16 +3,15 @@
  * Assignment: Deliverable 2
  */
 
-package view;
+package view_deprecated;
 
 import java.util.List;
 import java.util.Scanner;
 
+import controller.JobController;
 import model.Job;
-import model.User;
 import model.Volunteer;
 import model.Job.WorkDuty;
-import model.JobController;
 import model.Park;
 
 public class VolunteerView {

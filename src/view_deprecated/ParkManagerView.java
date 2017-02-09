@@ -3,18 +3,16 @@
  * Assignment: Deliverable 2
  */
 
-package view;
+package view_deprecated;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+import controller.JobController;
 import model.Job;
-import model.User;
-import model.JobController;
 import model.Park;
-import model.UserController;
 
 
 public class ParkManagerView {
@@ -22,7 +20,6 @@ public class ParkManagerView {
 	private static Scanner keyboard;
 	
 	private static JobController jobController = new JobController();
-	private static UserController userController = new UserController();
 
 	/**
      * This method is for park manager submits a job.

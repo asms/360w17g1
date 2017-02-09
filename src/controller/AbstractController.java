@@ -2,15 +2,16 @@
  * TCSS 360: Group 1
  * Assignment: Deliverable 2
  */
-package model;
+package controller;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.HashMap;
+
+import model.UniqueObject;
 
 /**
  * Abstract controller class.
@@ -62,13 +63,13 @@ public abstract class AbstractController<T extends UniqueObject> {
 	      try {
 	    	 ObjectInputStream os = new ObjectInputStream(new FileInputStream("hashmap_"
 	    			 					+ getClass().getSimpleName() + ".ser"));
-	         myList = (HashMap<String, T>) os.readObject();
+	    	 myList = (HashMap<String, T>) os.readObject();
 	         os.close();
 	         wasSuccessful = true;
 	      } catch(IOException ioe) {
-	         //ioe.printStackTrace(); //TODO: Remove for prodcution
+	         //ioe.printStackTrace(); //TODO: Remove for production
 	      } catch(ClassNotFoundException c) {
-	         //c.printStackTrace(); //TODO: Remove for prodcution
+	         //c.printStackTrace(); //TODO: Remove for production
 	      }
 	      return wasSuccessful;
 	}
@@ -91,11 +92,5 @@ public abstract class AbstractController<T extends UniqueObject> {
 		myList = new HashMap<String, T>();
 		serializeToDisk();
 	}
-
-	// Functionality not used in the user stories.
-	/*
-	 * protected final void remove(final T theListItem) {
-	 * myList.remove(theListItem); serializeToDisk(); }
-	 */
 
 }

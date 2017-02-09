@@ -6,13 +6,9 @@ package tests;
 
 import static org.junit.Assert.*;
 
-import java.util.Arrays;
-import java.util.HashSet;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import model.Park;
 import model.ParkManager;
 
 /**
@@ -27,7 +23,6 @@ public class ParkManagerTest {
 	private ParkManager myParkManager;
 	
 	private static final String USERNAME = "user0001";
-	private static final Park PARK_1 = new Park("Cherry Park", "1234 N 56th");
 
 	@Before
 	public void setUp() {
@@ -38,5 +33,7 @@ public class ParkManagerTest {
 	public void getUsernameTest() {
 		assertEquals(USERNAME, myParkManager.getUserName());
 	}
+	
+	//TODO: implement more test methods
 
 }

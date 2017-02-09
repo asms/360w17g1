@@ -11,10 +11,10 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import model.JobController;
-import model.ParkController;
+import controller.JobController;
+import controller.ParkController;
+import controller.UserController;
 import model.User;
-import model.UserController;
 
 /**
  * Abstract view class.

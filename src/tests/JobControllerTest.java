@@ -13,8 +13,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import controller.JobController;
 import model.Job;
-import model.JobController;
 import model.Park;
 
 
@@ -44,7 +44,7 @@ public class JobControllerTest
     }
 
     /**
-     * Test method for {@link model.JobController#getUpcomingJobs()}.
+     * Test method for {@link controller.JobController#getUpcomingJobs()}.
      */
     @Test
     public void testGetUpcomingJobs()
@@ -62,7 +62,7 @@ public class JobControllerTest
     }
     
     /**
-     * Test method for {@link model.JobController#getUpcomingJobs()}.
+     * Test method for {@link controller.JobController#getUpcomingJobs()}.
      */
     @Test
     public void testGetUpcomingJobsWhenEmpty()
@@ -72,7 +72,7 @@ public class JobControllerTest
     }
 
     /**
-     * Test method for {@link model.JobController#getJob(java.lang.String)}.
+     * Test method for {@link controller.JobController#getJob(java.lang.String)}.
      * Also tests addJob.
      */
     @Test

@@ -2,9 +2,11 @@
  * TCSS 360: Group 1
  * Assignment: Deliverable 2
  */
-package model;
+package controller;
 
 import java.util.ArrayList;
+
+import model.Park;
 
 /**
  * Park model class.

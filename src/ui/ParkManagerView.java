@@ -10,11 +10,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import controller.JobController;
 import model.Job;
-import model.JobController;
 import model.Park;
 import model.ParkManager;
-import model.User;
 import ui.Command.CommandExecutor;
 
 /**

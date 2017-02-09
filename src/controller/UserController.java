@@ -4,9 +4,11 @@
  * Assignment: Deliverable 2
  */
 
-package model;
+package controller;
 
 import java.util.ArrayList;
+
+import model.User;
 
 
 

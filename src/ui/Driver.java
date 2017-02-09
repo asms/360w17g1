@@ -35,9 +35,12 @@ public final class Driver {
 
 		UserController uc = new UserController();
 		if (uc.getAllUsers().isEmpty()) {
-			uc.addUser(new ParkManager("dev")); // Creates a park manager called
+			uc.addUser(new ParkManager("dev"));// Creates a park manager called
 												// dev.
 		}
+
+		uc.addUser(new StaffMember("amy"));
+		uc.addUser(new Volunteer("eli"));
 
 		final Scanner scanner = new Scanner(System.in);
 		LoginView loginView = new LoginView(scanner);

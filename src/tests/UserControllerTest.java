@@ -1,15 +1,17 @@
 package tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import controller.UserController;
-import model.User;
 import model.ParkManager;
+import model.User;
 
 
 

@@ -10,9 +10,9 @@ import java.util.Scanner;
 
 import controller.JobController;
 import model.Job;
-import model.Volunteer;
 import model.Job.WorkDuty;
 import model.Park;
+import model.Volunteer;
 
 public class VolunteerView {
 	

@@ -120,7 +120,11 @@ public abstract class AbstractView {
 	 * Displays the header.
 	 */
 	protected void displayHeader() {
-		System.out.println(String.format(HEADER, myUser.getUserName(), myUser.getClass().getSimpleName()));
+		if (myUser != null) {
+			System.out.println(String.format(HEADER, myUser != null ? myUser.getUserName() : "guest", myUser.getClass().getSimpleName()));
+		} else {
+			System.out.println("Urban Parks");
+		}
 	}
 	
 	/**

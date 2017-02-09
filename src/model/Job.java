@@ -139,6 +139,8 @@ public class Job implements Serializable, UniqueObject
         numOfHeavyDuty = theHeavyDuty;
         
         volunteers =  new HashMap<Volunteer, Job.WorkDuty>();
+        
+        thePark.associateWithJob(this);
     }
     
     /**

@@ -5,6 +5,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -34,12 +35,31 @@ public class Park implements Serializable, UniqueObject {
 	 */
 	private final String myLocation;
 	
+	private final ArrayList<Job> myAssociatedJobs;
+	
 	/**
 	 * Create a new instance of a park from a non-null name and non-null location.
 	 */
 	public Park(final String theName, final String theLocation) {
 		myName = Objects.requireNonNull(theName);
 		myLocation = Objects.requireNonNull(theLocation);
+		myAssociatedJobs = new ArrayList<Job>();
+	}
+	
+	/**
+	 * Associates the park with the current job.
+	 * @param theJob the job
+	 */
+	public void associateWithJob(final Job theJob) {
+		myAssociatedJobs.add(theJob);
+	}
+	
+	/**
+	 * Gets the list of associated jobs.
+	 * @param theJob the job
+	 */
+	public ArrayList<Job> getAssociatedJobs() {
+		return (ArrayList<Job>) myAssociatedJobs.clone();
 	}
 	
 	/**

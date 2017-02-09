@@ -9,6 +9,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,9 +33,14 @@ public class JobControllerTest
     
     
     @Before
-    public void setUp() throws Exception
-    {
+    public void setUp() {
         myJobController = new JobController();
+        myJobController.clear();
+    }
+    
+    @After
+    public void cleanup() {
+        myJobController.clear();
     }
 
     /**
@@ -46,13 +52,13 @@ public class JobControllerTest
         final ArrayList<Job> jobs = new ArrayList<Job>();
         for (int i = 0; i < 100; i++)
         {
-            jobs.add(new Job("Trail Clearing", new Park("BirchCreek Park", "address"), new Date(),  new Date(),  new Date(), 
-                             "This job involves a lot of walking", i, 2, 4));
-            myJobController.addJob(new Job("Trail Clearing", new Park("BirchCreek Park", "address"), new Date(), new Date(), new Date(), 
-                                           "This job involves a lot of walking", i, 2, 4));
+        	final Job job = new Job("Trail Clearing" + i, new Park("BirchCreek Park", "address"), new Date(),  new Date(),  new Date(), 
+                    "This job involves a lot of walking", i, 2, 4);
+            jobs.add(job);
+            myJobController.addJob(job);
         }
-        final ArrayList<Job> allJobs = (ArrayList<Job>) myJobController.getUpcomingJobs();
-        assertTrue(allJobs.containsAll(jobs) && jobs.containsAll(allJobs));
+        final ArrayList<Job> allJobs = myJobController.getUpcomingJobs();
+        assertTrue(allJobs.containsAll(jobs) && jobs.containsAll(jobs));
     }
     
     /**
@@ -75,7 +81,7 @@ public class JobControllerTest
         final Job expectedJob = new Job("Trail Clearing", new Park("BirchCreek Park", "address"), new Date(), new Date(), new Date(), 
                                         "This job involves a lot of walking", 1, 2, 4);
         myJobController.addJob(expectedJob);
-        final Job job = myJobController.getJob(expectedJob.getJobName());
+        final Job job = myJobController.getJob(expectedJob.getKey());
         assertEquals(expectedJob, job);
     }
 

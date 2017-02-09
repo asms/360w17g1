@@ -51,8 +51,10 @@ public class JobTest {
     }
     
     @Test
-    public void testOnParkName() {
-        assertEquals("Park name should be different", new Park("", ""), testJob1.getPark());
+    public void testNotEqualDifferentParkName() {
+    	final Job differentJobName = new Job(testJob1);
+    	differentJobName.setJobName(String.valueOf(Math.random()));
+        assertNotEquals("Park name should be different", differentJobName, testJob1.getPark());
     }
     
     @Test

@@ -43,20 +43,20 @@ public class JobController extends AbstractController<Job> {
      * Returns all upcoming jobs
      * @return all upcoming jobs
      */
-    public List<Job> getUpcomingJobs()
+    public ArrayList<Job> getUpcomingJobs()
     {
         return new ArrayList<Job>(myList.values());
     }             
     
     
     /**
-     * Returns a job with a specific name.
+     * Returns a job with a specific key.
      * @param theName the name of a job
      * @return the job that has the specified name
      */
-    public Job getJob(final String theName) 
+    public Job getJob(final String theKey) 
     {
-        return myList.get(theName);
+        return myList.get(theKey);
     }
     
     

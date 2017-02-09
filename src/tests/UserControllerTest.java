@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,8 +27,14 @@ public class UserControllerTest {
 private UserController myUserController;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		myUserController = new UserController();
+		myUserController.clear();
+	}
+	
+	@After
+	public void cleanup() {
+		myUserController.clear();
 	}
 
 	/**

@@ -35,7 +35,7 @@ public class UserController extends AbstractController<User> {
 	 * @param theName the name of a User
 	 * @return the User that has the specified name
 	 */
-	public User getUserByName(final String theName) {
+	public User getUserByUserName(final String theName) {
 		return myList.get(theName);
 	}
 	

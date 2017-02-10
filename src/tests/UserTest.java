@@ -4,7 +4,7 @@
  */
 package tests;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +21,7 @@ import model.ParkManager;
 public class UserTest
 {
 	
-	public String USERNAME = "user0001";
+	public String USERNAME = "ba2012";
 	public Park PARK_1 = new Park("Cherry Park", "1234 N 56th");
 	
 	
@@ -50,20 +50,25 @@ public class UserTest
      * Test method for {@link model.User#getUserName()}.
      */
     @Test
-    public void testGetUserName()
+    public void testGetUserByUserName_ba2012()
     {
         assertEquals(USERNAME, myUser.getUserName());
     }
 
+    
    /**
      * Test method for {@link model.User#getOptions()}.
    */
     
-//    @Test
-//    public void testGetOptions()
-//    {
-//        fail("Not yet implemented");
-//    }
+    @Test
+    public void testGetUserByUserName_false()
+    {
+    	String noString = null;
+    	String wrongName = "wrong";
+    	
+        assertFalse(myUser.getUserName().equals(noString));
+        assertFalse(myUser.getUserName().equals(wrongName));
+    }
 
     /**
      * Test method for {@link model.User#login(java.lang.String)}.
@@ -108,7 +113,7 @@ public class UserTest
     @Test
     public void testToString()
     {
-        assertEquals("User Name: user0001 User Type: ParkManager", myUser.toString());
+        assertEquals("User Name: " + USERNAME +" User Type: ParkManager", myUser.toString());
     }
     
 
@@ -118,7 +123,14 @@ public class UserTest
     @Test
     public void testEqualsObject()
     {
+    	assertEquals(myUser, myUser);
        
+    }
+    
+    @Test
+    public void testEqualsObject_notEqual() {
+    	
+    	assertFalse(myUser.equals(new ParkManager("Larry")));
     }
 
 }

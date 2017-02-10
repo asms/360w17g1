@@ -29,7 +29,7 @@ public class LoginView extends AbstractView {
 	public void show() {
 		displayHeader();
 		while (myUser == null) {
-			myUser = myUserController.getUserByName(getString("Username"));
+			myUser = myUserController.getUserByUserName(getString("Username"));
 			if (myUser == null) {
 				printError("Access denied.");
 			}

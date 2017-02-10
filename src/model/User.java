@@ -30,16 +30,7 @@ public abstract class User implements Serializable, UniqueObject {
 	public String getUserName() {
 		return UserName;
 	}
-	
-
-	public void getOptions() {
 		
-	}
-	
-	protected void login(String theUserName){
-		
-		
-	}
 	
 	public String getFirstName() {
 		return FirstName;

@@ -8,7 +8,7 @@ package controller;
 
 import java.util.ArrayList;
 
-import model.User;
+import model.AbstractUser;
 
 
 
@@ -19,13 +19,13 @@ import model.User;
  * @version 1
  *
  */
-public class UserController extends AbstractController<User> {
+public class UserController extends AbstractController<AbstractUser> {
 
 	/**
 	 * Adds a user 
 	 * @param theUser  A user being added
 	 */
-	public void addUser(final User theUser) {
+	public void addUser(final AbstractUser theUser) {
 		add(theUser);
 	}
 	
@@ -35,7 +35,7 @@ public class UserController extends AbstractController<User> {
 	 * @param theName the name of a User
 	 * @return the User that has the specified name
 	 */
-	public User getUserByUserName(final String theName) {
+	public AbstractUser getUserByUserName(final String theName) {
 		return myList.get(theName);
 	}
 	
@@ -43,16 +43,16 @@ public class UserController extends AbstractController<User> {
 	 * Gets all the users
 	 * @return all of the users in the system.
 	 */
-	public ArrayList<User> getAllUsers() {
-		return new ArrayList<User>(myList.values());
+	public ArrayList<AbstractUser> getAllUsers() {
+		return new ArrayList<AbstractUser>(myList.values());
 	}
 
 	/**
 	 *  @return A list of all the Users 
 	 */
-	public ArrayList<User> getUserList() {
+	public ArrayList<AbstractUser> getUserList() {
 
-		return new ArrayList<User>(myList.values());
+		return new ArrayList<AbstractUser>(myList.values());
 	}
 
 

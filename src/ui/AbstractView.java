@@ -14,7 +14,7 @@ import java.util.Scanner;
 import controller.JobController;
 import controller.ParkController;
 import controller.UserController;
-import model.User;
+import model.AbstractUser;
 
 /**
  * Abstract view class.
@@ -77,7 +77,7 @@ public abstract class AbstractView {
 	/**
 	 * The user accessing the view.
 	 */
-	protected final User myUser;
+	protected final AbstractUser myUser;
 	
 	/**
 	 * The job controller for interfacing with persistent job data.
@@ -103,7 +103,7 @@ public abstract class AbstractView {
 	 * Instantiates the view with the controllers to be accessed by concrete views.
 	 * @param theUser the user accessing the view
 	 */
-	public AbstractView(final Scanner theScanner, final User theUser) {
+	public AbstractView(final Scanner theScanner, final AbstractUser theUser) {
 		myScanner = theScanner;
 		myUser = theUser;
 		myJobController = new JobController();

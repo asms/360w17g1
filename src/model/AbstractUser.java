@@ -8,7 +8,7 @@ import java.util.Objects;
  * @author Bryce
  * @version 1
  */
-public abstract class User implements Serializable, UniqueObject {
+public abstract class AbstractUser implements Serializable, UniqueObject {
 
 	/**
 	 * Generated serial version UID.
@@ -22,7 +22,7 @@ public abstract class User implements Serializable, UniqueObject {
 
 	private final String UserName;
 
-	public User(final String theUserName) {
+	public AbstractUser(final String theUserName) {
 		UserName = Objects.requireNonNull(theUserName);
 		
 	}
@@ -63,9 +63,9 @@ public abstract class User implements Serializable, UniqueObject {
 	@Override
 	public boolean equals(final Object theObject) {
 		
-		return (theObject instanceof User) 
-				&& (getKey().equals(((User)theObject).getKey())
-				&& (getClass().getSimpleName().equals(((User) theObject).getClass().getSimpleName())));
+		return (theObject instanceof AbstractUser) 
+				&& (getKey().equals(((AbstractUser)theObject).getKey())
+				&& (getClass().getSimpleName().equals(((AbstractUser) theObject).getClass().getSimpleName())));
 	}
 
 

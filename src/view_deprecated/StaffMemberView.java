@@ -5,11 +5,11 @@ import java.util.List;
 import controller.JobController;
 import model.Job;
 import model.StaffMember;
-import model.User;
+import model.AbstractUser;
 
 public class StaffMemberView {
 
-	public static User staffMember;
+	public static AbstractUser staffMember;
 	private static JobController jobController = new JobController();
 
 	/**

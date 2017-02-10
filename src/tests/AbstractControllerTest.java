@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import controller.UserController;
-import model.User;
+import model.AbstractUser;
 import model.Volunteer;
 
 /**
@@ -51,8 +51,8 @@ public class AbstractControllerTest {
 		// A new instance of UserController should deserialize the data and the
 		// list should contain the user we added above.
 		myController = new UserController();
-		ArrayList<User> objects = myController.getAllUsers();
-		for (User user : objects) {
+		ArrayList<AbstractUser> objects = myController.getAllUsers();
+		for (AbstractUser user : objects) {
 			System.out.println(user.getUserName());
 		}
 		assertTrue(objects.contains(testObject));

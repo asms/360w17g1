@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ParkManager extends User {
+public class ParkManager extends AbstractUser {
 
 	/**
 	 * Generated serial version UID.

@@ -11,7 +11,7 @@ import controller.UserController;
 import model.Park;
 import model.ParkManager;
 import model.StaffMember;
-import model.User;
+import model.AbstractUser;
 import model.Volunteer;
 
 /**
@@ -45,7 +45,7 @@ public final class Driver {
 		while (true) {
 			LoginView loginView = new LoginView(scanner);
 			loginView.show();
-			final User user = loginView.getUser();
+			final AbstractUser user = loginView.getUser();
 			if (user instanceof Volunteer) {
 				new VolunteerView(scanner, (Volunteer) user).show();
 			} else if (user instanceof ParkManager) {

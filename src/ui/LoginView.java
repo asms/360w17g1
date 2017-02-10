@@ -2,7 +2,7 @@ package ui;
 
 import java.util.Scanner;
 
-import model.User;
+import model.AbstractUser;
 
 /**
  * The view for logging in as a user.
@@ -14,7 +14,7 @@ public class LoginView extends AbstractView {
 	/**
 	 * The logged in user.
 	 */
-	private User myUser;
+	private AbstractUser myUser;
 
 	/**
 	 * Constructs the view for logging in.
@@ -40,7 +40,7 @@ public class LoginView extends AbstractView {
 	 * Returns the logged in user.
 	 * @return the user
 	 */
-	public User getUser() {
+	public AbstractUser getUser() {
 		return myUser;
 	}
 

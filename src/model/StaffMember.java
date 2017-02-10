@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StaffMember extends User {
+public class StaffMember extends AbstractUser {
 
 	/**
 	 * Generated serial version UID.

@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import controller.UserController;
 import model.ParkManager;
-import model.User;
+import model.AbstractUser;
 
 
 
@@ -42,12 +42,12 @@ private UserController myUserController;
 	 */
 	@Test
 	public void testGetUserByUserName() {
-		final User expectedManagerUser = new ParkManager("Ba2012");
+		final AbstractUser expectedManagerUser = new ParkManager("Ba2012");
 
 		myUserController.addUser(expectedManagerUser);
 		System.out.println(expectedManagerUser.toString());
 		
-		final User same = myUserController.getUserByUserName(expectedManagerUser.getKey());
+		final AbstractUser same = myUserController.getUserByUserName(expectedManagerUser.getKey());
 		System.out.println(same.toString());
 	    assertEquals(expectedManagerUser, same);
 	    
@@ -65,8 +65,8 @@ private UserController myUserController;
 			
 		}
 		
-		final User expectedManagerUser = new ParkManager("Ba2012 10");
-		final User same = myUserController.getUserByUserName(expectedManagerUser.getKey());
+		final AbstractUser expectedManagerUser = new ParkManager("Ba2012 10");
+		final AbstractUser same = myUserController.getUserByUserName(expectedManagerUser.getKey());
 		System.out.println(expectedManagerUser.toString() +"\n"+ same.toString());
 		assertEquals(expectedManagerUser, same);
 		
@@ -81,12 +81,12 @@ private UserController myUserController;
 	@Test
 	public void testGetAllUsers() {
 		
-		final ArrayList<User> users = new ArrayList<User>();
+		final ArrayList<AbstractUser> users = new ArrayList<AbstractUser>();
 		for (int i = 0; i < 100; i++) {
 			users.add(new ParkManager("Ba2012 " + i));
 			myUserController.addUser(new ParkManager("Ba2012 " + i));
 		}
-		final ArrayList<User> allUsers = myUserController.getAllUsers();
+		final ArrayList<AbstractUser> allUsers = myUserController.getAllUsers();
 		assertTrue(allUsers.containsAll(users) && users.containsAll(allUsers));
 		
 	}

@@ -1,6 +1,6 @@
 package model;
 
-public class Volunteer extends User {
+public class Volunteer extends AbstractUser {
 
 	/**
 	 * Generated serial version UID.

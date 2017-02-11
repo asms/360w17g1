@@ -35,7 +35,7 @@ public final class Driver {
 		UserController uc = new UserController();
 		ParkManager dev = new ParkManager("dev");
 		uc.addUser(dev);
-		dev.associate(pc.getParkByName("Test Park"));
+		dev.associate(pc.getParkByName("Cherry Parkes"));
 
 		uc.addUser(new StaffMember("amy"));
 		uc.addUser(new Volunteer("eli"));

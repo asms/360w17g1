@@ -5,7 +5,6 @@
 
 package model;
 
-import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,7 +18,7 @@ import java.util.Set;
  * @author Mohamed Mohamed
  * @version 1.0
  */
-public class Job implements Serializable, UniqueObject
+public class Job implements UniqueObject
 {   
     /**
      * Generated serial version id.
@@ -130,8 +129,6 @@ public class Job implements Serializable, UniqueObject
         numOfHeavyDuty = theHeavyDuty;
         
         volunteers =  new HashMap<Volunteer, Job.WorkDuty>();
-        
-        thePark.associateWithJob(this);
     }
     
     /**

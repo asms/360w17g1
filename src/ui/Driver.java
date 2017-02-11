@@ -29,7 +29,7 @@ public final class Driver {
 		/* START SETUP */
 		ParkController pc = new ParkController();
 		if (pc.getAllParks().isEmpty()) {
-			pc.addPark(new Park("Test Park", "Location of test park"));
+			pc.addPark(new Park("Cherry Parkes", "1234 N 56th Street, Tacoma, WA 98409"));
 		}
 
 		UserController uc = new UserController();

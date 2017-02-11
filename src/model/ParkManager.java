@@ -1,7 +1,9 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ParkManager extends AbstractUser {
@@ -14,7 +16,7 @@ public class ParkManager extends AbstractUser {
 	/**
 	 * The parks that the park manager manages.
 	 */
-	private final ArrayList<Park> myParks;
+	private final HashMap<String, Park> myParks;
 
 	/**
 	 * Instantiates the park manager. This should be created by the ParkController.
@@ -23,23 +25,23 @@ public class ParkManager extends AbstractUser {
 	 */
 	public ParkManager(final String theUserName) {
 		super(theUserName);
-		myParks = new ArrayList<Park>();
+		myParks = new HashMap<String, Park>();
 	}
 	
 	/**
 	 * Gets an unmodifiable set of the parks associated with the park manager.
 	 * @return the set of parks
 	 */
-	public ArrayList<Park> getAssociatedParks() {
-		return (ArrayList<Park>) myParks.clone();
+	public HashMap<String, Park> getAssociatedParks() {
+		return myParks;
 	}
 	
 	public void associate(final Park thePark) {
-		myParks.add(thePark);
+		myParks.put(thePark.getKey(), thePark);
 	}
 
 	public List<Job> getJobs() {
-		return myParks.stream().flatMap(x -> x.getAssociatedJobs().stream()).collect(Collectors.toList());
+		return myParks.values().stream().flatMap(x -> x.getAssociatedJobs().stream()).collect(Collectors.toList());
 	}
 
 }

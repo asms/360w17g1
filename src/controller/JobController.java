@@ -24,8 +24,19 @@ public class JobController extends AbstractController<Job> {
 	 */
 	public static final int MAX_JOBS_PER_DAY = 2;
 	
+	/**
+	 * BR: There can be no more than two jobs on any given day.
+	 */
+	public static final int DEFAULT_MAX_PENDING_JOBS = 30;
+	
 	// stores a copy of all jobs in the system. 
     private static ArrayList<Job> allJobs;
+    
+    private int myMaximumNumberOfPendingJobs = 30;
+    
+    public JobController() {
+    	myMaximumNumberOfPendingJobs = DEFAULT_MAX_PENDING_JOBS; //TODO: Make persistent and dynamic, changed by staff member
+    }
 	
 	/**
      * Returns a list of all jobs.
@@ -67,7 +78,7 @@ public class JobController extends AbstractController<Job> {
      */
     public void addJob(Job theJob)
     {
-       add(theJob);
+        add(theJob);
     }
 
 	public boolean canAddWithDate(final Date theDate) {
@@ -76,6 +87,15 @@ public class JobController extends AbstractController<Job> {
 	
 	public boolean canAddWithNameAtPark(final String theName, final Park thePark) {
 		return !myList.containsKey(theName + thePark);
+	}
+	
+	/**
+	 * Returns the maximum number of pending jobs.
+	 * <p>BR: Not more than the maximum number of pending jobs at a time.</p>
+	 * @return the maximum number of pending jobs
+	 */
+	public int getMaximumNumberOfPendingJobs() {
+		return myMaximumNumberOfPendingJobs;
 	}
 
 

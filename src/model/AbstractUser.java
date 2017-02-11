@@ -1,6 +1,5 @@
 package model;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -8,7 +7,7 @@ import java.util.Objects;
  * @author Bryce
  * @version 1
  */
-public abstract class AbstractUser implements Serializable, UniqueObject {
+public abstract class AbstractUser implements UniqueObject {
 
 	/**
 	 * Generated serial version UID.

@@ -4,16 +4,18 @@
  */
 package model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Park model class.
  * @author Steven Smith
  * @version 1.0
  */
-public class Park implements Serializable, UniqueObject {
+public class Park implements UniqueObject {
 
 	/**
 	 * Generated serial version ID.
@@ -35,7 +37,7 @@ public class Park implements Serializable, UniqueObject {
 	 */
 	private final String myLocation;
 	
-	private final ArrayList<Job> myAssociatedJobs;
+	private final Set<Job> myAssociatedJobs;
 	
 	/**
 	 * Create a new instance of a park from a non-null name and non-null location.
@@ -43,7 +45,7 @@ public class Park implements Serializable, UniqueObject {
 	public Park(final String theName, final String theLocation) {
 		myName = Objects.requireNonNull(theName);
 		myLocation = Objects.requireNonNull(theLocation);
-		myAssociatedJobs = new ArrayList<Job>();
+		myAssociatedJobs = new HashSet<Job>();
 	}
 	
 	/**
@@ -58,8 +60,8 @@ public class Park implements Serializable, UniqueObject {
 	 * Gets the list of associated jobs.
 	 * @param theJob the job
 	 */
-	public ArrayList<Job> getAssociatedJobs() {
-		return (ArrayList<Job>) myAssociatedJobs.clone();
+	public Set<Job> getAssociatedJobs() {
+		return myAssociatedJobs;
 	}
 	
 	/**
@@ -87,7 +89,8 @@ public class Park implements Serializable, UniqueObject {
 	public boolean equals(final Object theObject) {
 		return (theObject instanceof Park)
 				&& (myName.equals(((Park) theObject).myName))
-				&& (myLocation.equals(((Park) theObject).myLocation));
+				&& (myAssociatedJobs.equals(((Park) theObject).myAssociatedJobs)
+				&& (myLocation.equals(((Park) theObject).myLocation)));
 	}
 	
 	@Override

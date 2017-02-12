@@ -58,9 +58,12 @@ public class AbstractControllerTest {
 		assertTrue(objects.contains(testObject));
 	}
 	
+
 	@Test
-	public void testClear(){
-		
+	public void testClear_UserListShouldBeEmpty(){
+		myController.addUser(new Volunteer("USER"));
+		myController.clear();
+		assertEquals(myController.getAllUsers(), new UserController().getAllUsers());
 	}
 
 }

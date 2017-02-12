@@ -5,6 +5,11 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
+/**
+ * Runs all the tests in the test suite
+ * @author Bryce
+ * @version 1
+ */
 public class FullTestRunner {
    public static void main(String[] args) {
       Result result = JUnitCore.runClasses(TestSuite.class);

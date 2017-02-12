@@ -3,7 +3,11 @@ package tests;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-
+/**
+ * Test Suite for all automated tests.
+ * @author Bryce
+ * @version 1
+ */
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({

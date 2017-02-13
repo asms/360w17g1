@@ -78,21 +78,8 @@ public class Job implements UniqueObject
     
     /** Maps of volunteer's email, and work categories. */
     private Map<Volunteer, WorkDuty> volunteers;
-
-    /**
-     * The number of light duty volunteers.
-     */
-    private int numOfLightDuty;
-
-    /**
-     * The number of medium duty volunteers.
-     */
-    private int numOfMediumDuty;
-
-    /**
-     * The number of heavy duty volunteers.
-     */
-    private int numOfHeavyDuty;
+    
+    private Map<WorkDuty, Integer> neededVolunteers;
     
     /**
      * Creates a job object.
@@ -122,11 +109,10 @@ public class Job implements UniqueObject
         
         myDescription = Objects.requireNonNull(theDescription);
         
-        numOfLightDuty = theLightDuty;
-        
-        numOfMediumDuty = theMediumDuty;
-        
-        numOfHeavyDuty = theHeavyDuty;
+        neededVolunteers = new HashMap<WorkDuty, Integer>();
+        neededVolunteers.put(WorkDuty.LIGHT, theLightDuty);
+        neededVolunteers.put(WorkDuty.MEDIUM, theMediumDuty);
+        neededVolunteers.put(WorkDuty.HEAVY, theHeavyDuty);
         
         volunteers =  new HashMap<Volunteer, Job.WorkDuty>();
     }
@@ -137,7 +123,10 @@ public class Job implements UniqueObject
      */
     public Job(Job job) {
         this(job.getJobName(), job.getPark(), job.getDate(), job.getStartTime(), job.getEndTime(),
-        		job.getDescription(), job.numOfLightDuty, job.numOfMediumDuty, job.numOfHeavyDuty);
+        		job.getDescription(),
+        		job.neededVolunteers.get(WorkDuty.LIGHT),
+        		job.neededVolunteers.get(WorkDuty.MEDIUM),
+        		job.neededVolunteers.get(WorkDuty.HEAVY));
     }
     
     /**
@@ -257,8 +246,9 @@ public class Job implements UniqueObject
     public boolean addVolunteer(Volunteer theVolunteer, WorkDuty theWorkDuty)
     {
     	final boolean wasAdded;
-    	if (volunteers.size() < MAX_VOLUNTEERS) {
-    		volunteers.put(theVolunteer, theWorkDuty);
+    	if (volunteers.size() < MAX_VOLUNTEERS &&
+			volunteers.values().stream().filter(x -> x.equals(theWorkDuty)).count() < neededVolunteers.get(theWorkDuty)) {
+			volunteers.put(theVolunteer, theWorkDuty);
     		wasAdded = true;
     	} else {
     		wasAdded = false;
@@ -285,9 +275,9 @@ public class Job implements UniqueObject
 				timeFormat.format(myStartTime),
 				timeFormat.format(myEndTime),
 				myDescription,
-				numOfLightDuty,
-				numOfMediumDuty,
-				numOfHeavyDuty);
+				neededVolunteers.get(WorkDuty.LIGHT),
+				neededVolunteers.get(WorkDuty.MEDIUM),
+				neededVolunteers.get(WorkDuty.HEAVY));
     }
     
     /**

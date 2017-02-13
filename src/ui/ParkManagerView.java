@@ -195,9 +195,9 @@ public class ParkManagerView extends AbstractView {
 				print(String.format(JOB_STRING_TEMPLATE, job.getJobName(), job.getDescription()));
 				displayLine();
 				displayNumberedList(job.getVolunteers().toArray(new Volunteer[0]));
-				displayLine();
+				displayLineBreak();
 			}
-			displayLine();
+			displayLineBreak();
 			
 		}
 		getString("Press enter to continue...");

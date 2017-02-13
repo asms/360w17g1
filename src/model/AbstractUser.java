@@ -55,9 +55,8 @@ public abstract class AbstractUser implements UniqueObject {
 
 	@Override
 	public String toString(){
-		return "User Name: "+ UserName + " User Type: " + getClass().getSimpleName();
+		return UserName + ", " + getClass().getSimpleName();
 	}
-	
 	
 	@Override
 	public boolean equals(final Object theObject) {
@@ -67,14 +66,8 @@ public abstract class AbstractUser implements UniqueObject {
 				&& (getClass().getSimpleName().equals(((AbstractUser) theObject).getClass().getSimpleName())));
 	}
 
-
-
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(getKey(), getClass().getSimpleName(), FirstName, LastName);
 	}
-		
-
-	
 }

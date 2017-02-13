@@ -332,9 +332,7 @@ public abstract class AbstractView {
 	 * @param theError the error.
 	 */
 	protected void printError(final String theError) {
-		System.out.flush();
-		System.err.println(theError);
-		System.err.flush();
+		System.out.println(theError);
 	}
 	
 	/**

@@ -95,7 +95,7 @@ public class StaffMemberView extends AbstractView {
 	 */
 	public void viewUpcommingJobs() {
 		print("Upcoming Jobs");
-		ArrayList<Job> jobs = myJobController.getUpcomingJobs();
+		List<Job> jobs = myJobController.getUpcomingJobs();
 		if (jobs.isEmpty()) {
 			System.out.println("No Upcoming Jobs.");
 		} else {

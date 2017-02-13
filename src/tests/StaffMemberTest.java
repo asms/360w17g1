@@ -1,6 +1,7 @@
 package tests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 
@@ -33,15 +34,10 @@ public class StaffMemberTest {
 	public void testOnUserName() {
 		assertEquals(USERNAME, myStaffMember.getUserName());
 	}
-
+	
 	@Test
 	public void testOnPreviousJobs() {
-		System.out.println("TEST!");
 		Job job = new Job("theName", new Park("Park Name", "Park Location"), new Date(), new Date(), new Date(), "theDescription", 1,2,3);
-		System.out.println(myStaffMember.getPastJobs());
-		System.out.println(job);
-		assertEquals(job, myStaffMember.getPastJobs());
-
-		System.out.println("TEST");
+		assertTrue(myStaffMember.getPastJobs().contains(job));
 	}
 }

@@ -60,7 +60,7 @@ public class JobControllerTest
             jobs.add(job);
             myJobController.addJob(job);
         }
-        final ArrayList<Job> allJobs = myJobController.getUpcomingJobs();
+        final List<Job> allJobs = myJobController.getUpcomingJobs();
         assertTrue(allJobs.containsAll(jobs) && jobs.containsAll(jobs));
     }
     

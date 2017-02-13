@@ -6,8 +6,12 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import model.Job;
 import model.Park;
@@ -36,9 +40,7 @@ public class JobController extends AbstractController<Job> {
     
     public JobController() {
     	myMaximumNumberOfPendingJobs = DEFAULT_MAX_PENDING_JOBS;
-    	allJobs = new ArrayList<Job>();
-    	
-    	//TODO: Make persistent and dynamic, changed by staff member
+    	// all jobs can be accessed my referencing the myList variable
     }
 	
 	/**
@@ -47,23 +49,17 @@ public class JobController extends AbstractController<Job> {
      * @return all jobs.
      */
     public List<Job> getAllJobs() {
-        List<Job> jobs = new ArrayList<Job>();
-
-        	for (Job job : allJobs) {
-        		jobs.add(new Job(job));
-        	}
-
-        return jobs;
+        return new ArrayList(myList.values());
     }
     
     /**
-     * Returns all upcoming jobs
+     * Returns all jobs that are after the current date.
      * @return all upcoming jobs
      */
-    public ArrayList<Job> getUpcomingJobs()
+    public List<Job> getUpcomingJobs()
     {
-        return new ArrayList<Job>(myList.values());
-    }             
+    	return new ArrayList<Job>(myList.values()).stream().filter(x -> new Date().compareTo(x.getDate()) > 0).collect(Collectors.toList());
+    }    
     
     
     /**
@@ -100,7 +96,7 @@ public class JobController extends AbstractController<Job> {
 	 * @return the maximum number of pending jobs
 	 */
 	public int getMaximumNumberOfPendingJobs() {
-		return myMaximumNumberOfPendingJobs;
+		return myMaximumNumberOfPendingJobs; //TODO: Make persistent and dynamic, changed by staff member
 	}
 
 

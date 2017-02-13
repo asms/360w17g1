@@ -94,14 +94,14 @@ public class StaffMemberView extends AbstractView {
 	 * Method displays the upcoming jobs the user has.
 	 */
 	public void viewUpcommingJobs() {
-		displayTitle("Upcoming Jobs");
+		print("Upcoming Jobs");
 		ArrayList<Job> jobs = myJobController.getUpcomingJobs();
 		if (jobs.isEmpty()) {
 			System.out.println("No Upcoming Jobs.");
 		} else {
 			for (Job job : jobs) {
 				System.out.println(job.toString());
-				displayTitle("");
+				print("");
 			}
 		}
 	}
@@ -110,7 +110,7 @@ public class StaffMemberView extends AbstractView {
 	 * Method displays the past jobs the user had.
 	 */
 	public void viewPastJobs() {
-		displayTitle("Past Jobs");
+		print("Past Jobs");
 		StaffMember user = (StaffMember) myUser;
 		List<Job> jobs = user.getPastJobs();
 		if (jobs.isEmpty()) {
@@ -118,7 +118,7 @@ public class StaffMemberView extends AbstractView {
 		} else {
 			for (Job job : jobs) {
 				System.out.println(job.toString());
-				displayTitle("");
+				print("");
 			}
 		}
 	}

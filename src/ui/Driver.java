@@ -4,14 +4,17 @@
  */
 package ui;
 
+import java.util.Date;
 import java.util.Scanner;
 
+import controller.JobController;
 import controller.ParkController;
 import controller.UserController;
 import model.Park;
 import model.ParkManager;
 import model.StaffMember;
 import model.AbstractUser;
+import model.Job;
 import model.Volunteer;
 
 /**
@@ -22,23 +25,41 @@ import model.Volunteer;
  */
 public final class Driver {
 
+	private static ParkController pc;
+	private static UserController uc;
+	private static JobController jc;
+
 	private Driver() {
 	}
 
 	public static void main(String[] args) {
 		/* START SETUP */
-		ParkController pc = new ParkController();
+		pc = new ParkController();
+		uc = new UserController();
+		jc = new JobController();
+
 		if (pc.getAllParks().isEmpty()) {
 			pc.addPark(new Park("Cherry Parkes", "1234 N 56th Street, Tacoma, WA 98409"));
 		}
 
-		UserController uc = new UserController();
+		// Park manager
 		ParkManager dev = new ParkManager("dev");
 		uc.addUser(dev);
 		dev.associate(pc.getParkByName("Cherry Parkes"));
 
-		uc.addUser(new StaffMember("amy"));
+		// Staff member
+		StaffMember sm = new StaffMember("amy");
+		Date time = new Date();
+		sm.addPastJobs(
+				new Job("theName", new Park("thePark", "theLocation"), time, time, time, "theDescription", 1, 2, 3));
+		uc.addUser(sm);
+
+		// Volunteer
 		uc.addUser(new Volunteer("eli"));
+
+		// Adding to Job Manager
+		jc.addJob(new Job("theName", new Park("thePark", "theLocation"), time, time, time, "theDescription", 1, 2, 3));
+
 		/* END SETUP */
 
 		final Scanner scanner = new Scanner(System.in);

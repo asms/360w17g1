@@ -1,9 +1,12 @@
 package ui;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import model.Job;
 import model.StaffMember;
 import ui.Command.CommandExecutor;
 
@@ -91,14 +94,33 @@ public class StaffMemberView extends AbstractView {
 	 * Method displays the upcoming jobs the user has.
 	 */
 	public void viewUpcommingJobs() {
-
+		displayTitle("Upcoming Jobs");
+		ArrayList<Job> jobs = myJobController.getUpcomingJobs();
+		if (jobs.isEmpty()) {
+			System.out.println("No Upcoming Jobs.");
+		} else {
+			for (Job job : jobs) {
+				System.out.println(job.toString());
+				displayTitle("");
+			}
+		}
 	}
 
 	/**
 	 * Method displays the past jobs the user had.
 	 */
 	public void viewPastJobs() {
-
+		displayTitle("Past Jobs");
+		StaffMember user = (StaffMember) myUser;
+		List<Job> jobs = user.getPastJobs();
+		if (jobs.isEmpty()) {
+			System.out.println("No Past Jobs.");
+		} else {
+			for (Job job : jobs) {
+				System.out.println(job.toString());
+				displayTitle("");
+			}
+		}
 	}
 
 }

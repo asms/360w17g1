@@ -9,12 +9,16 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
+import controller.JobController;
+import controller.ParkController;
 import model.Job;
 import model.Job.WorkDuty;
 import model.Park;
 
 public class JobTest {
     
+	JobController pk = new JobController();
+	
     /** This represents different jobs for testing. */
     private Job testJob1;
     
@@ -35,6 +39,8 @@ public class JobTest {
     @Before
     public void setUp() throws Exception {
         
+    	
+    	
         testJob1 = new Job("Park Cleanup", new Park("Cherry Park", "Park Location"),  new Date(), new Date(), new Date(), "Cleaning up litter", 1, 3, 5);
         
         //represent volunteers sign up for light work category
@@ -91,4 +97,12 @@ public class JobTest {
                      volunteerHeavy.get("volunteerHeavy"), WorkDuty.HEAVY);
     }
     
+    
+    @Test
+    public void testGetVolunteers_VolunteersInList() {
+    	Job job = new Job("PARKNAM", new Park("Park", "Location"), new Date(), new Date(), new Date(), "description", 1,2,3);
+    	pk.addJob(job);
+    	//System.out.println(pk.getUpcomingJobs());
+    	
+    }
 }

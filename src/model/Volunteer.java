@@ -4,7 +4,13 @@
  */
 package model;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import controller.JobController;
 
 public class Volunteer extends AbstractUser {
 
@@ -17,6 +23,7 @@ public class Volunteer extends AbstractUser {
 	private final String myLastName;
 	private final String myPhoneNumber;
 	private final String myEmailAddress;
+	private final Set<Job> myJobs;
 	
 	/**
 	 * Constructs a volunteer.
@@ -33,6 +40,7 @@ public class Volunteer extends AbstractUser {
 		myLastName = Objects.requireNonNull(theLastName);
 		myPhoneNumber = Objects.requireNonNull(thePhoneNumber);
 		myEmailAddress = Objects.requireNonNull(theEmailAddress);
+		myJobs = new HashSet<Job>();
 	}
 	
 	public String getFirstName() {
@@ -51,6 +59,18 @@ public class Volunteer extends AbstractUser {
 		return myEmailAddress;
 	}
 	
+	public void addJob(final Job job) {
+		myJobs.add(job);
+	}
+	
+	/**
+	 * Gets a list of all pending jobs for this Volunteer.
+	 * @return the list of jobs
+	 */
+	public List<Job> getPendingJobs() {
+		return new JobController().getUpcomingJobs().stream().filter(x -> x.getVolunteers().contains(this)).collect(Collectors.toList());
+	}
+	
 	@Override
 	public String toString() {
 		return String.format("%s %s %s %s",
@@ -60,5 +80,4 @@ public class Volunteer extends AbstractUser {
 				myEmailAddress
 		);
 	}
-
 }

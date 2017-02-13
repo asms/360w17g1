@@ -4,10 +4,14 @@
  */
 package ui;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import model.Job;
 import model.Volunteer;
 import ui.Command.CommandExecutor;
 
@@ -91,6 +95,9 @@ public class VolunteerView extends AbstractView {
 		while (myStatus == Status.RUN) {
 			clear();
 			displayHeader();
+			displayLineBreak();
+			displayCurrentJobs();
+			displayLineBreak();
 			COMMAND command = (COMMAND) getCommand("Enter a command", COMMAND.values());
 			if (command != null) {
 				commands.get(command).execute();
@@ -98,16 +105,39 @@ public class VolunteerView extends AbstractView {
 		}
 	}
 
-	public void searchJobs() {
+	private void searchJobs() {
 
 	}
 
-	public void managePendingJobs() {
+	private void managePendingJobs() {
 
 	}
 
-	public void viewPastJobs() {
+	private void viewPastJobs() {
 
+	}
+	
+	private void displayCurrentJobs() {
+		final List<Job> jobs = ((Volunteer) myUser).getPendingJobs();
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		DateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+		print(String.format("%s%s%s%s",
+				pad("Pending Job", 30),
+				pad("Date", 15),
+				pad("Start time", 15),
+				pad("End time", 15)));
+		displayLine();
+		for (final Job job : jobs) {
+			print(String.format("%s%s%s%s", 
+					pad(job.getJobName(), 30),
+					pad(dateFormat.format(job.getDate()), 15),
+					pad(timeFormat.format(job.getStartTime()), 15),
+					pad(timeFormat.format(job.getEndTime()), 15)));
+		}
+		if (jobs.size() == 0) {
+			print("You are not signed up for any jobs.");
+		}
+		displayLine();
 	}
 
 }

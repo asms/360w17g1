@@ -70,6 +70,8 @@ public abstract class AbstractController<T extends UniqueObject> {
 	         //ioe.printStackTrace(); //TODO: Remove for production
 	      } catch(ClassNotFoundException c) {
 	         //c.printStackTrace(); //TODO: Remove for production
+	      } catch(ClassCastException c) {
+	    	  myList = new HashMap<String, T>();
 	      }
 	      return wasSuccessful;
 	}

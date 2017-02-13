@@ -45,10 +45,10 @@ private UserController myUserController;
 		final AbstractUser expectedManagerUser = new ParkManager("Ba2012");
 
 		myUserController.addUser(expectedManagerUser);
-		System.out.println(expectedManagerUser.toString());
+//		System.out.println(expectedManagerUser.toString());
 		
 		final AbstractUser same = myUserController.getUserByUserName(expectedManagerUser.getKey());
-		System.out.println(same.toString());
+//		System.out.println(same.toString());
 	    assertEquals(expectedManagerUser, same);
 	    
 	}
@@ -67,7 +67,7 @@ private UserController myUserController;
 		
 		final AbstractUser expectedManagerUser = new ParkManager("Ba2012 10");
 		final AbstractUser same = myUserController.getUserByUserName(expectedManagerUser.getKey());
-		System.out.println(expectedManagerUser.toString() +"\n"+ same.toString());
+//		System.out.println(expectedManagerUser.toString() +"\n"+ same.toString());
 		assertEquals(expectedManagerUser, same);
 		
 		

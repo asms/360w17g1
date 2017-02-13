@@ -12,7 +12,7 @@ public class ParkManager extends AbstractUser {
 	 * Generated serial version UID.
 	 */
 	private static final long serialVersionUID = -5509981249651008018L;
-	
+
 	/**
 	 * The parks that the park manager manages.
 	 */
@@ -27,7 +27,7 @@ public class ParkManager extends AbstractUser {
 		super(theUserName);
 		myParks = new HashMap<String, Park>();
 	}
-	
+
 	/**
 	 * Gets an unmodifiable set of the parks associated with the park manager.
 	 * @return the set of parks
@@ -35,7 +35,7 @@ public class ParkManager extends AbstractUser {
 	public HashMap<String, Park> getAssociatedParks() {
 		return myParks;
 	}
-	
+
 	public void associate(final Park thePark) {
 		myParks.put(thePark.getKey(), thePark);
 	}

@@ -45,7 +45,7 @@ public class AbstractControllerTest {
 	public void testSerialization() {
 		// Creates a random Volunteer and adds it to my controller.
 		// myController then should serialize the data.
-		Volunteer testObject = new Volunteer("username");
+		Volunteer testObject = new Volunteer("eli", "Eli", "Ile", "253-123-4567", "eli@gmail.com");
 		myController.addUser(testObject);
 
 		// A new instance of UserController should deserialize the data and the
@@ -61,7 +61,7 @@ public class AbstractControllerTest {
 
 	@Test
 	public void testClear_UserListShouldBeEmpty(){
-		myController.addUser(new Volunteer("USER"));
+		myController.addUser(new Volunteer("eli", "Eli", "Ile", "253-123-4567", "eli@gmail.com"));
 		myController.clear();
 		assertEquals(myController.getAllUsers(), new UserController().getAllUsers());
 	}

@@ -7,8 +7,13 @@ package ui;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import controller.JobController;
 import model.Job;
 import model.Park;
@@ -28,8 +33,6 @@ public class ParkManagerView extends AbstractView {
 	 * BR: A job cannot be scheduled more than one month in the future.
 	 */
 	private static final int MAX_FUTURE_DATE = 1;
-	
-	private static final String JOB_STRING_TEMPLATE = "Job: %s (%s)";
 
 	/**
 	 * Possible commands a park manager can execute.
@@ -187,20 +190,46 @@ public class ParkManagerView extends AbstractView {
 	 * Volunteers for a job (past or present) in the parks that I manage.
 	 */
 	private void viewVolunteers() {
-		//TODO: Make displayTitle more intuitive. Improve UI.
-		for (Park park : ((ParkManager) myUser).getAssociatedParks().values()) {
-			print(park.toString());
-			displayLine();
-			for (Job job : park.getAssociatedJobs()) {
-				print(String.format(JOB_STRING_TEMPLATE, job.getJobName(), job.getDescription()));
-				displayLine();
-				displayNumberedList(job.getVolunteers().toArray(new Volunteer[0]));
-				displayLineBreak();
-			}
-			displayLineBreak();
-			
+		displayLineBreak();
+		final Park[] parks = ((ParkManager) myUser).getAssociatedParks().values().toArray(new Park[0]);
+		final Park park = getSelectionFromList("Parks", "Enter a park number", parks);
+		displayLineBreak();
+		final String[] jobNames = park.getAssociatedJobs().stream().map(x -> x.getJobName()).collect(Collectors.toList()).toArray(new String[0]);
+		final String jobName = getSelectionFromList("Jobs", "Enter a job number", jobNames);
+		final Job job = myJobController.getJob(jobName + park.toString());
+		displayLineBreak();
+		final Set<Volunteer> volunteers = job.getVolunteers();
+		final int numberVolunteers = volunteers.size();
+		if (numberVolunteers > 0) {
+			print("Volunteers (" + numberVolunteers + "/30):");
+			displayVolunteerGrid(volunteers);
+		} else {
+			print("There are no volunteers for this job.");
 		}
 		getString("Press enter to continue...");
+	}
+	
+	protected void displayVolunteerGrid(final Set<Volunteer> theVolunteers) {
+		StringBuilder sb = new StringBuilder();
+		Iterator<Volunteer> it = theVolunteers.iterator();
+		sb.append(pad("No.", 20));
+		sb.append(pad("First Name", 20));
+		sb.append(pad("Last Name", 20));
+		sb.append(pad("Phone Number", 20));
+		sb.append(pad("Email", 20));
+		sb.append(System.lineSeparator());
+		sb.append(LINE);
+		sb.append(System.lineSeparator());
+		for (int i=0; i<theVolunteers.size(); i++) {
+			final Volunteer volunteer = it.next();
+			sb.append(pad("[" + (i+1)+ "]", 20));
+			String[] args = volunteer.toString().split(" ");
+			for (int j = 0; j<args.length; j++) {
+				sb.append(pad(args[j], 20));
+			}
+			sb.append(System.lineSeparator());
+		}
+		print(sb.toString());
 	}
 
 }

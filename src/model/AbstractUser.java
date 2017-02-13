@@ -13,49 +13,25 @@ public abstract class AbstractUser implements UniqueObject {
 	 * Generated serial version UID.
 	 */
 	private static final long serialVersionUID = 4039931473200511934L;
-	/**
-	 * 
-	 */
-	private String FirstName;
-	private String LastName;
 
-	private final String UserName;
+	private final String myUsername;
 
 	public AbstractUser(final String theUserName) {
-		UserName = Objects.requireNonNull(theUserName);
-		
+		myUsername = Objects.requireNonNull(theUserName);
 	}
 	
 	public String getUserName() {
-		return UserName;
-	}
-		
-	
-	public String getFirstName() {
-		return FirstName;
-	}
-	
-	public String getLastName() {
-		return LastName;
-	}
-
-
-	public void setFirstName(String theName) {
-		FirstName = theName;
-	}
-	
-	public void setLastName(String theName) {
-		LastName = theName;
+		return myUsername;
 	}
 	
 	@Override
 	public String getKey() {
-		return UserName;
+		return myUsername;
 	}
 
 	@Override
 	public String toString(){
-		return UserName + ", " + getClass().getSimpleName();
+		return myUsername + ", " + getClass().getSimpleName();
 	}
 	
 	@Override
@@ -68,6 +44,6 @@ public abstract class AbstractUser implements UniqueObject {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getKey(), getClass().getSimpleName(), FirstName, LastName);
+		return Objects.hash(getKey());
 	}
 }

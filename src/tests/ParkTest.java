@@ -65,7 +65,7 @@ public class ParkTest {
 	 */
 	@Test
 	public void testToString() {
-		final String x = "Park(name=\"Cherry Parkes\", location=\"1900 Commerce St, Tacoma, WA 98402\")";
+		final String x = "Cherry Parkes, 1900 Commerce St, Tacoma, WA 98402";
 		assertEquals(x, myPark.toString());
 	}
 	

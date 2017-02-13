@@ -14,11 +14,15 @@ public class VolunteerTest {
 	 */
 	private Volunteer myVolunteer;
 	
-	private static final String USERNAME = "volunteer1";
+	private static final String USERNAME = "eli";
+	private static final String FIRST_NAME = "Eli";
+	private static final String LAST_NAME = "Ile";
+	private static final String PHONE_NUMBER = "253-123-4567";
+	private static final String EMAIL_ADDRESS= "eli@gmail.com";
 	
 	@Before
 	public void setUp() throws Exception {
-		myVolunteer = new Volunteer(USERNAME);
+		myVolunteer = new Volunteer(USERNAME, FIRST_NAME, LAST_NAME, PHONE_NUMBER, EMAIL_ADDRESS);
 	}
 
 	@Test

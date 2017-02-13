@@ -37,7 +37,7 @@ public final class Driver {
 		final ParkController pc = new ParkController();
 		final UserController uc = new UserController();
 		final JobController jc = new JobController();
-		final Volunteer eli = new Volunteer("eli");
+		final Volunteer eli = new Volunteer("eli", "Eli", "Ile", "253-123-4567", "eli@gmail.com");
 		final StaffMember amy = new StaffMember("amy");
 		final ParkManager dev = new ParkManager("dev");
 		final Park cherryParkes = new Park("Cherry Parkes", "1234 N 56th Street, Tacoma, WA 98409");

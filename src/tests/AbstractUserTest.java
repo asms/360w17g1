@@ -40,8 +40,6 @@ public class AbstractUserTest
     public void setUp()
     {
         myUser = new ParkManager(USERNAME);
-        myUser.setFirstName("Bryce");
-        myUser.setLastName("Anderson");
     }
 
 
@@ -81,22 +79,7 @@ public class AbstractUserTest
 	/**
 	 *  Test method for {@link model.AbstractUser#getFirstName()}.
 	 */
-	    
-	     
-    @Test
-    public void testGetFirstName()
-    {
-        assertEquals("Bryce", myUser.getFirstName());
-    }
 
-    /**
-     Test method for {@link model.AbstractUser#getLastName()}.
-    */
-    @Test
-    public void testGetLastName()
-    {
-    	 assertEquals("Anderson", myUser.getLastName());
-    }
 
     /**
      * Test method for {@link model.AbstractUser#getKey()}.
@@ -113,7 +96,7 @@ public class AbstractUserTest
     @Test
     public void testToString()
     {
-        assertEquals("User Name: " + USERNAME +" User Type: ParkManager", myUser.toString());
+        assertEquals(USERNAME + ", ParkManager", myUser.toString());
     }
     
 

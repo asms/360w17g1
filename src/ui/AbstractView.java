@@ -57,7 +57,7 @@ public abstract class AbstractView {
 	/**
 	 * A string of "=" that spans the width of the screen buffer.
 	 */
-	private static final String LINE = new String(new char[SCREEN_BUFFER_WIDTH]).replace("\0", "-");
+	protected static final String LINE = new String(new char[SCREEN_BUFFER_WIDTH]).replace("\0", "-");
 	
 	/**
 	 * The format for a prompt prefix.
@@ -198,13 +198,22 @@ public abstract class AbstractView {
 		return yes;
 	}
 	
+	protected String pad(final String theString, final int theWidth) {
+		String out = theString;
+		final int difference = theWidth - theString.length();
+		if (difference > 0) {
+			out += new String(new char[difference]).replace("\0", " ");
+		}
+		return out;
+	}
+	
 	/**
 	 * Displays a numbered list of objects, calling their toString methods.
 	 * @param theList the list of objects
 	 */
 	protected void displayNumberedList(final Object[] theList) {
 		for(int i=0; i<theList.length; i++) {
-			print(String.format(NUMBERED_LIST_FORMAT, i, theList[i].toString()));
+			print(String.format(NUMBERED_LIST_FORMAT, i+1, theList[i].toString()));
 		}
 	}
 	
@@ -220,8 +229,8 @@ public abstract class AbstractView {
 		displayLine();
 		displayNumberedList(theList);
 		displayLine();
-		final int index = getInteger(thePrompt, 0, theList.length - 1);
-		return theList[index];
+		final int index = getInteger(thePrompt, 1, theList.length);
+		return theList[index - 1];
 	}
 	
 	/**
@@ -248,9 +257,9 @@ public abstract class AbstractView {
 	protected Command getCommand(final String thePrompt, final Command[] theCommands) {
 		displayNumberedList(theCommands);
 		try {
-			int commandNumber = getInteger(thePrompt, 0, theCommands.length - 1);
-			if(commandNumber >= 0 && commandNumber < theCommands.length) {
-				return theCommands[commandNumber];
+			int commandNumber = getInteger(thePrompt, 1, theCommands.length);
+			if(commandNumber > 0 && commandNumber <= theCommands.length) {
+				return theCommands[commandNumber - 1];
 			} else {
 				return null;
 			}

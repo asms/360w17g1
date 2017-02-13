@@ -53,7 +53,7 @@ public class AbstractControllerTest {
 		myController = new UserController();
 		ArrayList<AbstractUser> objects = myController.getAllUsers();
 		for (AbstractUser user : objects) {
-			System.out.println(user.getUserName());
+//			System.out.println(user.getUserName());
 		}
 		assertTrue(objects.contains(testObject));
 	}

@@ -35,7 +35,10 @@ public class JobController extends AbstractController<Job> {
     private int myMaximumNumberOfPendingJobs = 30;
     
     public JobController() {
-    	myMaximumNumberOfPendingJobs = DEFAULT_MAX_PENDING_JOBS; //TODO: Make persistent and dynamic, changed by staff member
+    	myMaximumNumberOfPendingJobs = DEFAULT_MAX_PENDING_JOBS;
+    	allJobs = new ArrayList<Job>();
+    	
+    	//TODO: Make persistent and dynamic, changed by staff member
     }
 	
 	/**
@@ -43,11 +46,13 @@ public class JobController extends AbstractController<Job> {
      * 
      * @return all jobs.
      */
-    public static List<Job> getAllJobs() {
+    public List<Job> getAllJobs() {
         List<Job> jobs = new ArrayList<Job>();
-        for (Job job : allJobs) {
-            jobs.add(new Job(job));
-        }
+
+        	for (Job job : allJobs) {
+        		jobs.add(new Job(job));
+        	}
+
         return jobs;
     }
     

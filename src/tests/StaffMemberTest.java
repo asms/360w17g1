@@ -10,7 +10,7 @@ import org.junit.Test;
 import model.Job;
 import model.Park;
 import model.StaffMember;
-import view_deprecated.StaffMemberView;
+
 
 public class StaffMemberTest {
 
@@ -26,7 +26,7 @@ public class StaffMemberTest {
 		myStaffMember = new StaffMember(USERNAME);
 		Job job = new Job("theName", new Park("Park Name", "Park Location"), new Date(), new Date(), new Date(), "theDescription", 1,2,3);
 		myStaffMember.addPastJobs(job);
-		StaffMemberView.staffMember = myStaffMember;
+
 	}
 
 	@Test
@@ -36,6 +36,12 @@ public class StaffMemberTest {
 
 	@Test
 	public void testOnPreviousJobs() {
-		StaffMemberView.viewPastJobs();
+		System.out.println("TEST!");
+		Job job = new Job("theName", new Park("Park Name", "Park Location"), new Date(), new Date(), new Date(), "theDescription", 1,2,3);
+		System.out.println(myStaffMember.getPastJobs());
+		System.out.println(job);
+		assertEquals(job, myStaffMember.getPastJobs());
+
+		System.out.println("TEST");
 	}
 }

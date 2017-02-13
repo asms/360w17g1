@@ -16,6 +16,7 @@ import model.ParkManager;
  * Test Suite for User class.
  * 
  * @author Mohamed Mohamed
+ * @author Bryce
  * @version 1.0
  */
 public class AbstractUserTest
@@ -104,16 +105,31 @@ public class AbstractUserTest
      * Test method for {@link model.AbstractUser#equals(java.lang.Object)}.
      */
     @Test
-    public void testEqualsObject()
+    public void testEquals_EqualObject()
     {
     	assertEquals(myUser, myUser);
+    	assertEquals(myUser.getClass().getSimpleName(), myUser.getClass().getSimpleName());
        
     }
     
     @Test
-    public void testEqualsObject_notEqual() {
+    public void testEquals_notEqualObject() {
     	
     	assertFalse(myUser.equals(new ParkManager("Larry")));
     }
 
+    
+    @Test
+    public void testHashCode_Equal() {
+    	
+    	assertEquals(myUser.hashCode(), myUser.hashCode());
+    }
+    
+    @Test
+    public void testHashCode_NotEqual() {
+    	
+    	assertTrue(myUser.hashCode() != (new ParkManager("Jerry").hashCode()));
+    	
+    	
+    }
 }

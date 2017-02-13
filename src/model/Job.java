@@ -34,7 +34,7 @@ public class Job implements UniqueObject
      * String format for toString method.
      */
     private static final String STRING_FORMAT = ""
-    		+ "name:        %s" + System.lineSeparator()
+    		+ "Name:        %s" + System.lineSeparator()
     		+ "Park:        %s" + System.lineSeparator()
     		+ "Date:        %s" + System.lineSeparator()
     		+ "Start Time:  %s" + System.lineSeparator()

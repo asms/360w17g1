@@ -4,16 +4,11 @@
  */
 package ui;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-
 import controller.JobController;
 import model.Job;
 import model.Park;
@@ -34,14 +29,13 @@ public class ParkManagerView extends AbstractView {
 	 */
 	private static final int MAX_FUTURE_DATE = 1;
 	
-	private static final String PARK_STRING_TEMPLATE = "Park: %s (%s)";
 	private static final String JOB_STRING_TEMPLATE = "Job: %s (%s)";
 
 	/**
 	 * Possible commands a park manager can execute.
 	 */
 	private static enum COMMAND implements Command {
-		CREATE_NEW_JOB("Create a new job"), VIEW_JOBS("View jobs"), VIEW_VOLUNTEERS("View volunteers"), LOGOUT(
+		CREATE_NEW_JOB("Create a new job"), VIEW_VOLUNTEERS("View volunteers"), LOGOUT(
 				"Logout");
 
 		/**
@@ -87,12 +81,6 @@ public class ParkManagerView extends AbstractView {
 				createNewJob();
 			}
 		});
-		commands.put(COMMAND.VIEW_JOBS, new CommandExecutor() {
-			@Override
-			public void execute() {
-				viewJobs();
-			}
-		});
 		commands.put(COMMAND.VIEW_VOLUNTEERS, new CommandExecutor() {
 			@Override
 			public void execute() {
@@ -123,7 +111,8 @@ public class ParkManagerView extends AbstractView {
 	 * User Story: As a Park Manager I want to submit a new job.
 	 */
 	private void createNewJob() {
-		displayTitle("Create a new job");
+		print("Create a new job");
+		displayLineBreak();
 		if (myJobController.getUpcomingJobs().size() < myJobController.getMaximumNumberOfPendingJobs()) {
 			final Park park = getSelectionFromList("Parks", "Enter park number",
 					myParkController.getAllParks().toArray(new Park[] {}));
@@ -164,7 +153,9 @@ public class ParkManagerView extends AbstractView {
 	
 			final Job job = new Job(name, park, date, startTime, endTime, description, numLightVolunteers,
 					numMediumVolunteers, numHeavyVolunteers);
-			displayTitle(job.toString());
+			displayLine();
+			print(job.toString());
+			displayLine();
 			final boolean shouldSubmit = getBooleanYesNo("Are you sure you want to submit this job (Y/N)");
 	
 			if (shouldSubmit) {
@@ -181,7 +172,6 @@ public class ParkManagerView extends AbstractView {
 				// Add the job
 				myJobController.addJob(job);
 				
-				System.out.println(park.getAssociatedJobs());
 				// TODO: message
 			} else {
 				// TODO: message
@@ -193,26 +183,21 @@ public class ParkManagerView extends AbstractView {
 	}
 
 	/**
-	 * Views all jobs. Not a user story, but useful for debugging job creation.
-	 */
-	private void viewJobs() {
-		displayTitle("All Jobs");
-		displayNumberedList(myJobController.getUpcomingJobs().toArray());
-		getString("Press enter to continue...");
-	}
-
-	/**
 	 * User Story: As a Park Manager I want to view a numbered list of
 	 * Volunteers for a job (past or present) in the parks that I manage.
 	 */
 	private void viewVolunteers() {
 		//TODO: Make displayTitle more intuitive. Improve UI.
 		for (Park park : ((ParkManager) myUser).getAssociatedParks().values()) {
-			displayTitle(String.format(PARK_STRING_TEMPLATE, park.getName(), park.getLocation()));
+			print(park.toString());
+			displayLine();
 			for (Job job : park.getAssociatedJobs()) {
-				displayTitle(String.format(JOB_STRING_TEMPLATE, job.getJobName(), job.getDescription()));
+				print(String.format(JOB_STRING_TEMPLATE, job.getJobName(), job.getDescription()));
+				displayLine();
 				displayNumberedList(job.getVolunteers().toArray(new Volunteer[0]));
+				displayLine();
 			}
+			displayLine();
 			
 		}
 		getString("Press enter to continue...");

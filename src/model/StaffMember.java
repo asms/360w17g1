@@ -25,13 +25,16 @@ public class StaffMember extends AbstractUser {
 		pastJobs.add(thePastJob);
 	}
 	
-	public void removePastJobs(Job thePastJob) {
+	public boolean removePastJobs(Job thePastJob) {
+		final boolean removed;
 		if (pastJobs.contains(thePastJob)){
 			pastJobs.remove(thePastJob);
+			removed = true;
 		}
 		else{
-			System.out.println("Job was not found: " + thePastJob);
+			removed = false;
 		}
+		return removed;
 	}
 	
 }

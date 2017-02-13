@@ -40,14 +40,14 @@ public abstract class AbstractView {
 	/**
 	 * The width of the screen buffer.
 	 */
-	private static final int SCREEN_BUFFER_WIDTH = 30;
+	private static final int SCREEN_BUFFER_WIDTH = 120;
 	
 	/**
 	 * The header for the Urban Parks program.
 	 */
 	private static final String HEADER = "Urban Parks"
 			+ System.lineSeparator()
-			+ "Welcome, %s (%s).";
+			+ "Welcome %s, logged in as a %s.";
 	
 	/**
 	 * The format for a single line in a numbered list.
@@ -57,12 +57,7 @@ public abstract class AbstractView {
 	/**
 	 * A string of "=" that spans the width of the screen buffer.
 	 */
-	private static final String LINE = new String(new char[SCREEN_BUFFER_WIDTH]).replace("\0", "=");
-	
-	/**
-	 * The format for a title between two lines of "=".
-	 */
-	private static final String TITLE = LINE + System.lineSeparator() + "%s" + System.lineSeparator() + LINE;
+	private static final String LINE = new String(new char[SCREEN_BUFFER_WIDTH]).replace("\0", "-");
 	
 	/**
 	 * The format for a prompt prefix.
@@ -129,11 +124,17 @@ public abstract class AbstractView {
 	}
 	
 	/**
-	 * Displays the title.
-	 * @param theTitle the title
+	 * Displays a line.
 	 */
-	protected void displayTitle(final String theTitle) {
-		System.out.println(String.format(TITLE, theTitle));
+	protected void displayLine() {
+		System.out.println(LINE);
+	}
+	
+	/**
+	 * Displays a line break.
+	 */
+	protected void displayLineBreak() {
+		System.out.print(System.lineSeparator());
 	}
 	
 	/**
@@ -142,8 +143,9 @@ public abstract class AbstractView {
 	 * @return the input string
 	 */
 	protected String getString(final String thePrompt) {
-		//TODO: validate
-		System.out.print(String.format(PROMPT, thePrompt));
+		if (thePrompt != null) {
+			System.out.print(String.format(PROMPT, thePrompt));
+		}
 		return myScanner.nextLine();
 	}
 	
@@ -202,7 +204,7 @@ public abstract class AbstractView {
 	 */
 	protected void displayNumberedList(final Object[] theList) {
 		for(int i=0; i<theList.length; i++) {
-			System.out.println(String.format(NUMBERED_LIST_FORMAT, i, theList[i].toString()));
+			print(String.format(NUMBERED_LIST_FORMAT, i, theList[i].toString()));
 		}
 	}
 	
@@ -214,12 +216,29 @@ public abstract class AbstractView {
 	 * @return the object selected from the array
 	 */
 	protected <T> T getSelectionFromList(final String theTitle, final String thePrompt, final T[] theList) {
-		displayTitle(theTitle);
+		print(theTitle);
+		displayLine();
 		displayNumberedList(theList);
+		displayLine();
 		final int index = getInteger(thePrompt, 0, theList.length - 1);
 		return theList[index];
 	}
 	
+	/**
+	 * Prints a string to the console.
+	 * @param theString the string
+	 */
+	protected void print(String theString) {
+		final String[] strings = theString.split(System.lineSeparator());
+		for (String string : strings) {
+			if (string.length() > SCREEN_BUFFER_WIDTH) {
+				string = string.substring(0, SCREEN_BUFFER_WIDTH - 3) + "...";
+			}
+			System.out.println(string);
+		}
+		
+	}
+
 	/**
 	 * Prompts a user to select a command from a list of commands.
 	 * @param thePrompt the prompt
@@ -313,7 +332,9 @@ public abstract class AbstractView {
 	 * @param theError the error.
 	 */
 	protected void printError(final String theError) {
-		System.out.println(theError);
+		System.out.flush();
+		System.err.println(theError);
+		System.err.flush();
 	}
 	
 	/**

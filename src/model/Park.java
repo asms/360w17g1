@@ -4,9 +4,7 @@
  */
 package model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -25,7 +23,7 @@ public class Park implements UniqueObject {
 	/**
 	 * The format for string output of a park.
 	 */
-	private static final String STRING_FORMAT = "Park(name=\"%s\", location=\"%s\")";
+	private static final String STRING_FORMAT = "%s, %s";
 	
 	/**
 	 * The name of the park.

@@ -1,9 +1,11 @@
+/*
+ * TCSS 360: Group 1
+ * Assignment: Deliverable 2
+ */
 package model;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ParkManager extends AbstractUser {

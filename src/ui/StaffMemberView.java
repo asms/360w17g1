@@ -1,6 +1,9 @@
+/*
+ * TCSS 360: Group 1
+ * Assignment: Deliverable 2
+ */
 package ui;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

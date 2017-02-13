@@ -2,15 +2,11 @@
  * TCSS 360: Group 1
  * Assignment: Deliverable 2
  */
-
 package controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import model.Job;

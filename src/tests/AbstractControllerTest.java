@@ -42,7 +42,7 @@ public class AbstractControllerTest {
 	 * Currently this does not pass because AbstractController is not complete.
 	 */
 	@Test
-	public void testSerialization() {
+	public void testSerialization_AddUser_ContainsUser() {
 		// Creates a random Volunteer and adds it to my controller.
 		// myController then should serialize the data.
 		Volunteer testObject = new Volunteer("eli", "Eli", "Ile", "253-123-4567", "eli@gmail.com");
@@ -52,15 +52,12 @@ public class AbstractControllerTest {
 		// list should contain the user we added above.
 		myController = new UserController();
 		ArrayList<AbstractUser> objects = myController.getAllUsers();
-		for (AbstractUser user : objects) {
-//			System.out.println(user.getUserName());
-		}
 		assertTrue(objects.contains(testObject));
 	}
 	
 
 	@Test
-	public void testClear_UserListShouldBeEmpty(){
+	public void testClear_ClearList_UserListShouldBeEmpty(){
 		myController.addUser(new Volunteer("eli", "Eli", "Ile", "253-123-4567", "eli@gmail.com"));
 		myController.clear();
 		assertEquals(myController.getAllUsers(), new UserController().getAllUsers());

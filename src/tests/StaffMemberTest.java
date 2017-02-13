@@ -12,7 +12,6 @@ import model.Job;
 import model.Park;
 import model.StaffMember;
 
-
 public class StaffMemberTest {
 
 	/**
@@ -25,19 +24,21 @@ public class StaffMemberTest {
 	@Before
 	public void setUp() throws Exception {
 		myStaffMember = new StaffMember(USERNAME);
-		Job job = new Job("theName", new Park("Park Name", "Park Location"), new Date(), new Date(), new Date(), "theDescription", 1,2,3);
+		Job job = new Job("theName", new Park("Park Name", "Park Location"), new Date(), new Date(), new Date(),
+				"theDescription", 1, 2, 3);
 		myStaffMember.addPastJobs(job);
 
 	}
 
 	@Test
-	public void testOnUserName() {
+	public void testOnUserName_InputUserName_GetSameUsername() {
 		assertEquals(USERNAME, myStaffMember.getUserName());
 	}
-	
+
 	@Test
-	public void testOnPreviousJobs() {
-		Job job = new Job("theName", new Park("Park Name", "Park Location"), new Date(), new Date(), new Date(), "theDescription", 1,2,3);
+	public void testOnPreviousJobs_InputPastJob_GetPastJob() {
+		Job job = new Job("theName", new Park("Park Name", "Park Location"), new Date(), new Date(), new Date(),
+				"theDescription", 1, 2, 3);
 		assertTrue(myStaffMember.getPastJobs().contains(job));
 	}
 }

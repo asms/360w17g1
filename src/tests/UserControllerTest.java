@@ -41,7 +41,7 @@ private UserController myUserController;
 	 * Checks is a user is retrievable by user name.
 	 */
 	@Test
-	public void testGetUserByUserName() {
+	public void testGetUserByUserName_InputUserName_GetSameUserName() {
 		final AbstractUser expectedManagerUser = new ParkManager("Ba2012");
 
 		myUserController.addUser(expectedManagerUser);
@@ -59,7 +59,7 @@ private UserController myUserController;
 	 * Checks if a user is retrievable by user name after many users have been added.
 	 */
 	@Test
-	public void testGetUserByUserNameFromMany() {
+	public void testGetUserByUserNameFromMany_InputUserName_GetSameUserName() {
 		for (int i = 0; i < 50; i++) {
 			myUserController.addUser(new ParkManager("Ba2012 " + i));
 			
@@ -79,7 +79,7 @@ private UserController myUserController;
 	 * Checks if all of the users are retrieved. 
 	 */
 	@Test
-	public void testGetAllUsers() {
+	public void testGetAllUsers_CallGetAllUsers_GetAllUsers() {
 		
 		final ArrayList<AbstractUser> users = new ArrayList<AbstractUser>();
 		for (int i = 0; i < 100; i++) {

@@ -18,7 +18,10 @@ public class FullTestRunner {
          System.out.println(failure.toString());
       }
 		
-      System.out.println("The tests all passed: " + result.wasSuccessful());
+      if(result.wasSuccessful()){
+    	  System.out.println("The tests all passed: " + result.wasSuccessful());
+      }
+      else System.err.println("The tests all passed: " + result.wasSuccessful());
    }
 } 
 

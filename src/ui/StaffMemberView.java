@@ -101,9 +101,9 @@ public class StaffMemberView extends AbstractView {
 		} else {
 			for (Job job : jobs) {
 				System.out.println(job.toString());
-				print("");
 			}
 		}
+		getString("Press enter to continue...");
 	}
 
 	/**
@@ -121,6 +121,7 @@ public class StaffMemberView extends AbstractView {
 				print("");
 			}
 		}
+		getString("Press enter to continue...");
 	}
 
 }

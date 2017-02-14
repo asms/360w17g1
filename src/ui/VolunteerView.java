@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 import controller.JobController;
 import model.Job;
+import model.Job.WorkDuty;
 import model.Park;
 import model.Volunteer;
 import ui.Command.CommandExecutor;
@@ -28,8 +29,7 @@ import ui.Command.CommandExecutor;
 public class VolunteerView extends AbstractView {
 
 	private static enum COMMAND implements Command {
-		VIEW_JOBS("View jobs"), MANAGE_PENDING_JOBS("Manage pending jobs"), VIEW_PAST_JOBS(
-				"View past jobs"), LOGOUT("Logout");
+		VIEW_JOBS("View jobs"), LOGOUT("Logout");
 
 		/**
 		 * The human readable string for the command.
@@ -74,18 +74,6 @@ public class VolunteerView extends AbstractView {
 				viewJobs();
 			}
 		});
-		commands.put(COMMAND.MANAGE_PENDING_JOBS, new CommandExecutor() {
-			@Override
-			public void execute() {
-				managePendingJobs();
-			}
-		});
-		commands.put(COMMAND.VIEW_PAST_JOBS, new CommandExecutor() {
-			@Override
-			public void execute() {
-				viewPastJobs();
-			}
-		});
 		commands.put(COMMAND.LOGOUT, new CommandExecutor() {
 			@Override
 			public void execute() {
@@ -124,10 +112,24 @@ public class VolunteerView extends AbstractView {
 					final Job job = myJobController.getJob(jobName + park.toString());
 					if (job != null) {
 						displayLineBreak();
-						
-						//new SignupView(myUser, job);
-						
-						getString("Press enter to continue...");
+						displayJob(job);
+						final String command = getSelectionFromList("Commands", "Select a command number", new String[] {"Sign Up", "Back"});
+						if (command.equals("Sign Up")) {
+							
+							final String duty = getSelectionFromList("Work Duty", "Select a skill level",
+									new String[]{WorkDuty.LIGHT.toString(), WorkDuty.MEDIUM.toString(), WorkDuty.HEAVY.toString()}, "Cancel");
+							if (duty != null) {
+								if (job.addVolunteer((Volunteer) myUser, WorkDuty.valueOf(duty))) {
+									((Volunteer) myUser).addJob(job);
+									myUserController.addUser(myUser);
+									myJobController.addJob(job);
+									//TODO: Confirmation
+									getString("Press enter to continue...");
+								} else {
+									print("No more workers of that type are needed.");
+								}
+							}
+						}
 					} else {
 						state = 1;
 					}
@@ -137,13 +139,9 @@ public class VolunteerView extends AbstractView {
 			}
 		}
 	}
-
-	private void managePendingJobs() {
-
-	}
-
-	private void viewPastJobs() {
-
+	
+	private void displayJob(final Job theJob) {
+		
 	}
 	
 	private void displayCurrentJobs() {

@@ -29,5 +29,48 @@ public class VolunteerTest {
 	public void testOnUserName() {
 		assertEquals(USERNAME, myVolunteer.getUserName());
 	}
+	
+	/**
+     * Test method for {@link model.Volunteer#getFirstName()}.
+     */
+    @Test
+    public void testGetFirstName() {
+    	assertEquals(FIRST_NAME, myVolunteer.getFirstName());
+    }
+    
+    /**
+     * Test method for {@link model.Volunteer#getLastName()}.
+     */
+    @Test
+    public void testGetLastName() {
+    	assertEquals(LAST_NAME, myVolunteer.getLastName());
+    }
+    
+    /**
+     * Test method for {@link model.Volunteer#getPhoneNumber()}.
+     */
+    @Test
+    public void testGetPhoneNumber() {
+    	assertEquals(PHONE_NUMBER, myVolunteer.getPhoneNumber());
+    }
+    
+    /**
+     * Test method for {@link model.Volunteer#getEmailAddress()}.
+     */
+    @Test
+    public void testGetEmailAddress() {
+    	assertEquals(EMAIL_ADDRESS, myVolunteer.getEmailAddress());
+    }
+    
+    /**
+     * Test method for {@link model.Volunteer#toString()}.
+     */
+    @Test
+    public void testToString() {
+    	String expected = FIRST_NAME + " " + LAST_NAME + " " + PHONE_NUMBER + " " + EMAIL_ADDRESS;
+    	assertEquals(expected, myVolunteer.toString());
+    }
+    
+    
 
 }

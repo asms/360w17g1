@@ -41,7 +41,8 @@ public class ParkControllerTest {
 	}
 	
 	/**
-	 * Test method for {@link ParkController#getParkByName(String)} checks if a parks is retrievable by name.
+	 * Test method for {@link ParkController#getParkByName(String)} 
+	 * Checks if a parks is retrievable by name.
 	 */
 	@Test
 	public void testGetParkByName() {
@@ -52,8 +53,8 @@ public class ParkControllerTest {
 	}
 	
 	/**
-	 * Test method for {@link ParkController#getParkByName(String)} checks if a parks is retrievable by name after many
-	 * have been added.
+	 * Test method for {@link ParkController#getParkByName(String)} 
+	 * Checks if a parks is retrievable by name after many have been added.
 	 */
 	@Test
 	public void testGetParkByNameFromMany() {
@@ -67,8 +68,8 @@ public class ParkControllerTest {
 	}
 	
 	/**
-	 * Test method for {@link ParkController#getAllParks(Park)} checks if empty array is returned if no parks are
-	 * available.
+	 * Test method for {@link ParkController#getAllParks(Park)} 
+	 * Checks if empty array is returned if no parks are available.
 	 */
 	@Test
 	public void testGetAllParksWhenEmpty() {
@@ -77,8 +78,8 @@ public class ParkControllerTest {
 	}
 	
 	/**
-	 * Test method for {@link ParkController#getAllParks(Park)} checks if all parks are added to and retrievable from
-	 * the controller.
+	 * Test method for {@link ParkController#getAllParks(Park)} 
+	 * Checks if all parks are added to and retrievable from the controller.
 	 */
 	@Test
 	public void testGetAllParks() {

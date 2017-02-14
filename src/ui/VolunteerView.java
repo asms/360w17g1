@@ -96,6 +96,8 @@ public class VolunteerView extends AbstractView {
 			}
 		}
 	}
+	//BR: A volunteer cannot sign up for more than one job on any given day.
+	//BR: A volunteer may sign up only if the job is at least 3 calendar days from the current date.
 
 	private void viewJobs() {
 		displayLineBreak();
@@ -107,7 +109,8 @@ public class VolunteerView extends AbstractView {
 				state = 2; // get job
 				while (state == 2) {
 					displayLineBreak();
-					final String[] jobNames = JobController.filterUpcomingJobs(myJobController.getByPark(park).stream()).map(x -> x.getJobName()).collect(Collectors.toList()).toArray(new String[0]);
+					final String[] jobNames = JobController.filterAtLeastThreeDaysAheadandNoSameDayConflict
+					                (myJobController.getByPark(park).stream()).map(x -> x.getJobName()).collect(Collectors.toList()).toArray(new String[0]);
 					final String jobName = getSelectionFromList("Jobs", "Enter a job number to sign up", jobNames, "Back");
 					final Job job = myJobController.getJob(jobName + park.toString());
 					if (job != null) {

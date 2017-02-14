@@ -5,6 +5,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -67,6 +68,17 @@ public class JobController extends AbstractController<Job> {
      */
     public static Stream<Job> filterUpcomingJobs(final Stream<Job> theStream) {
     	return theStream.filter(x -> new Date().compareTo(x.getDate()) < 0);
+    }
+    
+    /**
+     * Selects only the jobs a volunteer can sign up for.
+     * @param theStream the stream of jobs
+     * @return a stream of upcoming jobs
+     */
+    public static Stream<Job> filterAtLeastThreeDaysAheadandNoSameDayConflict(final Stream<Job> theStream) {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DATE, 3); 
+        return theStream.filter(x -> x.getDate().after(c.getTime()) || x.getDate().equals(c));
     }
     
     /**

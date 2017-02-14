@@ -5,8 +5,6 @@
 package tests;
 
 import static org.junit.Assert.assertEquals;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import model.ParkManager;
-import model.Job;
 import model.Park;
 
 /**

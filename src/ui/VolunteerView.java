@@ -6,7 +6,6 @@ package ui;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -126,7 +125,7 @@ public class VolunteerView extends AbstractView {
 									((Volunteer) myUser).addJob(job);
 									myUserController.addUser(myUser);
 									myJobController.addJob(job);
-									//TODO: Confirmation
+									print("Sign up successful.");
 									getString("Press enter to continue...");
 								} else {
 									print("No more workers of that type are needed.");

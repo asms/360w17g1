@@ -6,9 +6,7 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -146,7 +144,7 @@ public class JobController extends AbstractController<Job> {
 	 * @return the maximum number of pending jobs
 	 */
 	public int getMaximumNumberOfPendingJobs() {
-		return myMaximumNumberOfPendingJobs; //TODO: Make persistent and dynamic, changed by staff member
+		return myMaximumNumberOfPendingJobs;
 	}
 
 	public List<Job> getByPark(final Park park) {

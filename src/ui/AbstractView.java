@@ -170,7 +170,7 @@ public abstract class AbstractView {
 					printError("Out of range."); //TODO: be more descriptive
 				}
 			} catch(NumberFormatException e) {
-				printError("Invalid number."); //TODO: be more descriptive
+				printError("Invalid number.");
 			}
 		}
 		return integer;
@@ -300,7 +300,7 @@ public abstract class AbstractView {
 				return null;
 			}
 		} catch(final InputMismatchException e) {
-			//TODO: output error
+			print("Command not recognized.");
 			return getCommand(thePrompt, theCommands);
 		}
 		
@@ -326,7 +326,7 @@ public abstract class AbstractView {
 					printError("Out of range."); //TODO: be more descriptive
 				}
 			} catch(final ParseException e) {
-				printError("Invalid date."); //TODO: be more descriptive
+				printError("Invalid date.");
 			}
 		}
 		return date;
@@ -351,7 +351,7 @@ public abstract class AbstractView {
 					printError("Out of range."); //TODO: be more descriptive
 				}
 			} catch(final ParseException e) {
-				printError("Invaid time."); //TODO: be more descriptive
+				printError("Invaid time.");
 			}
 		}
 		return time;
@@ -366,7 +366,7 @@ public abstract class AbstractView {
 				time = format.parse(getString(thePrompt));
 				validated = true;
 			} catch(final ParseException e) {
-				printError("Invaid time."); //TODO: be more descriptive
+				printError("Invaid time.");
 			}
 		}
 		return time;

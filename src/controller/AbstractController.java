@@ -24,6 +24,7 @@ public abstract class AbstractController<T extends UniqueObject> {
 	/**
 	 * Deserializes the collection at instantiation.
 	 */
+	@SuppressWarnings("unchecked")
 	protected AbstractController() {
 		myList = deserializeFromDisk(getClass().getSimpleName() + "LIST", new HashMap<String, T>().getClass());
 		if (myList == null) {
@@ -66,7 +67,7 @@ public abstract class AbstractController<T extends UniqueObject> {
 	@SuppressWarnings("unchecked")
 	protected
 	static final <E> E deserializeFromDisk(final String theKey, final Class<E> theClass) {
-		E theObject = null;
+		E theObject;
 		/*
 		 * Deserializes a hashmap using the name "hashmap_(class name).ser"
 		 */
@@ -75,10 +76,8 @@ public abstract class AbstractController<T extends UniqueObject> {
 					new FileInputStream("hashmap_" + theKey + ".ser"));
 			theObject = (E) os.readObject();
 			os.close();
-		} catch (IOException ioe) {
-			// ioe.printStackTrace(); //TODO: Remove for prodcution
-		} catch (ClassNotFoundException c) {
-			// c.printStackTrace(); //TODO: Remove for prodcution
+		} catch (Exception e) {
+			theObject = null;
 		}
 		return theObject;
 	}

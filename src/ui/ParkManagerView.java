@@ -160,20 +160,12 @@ public class ParkManagerView extends AbstractView {
 			final boolean shouldSubmit = getBooleanYesNo("Are you sure you want to submit this job (Y/N)");
 	
 			if (shouldSubmit) {
-				
-				//Associated the job with the park
 		        park.associateWithJob(job);
-		        
-		        
-		        // Update persistent references // TODO: Test how much of this is necessary.
 		        myParkController.addPark(park);
-				
-				// Add the job
 				myJobController.addJob(job);
-				
-				// TODO: message
+				print("Job added.");
 			} else {
-				// TODO: message
+				print("Job not added.");
 			}
 		} else {
 			printError("The maximum number of pending jobs has already been reached.");

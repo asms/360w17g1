@@ -5,7 +5,10 @@
 package controller;
 
 import java.util.ArrayList;
+<<<<<<< Updated upstream
 import java.util.Collection;
+=======
+>>>>>>> Stashed changes
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,10 +34,7 @@ public class JobController extends AbstractController<Job> {
 	 */
 	public static final int DEFAULT_MAX_PENDING_JOBS = 30;
 	
-	// stores a copy of all jobs in the system. 
-    private static ArrayList<Job> allJobs;
-    
-    private int myMaximumNumberOfPendingJobs = 30;
+	private int myMaximumNumberOfPendingJobs = 30;
     
     public JobController() {
     	myMaximumNumberOfPendingJobs = DEFAULT_MAX_PENDING_JOBS;
@@ -47,7 +47,7 @@ public class JobController extends AbstractController<Job> {
      * @return all jobs.
      */
     public List<Job> getAllJobs() {
-        return new ArrayList(myList.values());
+        return new ArrayList<Job>(myList.values());
     }
     
     /**

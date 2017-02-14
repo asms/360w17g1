@@ -121,7 +121,7 @@ public class JobController extends AbstractController<Job> {
 	}
 	
 	public boolean canSignUp(final Volunteer theVolunteer, final Date theDate) {
-		return myList.values().stream().filter(x -> x.getVolunteers().contains(theVolunteer) && x.getDate().equals(theDate)).count() == 0;
+		return getUpcomingJobs().stream().filter(x -> x.getVolunteers().contains(theVolunteer) && x.getDate().equals(theDate)).count() == 0;
 	}
 	
 	/**

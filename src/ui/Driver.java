@@ -44,7 +44,7 @@ public final class Driver {
     	final DateFormat timeFormat = new SimpleDateFormat("hh:mm a");
 		Job cherryParkesJob;
 		try {
-			cherryParkesJob = new Job("Annual Park Cleanup",
+			cherryParkesJob = new Job(dev, "Annual Park Cleanup",
 					cherryParkes,
 					dateFormat.parse("2/12/2017"),
 					timeFormat.parse("10:00 am"),
@@ -57,9 +57,8 @@ public final class Driver {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+		dev.associateWithPark(cherryParkes);
 		pc.addPark(cherryParkes);
-		dev.associate(cherryParkes);
 		uc.addUser(dev);
 		uc.addUser(amy);
 		uc.addUser(eli);

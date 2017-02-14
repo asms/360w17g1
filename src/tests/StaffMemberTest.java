@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import model.Job;
 import model.Park;
+import model.ParkManager;
 import model.StaffMember;
 
 public class StaffMemberTest {
@@ -24,7 +25,7 @@ public class StaffMemberTest {
 	@Before
 	public void setUp() throws Exception {
 		myStaffMember = new StaffMember(USERNAME);
-		Job job = new Job("theName", new Park("Park Name", "Park Location"), new Date(), new Date(), new Date(),
+		Job job = new Job(new ParkManager("pm"), "theName", new Park("Park Name", "Park Location"), new Date(), new Date(), new Date(),
 				"theDescription", 1, 2, 3);
 		myStaffMember.addPastJobs(job);
 
@@ -37,7 +38,7 @@ public class StaffMemberTest {
 
 	@Test
 	public void testOnPreviousJobs_InputPastJob_GetPastJob() {
-		Job job = new Job("theName", new Park("Park Name", "Park Location"), new Date(), new Date(), new Date(),
+		Job job = new Job(new ParkManager("pm"), "theName", new Park("Park Name", "Park Location"), new Date(), new Date(), new Date(),
 				"theDescription", 1, 2, 3);
 		assertTrue(myStaffMember.getPastJobs().contains(job));
 	}

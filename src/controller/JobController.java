@@ -5,10 +5,7 @@
 package controller;
 
 import java.util.ArrayList;
-<<<<<<< Updated upstream
 import java.util.Collection;
-=======
->>>>>>> Stashed changes
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;

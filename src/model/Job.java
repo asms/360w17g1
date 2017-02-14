@@ -43,7 +43,11 @@ public class Job implements UniqueObject
     		+ "Light Duty:  %s" + System.lineSeparator()
     		+ "Medium Duty: %s" + System.lineSeparator()
     		+ "Heavy Duty:  %s";
-
+    
+    /**
+     * The park manager who created the job.
+     */
+    private ParkManager myManager;
 
     /**
      * The name of the job.
@@ -91,10 +95,11 @@ public class Job implements UniqueObject
      * @param theDescription the description of the job.
      * @param theDifficulty the difficulty of the job.
      */
-    public Job (final String theName, final Park thePark, final Date theDate, final Date theStartTime,
+    public Job (final ParkManager theManager, final String theName, final Park thePark, final Date theDate, final Date theStartTime,
     		final Date theEndTime, final String theDescription, final int theLightDuty, final int theMediumDuty,
     		final int theHeavyDuty)
     {
+    	myManager = Objects.requireNonNull(theManager);
         myName = Objects.requireNonNull(theName);
         
         myPark = Objects.requireNonNull(thePark);
@@ -121,11 +126,19 @@ public class Job implements UniqueObject
      * @param job job to be cloned.
      */
     public Job(Job job) {
-        this(job.getJobName(), job.getPark(), job.getDate(), job.getStartTime(), job.getEndTime(),
+        this(job.getManager(), job.getJobName(), job.getPark(), job.getDate(), job.getStartTime(), job.getEndTime(),
         		job.getDescription(),
         		job.neededVolunteers.get(WorkDuty.LIGHT),
         		job.neededVolunteers.get(WorkDuty.MEDIUM),
         		job.neededVolunteers.get(WorkDuty.HEAVY));
+    }
+    
+    /**
+     * Gets the Park Manager associated with this park.
+     * @return the park manager
+     */
+    public ParkManager getManager() {
+    	return myManager;
     }
     
     /**
@@ -290,5 +303,10 @@ public class Job implements UniqueObject
 	public String getKey() {
 		return myName + myPark;
 	}
+	
+	@Override
+    public int hashCode() {
+    	return Objects.hash(myName, myPark);
+    }
     
 }

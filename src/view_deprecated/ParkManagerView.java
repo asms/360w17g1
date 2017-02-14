@@ -13,6 +13,7 @@ import java.util.Scanner;
 import controller.JobController;
 import model.Job;
 import model.Park;
+import model.ParkManager;
 
 
 public class ParkManagerView {
@@ -77,7 +78,7 @@ public class ParkManagerView {
         String answer = keyboard.nextLine();
         
         if (answer.equals("Y")) {
-            Job j = new Job(jobName, new Park("", ""), new Date(), new Date(), new Date(), jobDescription, lightDuty, mediumDuty, heavyDuty);
+            Job j = new Job(new ParkManager("pm"), jobName, new Park("", ""), new Date(), new Date(), new Date(), jobDescription, lightDuty, mediumDuty, heavyDuty);
         	jobController.addJob(j); //add job calling JobController method		
         																					  //I assume there is a addJob() method in 
 	        System.out.println();

@@ -13,6 +13,7 @@ import controller.JobController;
 import model.Job;
 import model.Job.WorkDuty;
 import model.Park;
+import model.ParkManager;
 
 public class JobTest {
     
@@ -40,7 +41,7 @@ public class JobTest {
         
     	
     	
-        testJob1 = new Job("Park Cleanup", new Park("Cherry Park", "Park Location"),  new Date(), new Date(), new Date(), "Cleaning up litter", 1, 3, 5);
+        testJob1 = new Job(new ParkManager("pm"), "Park Cleanup", new Park("Cherry Park", "Park Location"),  new Date(), new Date(), new Date(), "Cleaning up litter", 1, 3, 5);
         
         //represent volunteers sign up for light work category
         volunteerLight = new HashMap<String, WorkDuty>();
@@ -75,7 +76,7 @@ public class JobTest {
   
     @Test
     public void testOnJobDateTime() {
-        assertEquals("Job Date and Time is different.", new Date(), testJob1.getDate());
+        assertEquals("Job Date and Time is different.", new Date().getDay(), testJob1.getDate().getDay());
     }
     
     @Test
@@ -99,7 +100,7 @@ public class JobTest {
     
     @Test
     public void testGetVolunteers_VolunteersInList() {
-    	Job job = new Job("PARKNAM", new Park("Park", "Location"), new Date(), new Date(), new Date(), "description", 1,2,3);
+    	Job job = new Job(new ParkManager("pm"), "PARKNAM", new Park("Park", "Location"), new Date(), new Date(), new Date(), "description", 1,2,3);
     	pk.addJob(job);
     	//System.out.println(pk.getUpcomingJobs());
     	

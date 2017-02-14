@@ -152,7 +152,7 @@ public class ParkManagerView extends AbstractView {
 			final int numHeavyVolunteers = getInteger("Enter number of heavy-duty volunteers",
 											0, Job.MAX_VOLUNTEERS - numLightVolunteers - numMediumVolunteers);
 	
-			final Job job = new Job(name, park, date, startTime, endTime, description, numLightVolunteers,
+			final Job job = new Job((ParkManager) myUser, name, park, date, startTime, endTime, description, numLightVolunteers,
 					numMediumVolunteers, numHeavyVolunteers);
 			displayLine();
 			print(job.toString());
@@ -166,9 +166,7 @@ public class ParkManagerView extends AbstractView {
 		        
 		        
 		        // Update persistent references // TODO: Test how much of this is necessary.
-		        ((ParkManager) myUser).associate(park);
 		        myParkController.addPark(park);
-				myUserController.addUser(myUser);
 				
 				// Add the job
 				myJobController.addJob(job);
@@ -189,7 +187,7 @@ public class ParkManagerView extends AbstractView {
 	 */
 	private void viewVolunteers() {
 		displayLineBreak();
-		final Park[] parks = ((ParkManager) myUser).getAssociatedParks().values().toArray(new Park[0]);
+		final Park[] parks = ((ParkManager) myUser).getAssociatedParks().toArray(new Park[0]);
 		final Park park = getSelectionFromList("Parks", "Enter a park number", parks);
 		displayLineBreak();
 		final String[] jobNames = myJobController.getByPark(park).stream().map(x -> x.getJobName()).collect(Collectors.toList()).toArray(new String[0]);

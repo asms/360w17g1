@@ -19,6 +19,7 @@ import org.junit.Test;
 import controller.JobController;
 import model.Job;
 import model.Park;
+import model.ParkManager;
 
 
 /**
@@ -53,15 +54,18 @@ public class JobControllerTest
     public void testGetUpcomingJobs()
     {
         final ArrayList<Job> jobs = new ArrayList<Job>();
-        for (int i = 0; i < 29; i++)
+        for (int i = 1; i < 30; i++)
         {
-        	final Job job = new Job("Trail Clearing" + i, new Park("BirchCreek Park", "address"), new Date(),  new Date(),  new Date(), 
+        	Date date = new Date();
+        	date.setDate(date.getDate() + i);
+        	final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), date,  date,  date, 
                     "This job involves a lot of walking", i, 2, 4);
             jobs.add(job);
             myJobController.addJob(job);
         }
         final List<Job> allJobs = myJobController.getUpcomingJobs();
-        assertTrue(allJobs.containsAll(jobs) && jobs.containsAll(jobs));
+        
+        assertTrue(allJobs.containsAll(jobs));
     }
     
     /**
@@ -81,7 +85,7 @@ public class JobControllerTest
     @Test
     public void testGetJob()
     {
-        final Job expectedJob = new Job("Trail Clearing", new Park("BirchCreek Park", "address"), new Date(), new Date(), new Date(), 
+        final Job expectedJob = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), new Date(), new Date(), new Date(), 
                                         "This job involves a lot of walking", 1, 2, 4);
         myJobController.addJob(expectedJob);
         final Job job = myJobController.getJob(expectedJob.getKey());
@@ -97,25 +101,25 @@ public class JobControllerTest
 		
 	}
     
+	/**
+	 * TODO: Fix this test method. You can not add a job to the current date. Volunteers would not have time to sign up.
+	 */
 	@Test
 	public void testCanAddWithDate() {
 		
-		Date date = new Date(3/14/2017);
-		final Job firstJob = new Job("Trail Clearing", new Park("BirchCreek Park", "address"), date, new Date(), new Date(), 
+		Date date = new Date();
+		date.setDate(date.getDate() + 1);
+		final Job firstJob = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, new Date(), new Date(), 
                 "This job involves a lot of walking", 1, 2, 4);
 
-		final Job anotherJob =  new Job("Rail Clearing", new Park("BirchCreek Park", "address"), date, new Date(), new Date(), 
-                "This job involves a lot of walking", 1, 2, 4);
-		
-		final Job a3rdJob =  new Job("Ail Clearing", new Park("BirchCreek Park", "address"), date, new Date(), new Date(), 
+		final Job anotherJob =  new Job(new ParkManager("pm"), "Rail Clearing", new Park("BirchCreek Park", "address"), date, new Date(), new Date(), 
                 "This job involves a lot of walking", 1, 2, 4);
 		
 		
+		assertTrue(myJobController.canAddWithDate(date));
 		myJobController.addJob(firstJob);
 		assertTrue(myJobController.canAddWithDate(date));
 		myJobController.addJob(anotherJob);
-		assertTrue(myJobController.canAddWithDate(date));
-		myJobController.addJob(a3rdJob);
 		assertFalse(myJobController.canAddWithDate(date));
 	}
 	

@@ -135,6 +135,7 @@ public class ParkManagerView extends AbstractView {
 			Date date;
 			boolean validDate = false;
 			do {
+				print("Job date must be no more 30 days after today.");
 				date = getDate("Enter date(MM/DD/YYYY)", new Date(System.currentTimeMillis()), calendar.getTime());
 				if (myJobController.canAddWithDate(date)) {
 					validDate = true;
@@ -143,7 +144,7 @@ public class ParkManagerView extends AbstractView {
 				}
 			} while (!validDate);
 			final Date startTime = getTime("Enter start time(HH:MM AM/PM)");
-			final Date endTime = getTime("Enter end time(HH:MM AMP/PM)", startTime);
+			final Date endTime = getTime("Enter end time(HH:MM AM/PM)", startTime);
 			final String description = getString("Enter description");
 			final int numLightVolunteers = getInteger("Enter number of light-duty volunteers",
 											0, Job.MAX_VOLUNTEERS);

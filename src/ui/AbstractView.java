@@ -40,7 +40,7 @@ public abstract class AbstractView {
 	/**
 	 * The width of the screen buffer.
 	 */
-	private static final int SCREEN_BUFFER_WIDTH = 120;
+	private static final int SCREEN_BUFFER_WIDTH = 160;
 	
 	/**
 	 * The header for the Urban Parks program.

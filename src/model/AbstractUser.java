@@ -42,8 +42,7 @@ public abstract class AbstractUser implements UniqueObject {
 	public boolean equals(final Object theObject) {
 		
 		return (theObject instanceof AbstractUser) 
-				&& (getKey().equals(((AbstractUser)theObject).getKey())
-				&& (getClass().getSimpleName().equals(((AbstractUser) theObject).getClass().getSimpleName())));
+				&& getKey().equals(((AbstractUser) theObject).getKey());
 	}
 
 	@Override

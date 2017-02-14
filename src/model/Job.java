@@ -308,5 +308,9 @@ public class Job implements UniqueObject
     public int hashCode() {
     	return Objects.hash(myName, myPark);
     }
+
+	public boolean hasMaxVolunteers() {
+		return volunteers.size() == MAX_VOLUNTEERS || volunteers.size() == neededVolunteers.size();
+	}
     
 }

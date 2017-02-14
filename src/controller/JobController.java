@@ -4,6 +4,8 @@
  */
 package controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -135,7 +137,12 @@ public class JobController extends AbstractController<Job> {
 	public boolean canSignUp(final Volunteer theVolunteer, final Date theDate) {
 		return !theVolunteer.isBlackballed() &&
 				getUpcomingJobs().stream().filter(x -> x.getVolunteers().contains(theVolunteer)
-						&& x.getDate().equals(theDate)).count() == 0;
+						&& onSameDate(x.getDate(), theDate)).count() == 0;
+	}
+	
+	private boolean onSameDate(final Date theFirst, final Date theSecond) {
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		return dateFormat.format(theFirst).equals(dateFormat.format(theSecond));
 	}
 	
 	/**

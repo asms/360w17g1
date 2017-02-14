@@ -117,21 +117,23 @@ public class VolunteerView extends AbstractView {
 						displayJob(job);
 						final String command = getSelectionFromList("Commands", "Select a command number", new String[] {"Sign Up", "Back"});
 						if (command.equals("Sign Up") && myJobController.canSignUp((Volunteer) myUser, job.getDate())) {
-							
-							final String duty = getSelectionFromList("Work Duty", "Select a skill level",
-									new String[]{WorkDuty.LIGHT.toString(), WorkDuty.MEDIUM.toString(), WorkDuty.HEAVY.toString()}, "Cancel");
-							if (duty != null) {
-								if (job.addVolunteer((Volunteer) myUser, WorkDuty.valueOf(duty))) {
-									((Volunteer) myUser).addJob(job);
-									myUserController.addUser(myUser);
-									myJobController.addJob(job);
-									print("Sign up successful.");
-									getString("Press enter to continue...");
-								} else {
-									print("No more workers of that type are needed.");
+							if (job.hasMaxVolunteers()) {
+								print("Maximum number of volunteers reached.");
+							} else {
+								final String duty = getSelectionFromList("Work Duty", "Select a skill level",
+										new String[]{WorkDuty.LIGHT.toString(), WorkDuty.MEDIUM.toString(), WorkDuty.HEAVY.toString()}, "Cancel");
+								if (duty != null) {
+									if (job.addVolunteer((Volunteer) myUser, WorkDuty.valueOf(duty))) {
+										myJobController.addJob(job);
+										print("Sign up successful.");
+										getString("Press enter to continue...");
+									} else {
+										print("No more workers of that type are needed.");
+									}
 								}
 							}
-						} else if(!command.equals("Back")) {
+						} else if (command.equals("Back")) {
+						} else {
 							print("You cannot sign up for this job.");
 						}
 					} else {
@@ -152,15 +154,17 @@ public class VolunteerView extends AbstractView {
 		final List<Job> jobs = ((Volunteer) myUser).getPendingJobs();
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		DateFormat timeFormat = new SimpleDateFormat("hh:mm a");
-		print(String.format("%s%s%s%s",
-				pad("Pending Job", 30),
+		print(String.format("%s%s%s%s%s",
+				pad("Pending Job", 25),
+				pad("Location", 50),
 				pad("Date", 15),
 				pad("Start time", 15),
 				pad("End time", 15)));
 		displayLine();
 		for (final Job job : jobs) {
-			print(String.format("%s%s%s%s", 
-					pad(job.getJobName(), 30),
+			print(String.format("%s%s%s%s%s", 
+					pad(job.getJobName(), 25),
+					pad(job.getPark().getLocation(), 50),
 					pad(dateFormat.format(job.getDate()), 15),
 					pad(timeFormat.format(job.getStartTime()), 15),
 					pad(timeFormat.format(job.getEndTime()), 15)));

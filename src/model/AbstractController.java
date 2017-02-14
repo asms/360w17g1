@@ -23,9 +23,10 @@ public abstract class AbstractController<T extends UniqueObject> {
 	 * Deserializes the collection at instantiation.
 	 */
 	protected AbstractController() {
-		if (!deserializeFromDisk()) {
+		myList = deserializeFromDisk(getClass().getSimpleName() + "LIST", myList.getClass());
+		if (myList == null) {
 			myList = new HashMap<String, T>();
-			serializeToDisk();
+			serializeToDisk(getClass().getSimpleName() + "LIST", myList);
 		}
 	}
 
@@ -39,14 +40,14 @@ public abstract class AbstractController<T extends UniqueObject> {
 	/**
 	 * Serializes the collection and writes it to a file.
 	 */
-	protected final void serializeToDisk() {
+	public static final <E> void serializeToDisk(final String theKey, final E theObject) {
 		/*
 		 * Serializes a hashmap using the name "hashmap_(class name).ser"
 		 */
 		try {
-			FileOutputStream fos = new FileOutputStream("hashmap_" + getClass().getSimpleName() + ".ser");
+			FileOutputStream fos = new FileOutputStream("hashmap_" + theKey + ".ser");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(myList);
+			oos.writeObject(theObject);
 			oos.close();
 			fos.close();
 		} catch (IOException ioe) {
@@ -61,23 +62,22 @@ public abstract class AbstractController<T extends UniqueObject> {
 	 * @return whether deserialization was successful
 	 */
 	@SuppressWarnings("unchecked")
-	private final boolean deserializeFromDisk() {
-		boolean wasSuccessful = false;
+	private static final <E> E deserializeFromDisk(final String theKey, final Class<E> theClass) {
+		E theObject = null;
 		/*
 		 * Deserializes a hashmap using the name "hashmap_(class name).ser"
 		 */
 		try {
 			ObjectInputStream os = new ObjectInputStream(
-					new FileInputStream("hashmap_" + getClass().getSimpleName() + ".ser"));
-			myList = (HashMap<String, T>) os.readObject();
+					new FileInputStream("hashmap_" + theKey + ".ser"));
+			theObject = (E) os.readObject();
 			os.close();
-			wasSuccessful = true;
 		} catch (IOException ioe) {
 			// ioe.printStackTrace(); //TODO: Remove for prodcution
 		} catch (ClassNotFoundException c) {
 			// c.printStackTrace(); //TODO: Remove for prodcution
 		}
-		return wasSuccessful;
+		return theObject;
 	}
 
 	/**
@@ -88,7 +88,7 @@ public abstract class AbstractController<T extends UniqueObject> {
 	 */
 	protected final void add(final T theListItem) {
 		myList.put(theListItem.getKey(), theListItem);
-		serializeToDisk();
+		serializeToDisk(getClass().getSimpleName() + "LIST", myList);
 	}
 
 	/**
@@ -96,7 +96,7 @@ public abstract class AbstractController<T extends UniqueObject> {
 	 */
 	public void clear() {
 		myList = new HashMap<String, T>();
-		serializeToDisk();
+		serializeToDisk(getClass().getSimpleName() + "LIST", myList);
 	}
 
 	/**

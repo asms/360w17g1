@@ -33,11 +33,10 @@ public class JobController extends AbstractController<Job> {
 	 */
 	public static final int DEFAULT_MAX_PENDING_JOBS = 30;
 	
-	private int myMaximumNumberOfPendingJobs = 30;
+	private int myMaximumNumberOfPendingJobs;
     
     public JobController() {
     	myMaximumNumberOfPendingJobs = DEFAULT_MAX_PENDING_JOBS;
-    	// all jobs can be accessed my referencing the myList variable
     }
 	
 	/**

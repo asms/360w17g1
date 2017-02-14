@@ -46,7 +46,7 @@ public final class Driver {
 		try {
 			cherryParkesJob = new Job(dev, "Annual Park Cleanup",
 					cherryParkes,
-					dateFormat.parse("2/12/2017"),
+					dateFormat.parse("2/14/2017"),
 					timeFormat.parse("10:00 am"),
 					timeFormat.parse("2:00 pm"),
 					"Cleaning up after the annual festival.",

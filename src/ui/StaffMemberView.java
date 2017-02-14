@@ -22,7 +22,8 @@ import ui.Command.CommandExecutor;
 public class StaffMemberView extends AbstractView {
 
 	private static enum COMMAND implements Command {
-		VIEW_UPCOMMING_JOBS("View Upcoming jobs"), VIEW_PAST_JOBS("View Past volunteers"), LOGOUT("Logout");
+		VIEW_UPCOMMING_JOBS("View Upcoming jobs"), VIEW_PAST_JOBS("View Past volunteers"),
+		SET_MAX_PENDING_JOBS("Set maximum number of pending jobs"), LOGOUT("Logout");
 
 		/**
 		 * The human readable string for the command.
@@ -73,6 +74,12 @@ public class StaffMemberView extends AbstractView {
 				viewPastJobs();
 			}
 		});
+		commands.put(COMMAND.SET_MAX_PENDING_JOBS, new CommandExecutor() {
+			@Override
+			public void execute() {
+				setMaxPendingJobs();
+			}
+		});
 		commands.put(COMMAND.LOGOUT, new CommandExecutor() {
 			@Override
 			public void execute() {
@@ -107,6 +114,15 @@ public class StaffMemberView extends AbstractView {
 			}
 		}
 		getString("Press enter to continue...");
+	}
+	
+	/**
+	 * Sets the maximum number of pending jobs.
+	 */
+	public void setMaxPendingJobs() {
+		final String prompt = "Set Maximum number of jobs (current=" + myJobController.getMaximumNumberOfPendingJobs() + ")";
+		final int max = getInteger(prompt, 0, Integer.MAX_VALUE);
+		myJobController.setMaximumNumberOfPendingJobs(max);
 	}
 
 	/**

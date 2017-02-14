@@ -25,9 +25,10 @@ public abstract class AbstractController<T extends UniqueObject> {
 	 * Deserializes the collection at instantiation.
 	 */
 	protected AbstractController() {
-		if (!deserializeFromDisk()){
-			myList = new  HashMap<String, T>();
-			serializeToDisk();
+		myList = deserializeFromDisk(getClass().getSimpleName() + "LIST", new HashMap<String, T>().getClass());
+		if (myList == null) {
+			myList = new HashMap<String, T>();
+			serializeToDisk(getClass().getSimpleName() + "LIST", myList);
 		}
 	}
 
@@ -41,40 +42,45 @@ public abstract class AbstractController<T extends UniqueObject> {
 	/**
 	 * Serializes the collection and writes it to a file.
 	 */
-	protected final void serializeToDisk() {
+	public static final <E> void serializeToDisk(final String theKey, final E theObject) {
+		/*
+		 * Serializes a hashmap using the name "hashmap_(class name).ser"
+		 */
 		try {
-			FileOutputStream fos = new FileOutputStream("hashmap_" + getClass().getSimpleName() + ".ser");
+			FileOutputStream fos = new FileOutputStream("hashmap_" + theKey + ".ser");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(myList);
+			oos.writeObject(theObject);
 			oos.close();
 			fos.close();
 		} catch (IOException ioe) {
-			//ioe.printStackTrace(); //TODO: Remove for production
+			// ioe.printStackTrace();
 		}
 
 	}
 
 	/**
 	 * Deserializes the collection from a file.
+	 * 
 	 * @return whether deserialization was successful
 	 */
 	@SuppressWarnings("unchecked")
-	private final boolean deserializeFromDisk() {
-		boolean wasSuccessful = false;
-	      try {
-	    	 ObjectInputStream os = new ObjectInputStream(new FileInputStream("hashmap_"
-	    			 					+ getClass().getSimpleName() + ".ser"));
-	    	 myList = (HashMap<String, T>) os.readObject();
-	         os.close();
-	         wasSuccessful = true;
-	      } catch(IOException ioe) {
-	         //ioe.printStackTrace(); //TODO: Remove for production
-	      } catch(ClassNotFoundException c) {
-	         //c.printStackTrace(); //TODO: Remove for production
-	      } catch(ClassCastException c) {
-	    	  myList = new HashMap<String, T>();
-	      }
-	      return wasSuccessful;
+	protected
+	static final <E> E deserializeFromDisk(final String theKey, final Class<E> theClass) {
+		E theObject = null;
+		/*
+		 * Deserializes a hashmap using the name "hashmap_(class name).ser"
+		 */
+		try {
+			ObjectInputStream os = new ObjectInputStream(
+					new FileInputStream("hashmap_" + theKey + ".ser"));
+			theObject = (E) os.readObject();
+			os.close();
+		} catch (IOException ioe) {
+			// ioe.printStackTrace(); //TODO: Remove for prodcution
+		} catch (ClassNotFoundException c) {
+			// c.printStackTrace(); //TODO: Remove for prodcution
+		}
+		return theObject;
 	}
 
 	/**
@@ -85,15 +91,25 @@ public abstract class AbstractController<T extends UniqueObject> {
 	 */
 	protected final void add(final T theListItem) {
 		myList.put(theListItem.getKey(), theListItem);
-		serializeToDisk();
+		serializeToDisk(getClass().getSimpleName() + "LIST", myList);
 	}
-	
+
 	/**
 	 * Clears all persistent data.
 	 */
 	public void clear() {
 		myList = new HashMap<String, T>();
-		serializeToDisk();
+		serializeToDisk(getClass().getSimpleName() + "LIST", myList);
+	}
+
+	/**
+	 * Functionality not used in the user stories, so we throw an an Unsupported
+	 * Operation Exception.
+	 * 
+	 * @param theListItem
+	 */
+	protected final void remove(final T theListItem) {
+		throw new UnsupportedOperationException();
 	}
 
 }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -36,7 +37,12 @@ public class JobController extends AbstractController<Job> {
 	private int myMaximumNumberOfPendingJobs;
     
     public JobController() {
-    	myMaximumNumberOfPendingJobs = DEFAULT_MAX_PENDING_JOBS;
+    	final Integer maxPendingJobs = deserializeFromDisk(getClass().getSimpleName() + "MAX_PENDING_JOBS", Integer.class);
+    	if (maxPendingJobs == null) {
+    		myMaximumNumberOfPendingJobs = DEFAULT_MAX_PENDING_JOBS;
+    	} else {
+    		myMaximumNumberOfPendingJobs = maxPendingJobs.intValue();
+    	}
     }
 	
 	/**
@@ -134,6 +140,15 @@ public class JobController extends AbstractController<Job> {
 
 	public List<Job> getByPark(final Park park) {
 		return myList.values().stream().filter(x -> x.getPark().equals(park)).collect(Collectors.toList());
+	}
+
+	/**
+	 * Sets the maximum number of pending jobs.
+	 * @param theMaxNumber the maximum number of pending jobs
+	 */
+	public void setMaximumNumberOfPendingJobs(int theMaxNumber) {
+		myMaximumNumberOfPendingJobs = theMaxNumber;
+		serializeToDisk(getClass().getSimpleName() + "MAX_PENDING_JOBS", Integer.valueOf(myMaximumNumberOfPendingJobs));
 	}
 
 

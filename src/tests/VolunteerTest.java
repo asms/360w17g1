@@ -1,10 +1,14 @@
 package tests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import controller.JobController;
 import model.Volunteer;
 
 public class VolunteerTest {
@@ -60,6 +64,18 @@ public class VolunteerTest {
     @Test
     public void testGetEmailAddress() {
     	assertEquals(EMAIL_ADDRESS, myVolunteer.getEmailAddress());
+    }
+    
+    @Test
+    public void testIfBlackballedCannotSignUp() {
+    	final Volunteer volunteer = new Volunteer("smithsd", "Steve", "Smith", "XXX-XXX-XXXX", "xxxxxxx@uw.edu");
+    	final JobController jobController = new JobController();
+    	jobController.clear();
+    	Date twoDaysFromNow = new Date(new Date().getTime() + 172800);
+    	boolean canSignUp = jobController.canSignUp(volunteer, twoDaysFromNow);
+    	volunteer.setBlackballedFlag(true);
+    	boolean cantSignUp = jobController.canSignUp(volunteer, twoDaysFromNow);
+    	assertTrue(canSignUp && !cantSignUp);
     }
     
     /**

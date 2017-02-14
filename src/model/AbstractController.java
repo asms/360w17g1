@@ -60,6 +60,7 @@ public abstract class AbstractController<T extends UniqueObject> {
 	 * 
 	 * @return whether deserialization was successful
 	 */
+	@SuppressWarnings("unchecked")
 	private final boolean deserializeFromDisk() {
 		boolean wasSuccessful = false;
 		/*

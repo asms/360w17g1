@@ -87,8 +87,7 @@ public class Park implements UniqueObject {
 	public boolean equals(final Object theObject) {
 		return (theObject instanceof Park)
 				&& (myName.equals(((Park) theObject).myName))
-				&& (myAssociatedJobs.equals(((Park) theObject).myAssociatedJobs)
-				&& (myLocation.equals(((Park) theObject).myLocation)));
+				&& (myLocation.equals(((Park) theObject).myLocation));
 	}
 	
 	@Override

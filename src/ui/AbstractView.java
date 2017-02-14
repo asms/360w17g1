@@ -218,6 +218,19 @@ public abstract class AbstractView {
 	}
 	
 	/**
+	 * Displays a numbered list of objects, calling their toString methods.
+	 * @param theList the list of objects
+	 */
+	protected void displayNumberedList(final Object[] theList, final String[] theStringExtras) {
+		for(int i=0; i<theList.length; i++) {
+			print(String.format(NUMBERED_LIST_FORMAT, i+1, theList[i].toString()));
+		}
+		for (int i=0; i< theStringExtras.length; i++) {
+			print(String.format(NUMBERED_LIST_FORMAT, theList.length + i + 1, theStringExtras[i]));
+		}
+	}
+	
+	/**
 	 * Displays a title for a numbered list and prompts the user to make a selection from that list.
 	 * @param theTitle the title of the list
 	 * @param thePrompt the prompt
@@ -231,6 +244,29 @@ public abstract class AbstractView {
 		displayLine();
 		final int index = getInteger(thePrompt, 1, theList.length);
 		return theList[index - 1];
+	}
+	
+	/**
+	 * Displays a title for a numbered list and prompts the user to make a selection from that list. Offers an
+	 * alternative option.
+	 * @param theTitle the title of the list
+	 * @param thePrompt the prompt
+	 * @param theList the list
+	 * @param theAlternativeOption an alternative option
+	 * @return the object selected from the array
+	 */
+	protected <T> T getSelectionFromList(final String theTitle, final String thePrompt, final T[] theList,
+			final String theAlternativeOption) {
+		print(theTitle);
+		displayLine();
+		displayNumberedList(theList, new String[] {theAlternativeOption});
+		displayLine();
+		final int index = getInteger(thePrompt, 1, theList.length + 1);
+		if (index == theList.length + 1) {
+			return null;
+		} else {
+			return theList[index - 1];
+		}
 	}
 	
 	/**

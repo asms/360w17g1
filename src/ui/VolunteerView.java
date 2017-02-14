@@ -6,12 +6,16 @@ package ui;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
+import controller.JobController;
 import model.Job;
+import model.Park;
 import model.Volunteer;
 import ui.Command.CommandExecutor;
 
@@ -24,7 +28,7 @@ import ui.Command.CommandExecutor;
 public class VolunteerView extends AbstractView {
 
 	private static enum COMMAND implements Command {
-		SEARCH_JOBS("Search jobs"), MANAGE_PENDING_JOBS("Manage pending jobs"), VIEW_PAST_JOBS(
+		VIEW_JOBS("View jobs"), MANAGE_PENDING_JOBS("Manage pending jobs"), VIEW_PAST_JOBS(
 				"View past jobs"), LOGOUT("Logout");
 
 		/**
@@ -64,10 +68,10 @@ public class VolunteerView extends AbstractView {
 	public VolunteerView(final Scanner theScanner, final Volunteer theUser) {
 		super(theScanner, theUser);
 		commands = new HashMap<Command, CommandExecutor>();
-		commands.put(COMMAND.SEARCH_JOBS, new CommandExecutor() {
+		commands.put(COMMAND.VIEW_JOBS, new CommandExecutor() {
 			@Override
 			public void execute() {
-				searchJobs();
+				viewJobs();
 			}
 		});
 		commands.put(COMMAND.MANAGE_PENDING_JOBS, new CommandExecutor() {
@@ -105,8 +109,33 @@ public class VolunteerView extends AbstractView {
 		}
 	}
 
-	private void searchJobs() {
-
+	private void viewJobs() {
+		displayLineBreak();
+		int state = 1; // get park
+		final Park[] parks = myParkController.getAllParks().toArray(new Park[0]);
+		while(state == 1) {
+			final Park park = getSelectionFromList("Parks", "Enter a park number", parks, "Back");
+			if (park != null) {
+				state = 2; // get job
+				while (state == 2) {
+					displayLineBreak();
+					final String[] jobNames = JobController.filterUpcomingJobs(myJobController.getByPark(park).stream()).map(x -> x.getJobName()).collect(Collectors.toList()).toArray(new String[0]);
+					final String jobName = getSelectionFromList("Jobs", "Enter a job number to sign up", jobNames, "Back");
+					final Job job = myJobController.getJob(jobName + park.toString());
+					if (job != null) {
+						displayLineBreak();
+						
+						//new SignupView(myUser, job);
+						
+						getString("Press enter to continue...");
+					} else {
+						state = 1;
+					}
+				}
+			} else {
+				state = 0;
+			}
+		}
 	}
 
 	private void managePendingJobs() {
@@ -135,7 +164,7 @@ public class VolunteerView extends AbstractView {
 					pad(timeFormat.format(job.getEndTime()), 15)));
 		}
 		if (jobs.size() == 0) {
-			print("You are not signed up for any jobs.");
+			print("You are not signed up for any pending jobs.");
 		}
 		displayLine();
 	}

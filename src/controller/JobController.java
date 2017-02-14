@@ -5,9 +5,11 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import model.Job;
 import model.Park;
@@ -54,8 +56,30 @@ public class JobController extends AbstractController<Job> {
      */
     public List<Job> getUpcomingJobs()
     {
-    	return new ArrayList<Job>(myList.values()).stream().filter(x -> new Date().compareTo(x.getDate()) > 0).collect(Collectors.toList());
-    }    
+    	return new ArrayList<Job>(filterUpcomingJobs(myList.values().stream()).collect(Collectors.toList()));
+    }
+    
+    public List<Job> getPastJobs() {
+    	return new ArrayList<Job>(filterPastJobs(myList.values().stream()).collect(Collectors.toList()));
+    }
+    
+    /**
+     * Selects only the upcoming jobs from a stream of jobs.
+     * @param theStream the stream of jobs
+     * @return a steam of upcoming jobs
+     */
+    public static Stream<Job> filterUpcomingJobs(final Stream<Job> theStream) {
+    	return theStream.filter(x -> new Date().compareTo(x.getDate()) < 0);
+    }
+    
+    /**
+     * Selects only the past jobs from a stream of jobs.
+     * @param theStream the stream of jobs
+     * @return a steam of past jobs
+     */
+    public static Stream<Job> filterPastJobs(final Stream<Job> theStream) {
+    	return theStream.filter(x -> new Date().compareTo(x.getDate()) >= 0);
+    }
     
     
     /**
@@ -93,6 +117,10 @@ public class JobController extends AbstractController<Job> {
 	 */
 	public int getMaximumNumberOfPendingJobs() {
 		return myMaximumNumberOfPendingJobs; //TODO: Make persistent and dynamic, changed by staff member
+	}
+
+	public List<Job> getByPark(final Park park) {
+		return myList.values().stream().filter(x -> x.getPark().equals(park)).collect(Collectors.toList());
 	}
 
 

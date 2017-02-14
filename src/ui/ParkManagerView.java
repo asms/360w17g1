@@ -120,7 +120,6 @@ public class ParkManagerView extends AbstractView {
 			final Park park = getSelectionFromList("Parks", "Enter park number",
 					myParkController.getAllParks().toArray(new Park[] {}));
 			
-		
 			String name;
 			boolean validName = false;
 			do {
@@ -194,7 +193,7 @@ public class ParkManagerView extends AbstractView {
 		final Park[] parks = ((ParkManager) myUser).getAssociatedParks().values().toArray(new Park[0]);
 		final Park park = getSelectionFromList("Parks", "Enter a park number", parks);
 		displayLineBreak();
-		final String[] jobNames = park.getAssociatedJobs().stream().map(x -> x.getJobName()).collect(Collectors.toList()).toArray(new String[0]);
+		final String[] jobNames = myJobController.getByPark(park).stream().map(x -> x.getJobName()).collect(Collectors.toList()).toArray(new String[0]);
 		final String jobName = getSelectionFromList("Jobs", "Enter a job number", jobNames);
 		final Job job = myJobController.getJob(jobName + park.toString());
 		displayLineBreak();

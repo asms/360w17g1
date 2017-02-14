@@ -1,6 +1,7 @@
 package tests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
@@ -67,15 +68,24 @@ public class VolunteerTest {
     }
     
     @Test
-    public void testIfBlackballedCannotSignUp() {
+    public void testIfNonBlackballedCanSignUp() {
     	final Volunteer volunteer = new Volunteer("smithsd", "Steve", "Smith", "XXX-XXX-XXXX", "xxxxxxx@uw.edu");
     	final JobController jobController = new JobController();
     	jobController.clear();
     	Date twoDaysFromNow = new Date(new Date().getTime() + 172800);
     	boolean canSignUp = jobController.canSignUp(volunteer, twoDaysFromNow);
+    	assertTrue(canSignUp);
+    }
+    
+    @Test
+    public void testIfBlackballedCannotSignUp() {
+    	final Volunteer volunteer = new Volunteer("smithsd", "Steve", "Smith", "XXX-XXX-XXXX", "xxxxxxx@uw.edu");
+    	final JobController jobController = new JobController();
+    	jobController.clear();
+    	Date twoDaysFromNow = new Date(new Date().getTime() + 172800);
     	volunteer.setBlackballedFlag(true);
     	boolean cantSignUp = jobController.canSignUp(volunteer, twoDaysFromNow);
-    	assertTrue(canSignUp && !cantSignUp);
+    	assertFalse(cantSignUp);
     }
     
     /**

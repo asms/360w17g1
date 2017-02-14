@@ -37,7 +37,8 @@ public class ParkTest {
 	private static final String PARK_LOCATION = "1900 Commerce St, Tacoma, WA 98402";
 	
 	/**
-	 * Setup method initializes test park object. Simultaneously tests the constructor.
+	 * Setup method initializes test park object. 
+	 * Simultaneously tests the constructor.
 	 */
 	@Before
 	public void setup() {
@@ -45,7 +46,8 @@ public class ParkTest {
 	}
 	
 	/**
-	 * Test method for {@link Park#Park()} expects a NullPointerException for a null name parameter.
+	 * Test method for {@link Park#Park()} 
+	 * Expects a NullPointerException for a null name parameter.
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testConstructorNullPointerExceptionForNullName() {
@@ -53,7 +55,8 @@ public class ParkTest {
 	}
 	
 	/**
-	 * Test method for {@link Park#Park()} expects a NullPointerException for a null location parameter.
+	 * Test method for {@link Park#Park()} 
+	 * Expects a NullPointerException for a null location parameter.
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testConstructorNullPointerExceptionForNullLocation() {
@@ -61,7 +64,24 @@ public class ParkTest {
 	}
 	
 	/**
-	 * Test method for {@link Park#toString()} checks for expected output.
+	 * Test method for {@link Park#getName()} 
+	 */
+	@Test
+	public void testGetName() {
+		assertEquals(PARK_NAME, myPark.getName());
+	}
+	
+	/**
+	 * Test method for {@link Park#getLocation()} 
+	 */
+	@Test
+	public void testGetLocation() {
+		assertEquals(PARK_LOCATION, myPark.getLocation());
+	}
+	
+	/**
+	 * Test method for {@link Park#toString()} 
+	 * Checks for expected output.
 	 */
 	@Test
 	public void testToString() {
@@ -70,7 +90,8 @@ public class ParkTest {
 	}
 	
 	/**
-	 * Test method for {@link Park#equals()} checks if different park objects with identical values are equal.
+	 * Test method for {@link Park#equals()} 
+	 * Checks if different park objects with identical values are equal.
 	 */
 	@Test
 	public void testEqualsTrue() {
@@ -79,7 +100,8 @@ public class ParkTest {
 	}
 	
 	/**
-	 * Test method for {@link Park#equals()} checks if different park objects with different names are not equal.
+	 * Test method for {@link Park#equals()} 
+	 * Checks if different park objects with different names are not equal.
 	 */
 	@Test
 	public void testEqualsFalseDifferentName() {
@@ -88,7 +110,8 @@ public class ParkTest {
 	}
 	
 	/**
-	 * Test method for {@link Park#equals()} checks if different park objects with different locations are not equal.
+	 * Test method for {@link Park#equals()} 
+	 * Checks if different park objects with different locations are not equal.
 	 */
 	@Test
 	public void testEqualsFalseDifferentLocation() {
@@ -97,7 +120,8 @@ public class ParkTest {
 	}
 	
 	/**
-	 * Test method for {@link Park#equals()} checks if a null parameter yields false.
+	 * Test method for {@link Park#equals()} 
+	 * Checks if a null parameter yields false.
 	 */
 	@Test
 	public void testEqualsNotNull() {
@@ -105,7 +129,8 @@ public class ParkTest {
 	}
 	
 	/**
-	 * Test method for {@link Park#equals()} checks if a parmeter of a different object type yields false.
+	 * Test method for {@link Park#equals()} 
+	 * Checks if a parmeter of a different object type yields false.
 	 */
 	@Test
 	public void testEqualsDifferentObject() {
@@ -113,7 +138,8 @@ public class ParkTest {
 	}
 	
 	/**
-	 * Test method for {@link Park#hashCode()} checks if parks with identical fields yield the same hash codes.
+	 * Test method for {@link Park#hashCode()} 
+	 * Checks if parks with identical fields yield the same hash codes.
 	 */
 	@Test
 	public void testHashCodeTrue() {
@@ -122,7 +148,8 @@ public class ParkTest {
 	}
 	
 	/**
-	 * Test method for {@link Park#hashCode()} checks if parks with different names yield different hash codes.
+	 * Test method for {@link Park#hashCode()} 
+	 * Checks if parks with different names yield different hash codes.
 	 */
 	@Test
 	public void testHashCodeFalseDifferentName() {
@@ -131,7 +158,8 @@ public class ParkTest {
 	}
 	
 	/**
-	 * Test method for {@link Park#hashCode()} checks if parks with different locations yield different hash codes.
+	 * Test method for {@link Park#hashCode()} 
+	 * Checks if parks with different locations yield different hash codes.
 	 */
 	@Test
 	public void testHashCodeFalseDifferentLocation() {

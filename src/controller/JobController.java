@@ -125,8 +125,19 @@ public class JobController extends AbstractController<Job> {
 		return !myList.containsKey(theName + thePark);
 	}
 	
+	/**
+	 * Checks whether the volunteers can sign up for the job.
+	 * 
+	 * <p>The volunteer cannot sign up if they have already signed up for a job on this day. The volunteers cannot
+	 * sign up if they are blackballed.</p>
+	 * @param theVolunteer the volunteer
+	 * @param theDate the date
+	 * @return whether the volunteer can sign up
+	 */
 	public boolean canSignUp(final Volunteer theVolunteer, final Date theDate) {
-		return getUpcomingJobs().stream().filter(x -> x.getVolunteers().contains(theVolunteer) && x.getDate().equals(theDate)).count() == 0;
+		return !theVolunteer.isBlackballed() &&
+				getUpcomingJobs().stream().filter(x -> x.getVolunteers().contains(theVolunteer)
+						&& x.getDate().equals(theDate)).count() == 0;
 	}
 	
 	/**

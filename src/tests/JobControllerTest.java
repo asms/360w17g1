@@ -131,15 +131,20 @@ public class JobControllerTest
 	
 	@Test
 	public void testGetMaximumNumberOfPendingJobs_WithMax() {
-
-		assertTrue(myJobController.getMaximumNumberOfPendingJobs() == 30);
+		int previous = myJobController.getMaximumNumberOfPendingJobs(); //store previous value
+		
+		myJobController.setMaximumNumberOfPendingJobs(previous + 1);
+		myJobController = new JobController();
+		assertTrue(myJobController.getMaximumNumberOfPendingJobs() == previous + 1);
+		
+		myJobController.setMaximumNumberOfPendingJobs(previous); //restore previous value
 	}
     
 	
 	@Test
-	public void testGetMaximumNumberOfPendingJobs_NotMax() {
-
-		assertFalse(myJobController.getMaximumNumberOfPendingJobs() == 15);
+	public void testDefaultGetMaximumNumberOfPendingJobs() {
+		myJobController.clear();
+		assertTrue(myJobController.getMaximumNumberOfPendingJobs() == JobController.DEFAULT_MAX_PENDING_JOBS);
 	}
     
 }

@@ -150,7 +150,11 @@ public class JobController extends AbstractController<Job> {
 		myMaximumNumberOfPendingJobs = theMaxNumber;
 		serializeToDisk(getClass().getSimpleName() + "MAX_PENDING_JOBS", Integer.valueOf(myMaximumNumberOfPendingJobs));
 	}
-
-
-
+	
+	@Override
+	public void clear() {
+		super.clear();
+		setMaximumNumberOfPendingJobs(DEFAULT_MAX_PENDING_JOBS);
+	
+	}
 }

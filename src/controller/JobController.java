@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 
 import model.Job;
 import model.Park;
+import model.Volunteer;
 
 /**
  * Simulates a database for jobs.
@@ -117,6 +118,10 @@ public class JobController extends AbstractController<Job> {
 	
 	public boolean canAddWithNameAtPark(final String theName, final Park thePark) {
 		return !myList.containsKey(theName + thePark);
+	}
+	
+	public boolean canSignUp(final Volunteer theVolunteer, final Date theDate) {
+		return myList.values().stream().filter(x -> x.getVolunteers().contains(theVolunteer) && x.getDate().equals(theDate)).count() == 0;
 	}
 	
 	/**

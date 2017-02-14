@@ -117,7 +117,7 @@ public class VolunteerView extends AbstractView {
 						displayLineBreak();
 						displayJob(job);
 						final String command = getSelectionFromList("Commands", "Select a command number", new String[] {"Sign Up", "Back"});
-						if (command.equals("Sign Up")) {
+						if (command.equals("Sign Up") && myJobController.canSignUp((Volunteer) myUser, job.getDate())) {
 							
 							final String duty = getSelectionFromList("Work Duty", "Select a skill level",
 									new String[]{WorkDuty.LIGHT.toString(), WorkDuty.MEDIUM.toString(), WorkDuty.HEAVY.toString()}, "Cancel");
@@ -132,6 +132,8 @@ public class VolunteerView extends AbstractView {
 									print("No more workers of that type are needed.");
 								}
 							}
+						} else if(!command.equals("Back")) {
+							print("You cannot sign up for this job.");
 						}
 					} else {
 						state = 1;

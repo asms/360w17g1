@@ -22,7 +22,7 @@ import ui.Command.CommandExecutor;
 public class StaffMemberView extends AbstractView {
 
 	private static enum COMMAND implements Command {
-		VIEW_UPCOMMING_JOBS("View Upcoming jobs"), VIEW_PAST_JOBS("View Past volunteers"),
+		VIEW_UPCOMMING_JOBS("View a calendar of upcoming jobs"),
 		SET_MAX_PENDING_JOBS("Set maximum number of pending jobs"), LOGOUT("Logout");
 
 		/**
@@ -65,13 +65,7 @@ public class StaffMemberView extends AbstractView {
 		commands.put(COMMAND.VIEW_UPCOMMING_JOBS, new CommandExecutor() {
 			@Override
 			public void execute() {
-				viewUpcommingJobs();
-			}
-		});
-		commands.put(COMMAND.VIEW_PAST_JOBS, new CommandExecutor() {
-			@Override
-			public void execute() {
-				viewPastJobs();
+				viewCalendarOfUpcomingJobs();
 			}
 		});
 		commands.put(COMMAND.SET_MAX_PENDING_JOBS, new CommandExecutor() {
@@ -103,16 +97,8 @@ public class StaffMemberView extends AbstractView {
 	/**
 	 * Method displays the upcoming jobs the user has.
 	 */
-	public void viewUpcommingJobs() {
-		print("Upcoming Jobs");
-		List<Job> jobs = myJobController.getUpcomingJobs();
-		if (jobs.isEmpty()) {
-			System.out.println("No Upcoming Jobs.");
-		} else {
-			for (Job job : jobs) {
-				System.out.println(job.toString());
-			}
-		}
+	public void viewCalendarOfUpcomingJobs() {
+		new CalendarWidget(myJobController.getUpcomingJobs(), myJobController.getMaximumNumberOfPendingJobs()).print();
 		getString("Press enter to continue...");
 	}
 	
@@ -123,24 +109,6 @@ public class StaffMemberView extends AbstractView {
 		final String prompt = "Set Maximum number of jobs (current=" + myJobController.getMaximumNumberOfPendingJobs() + ")";
 		final int max = getInteger(prompt, 0, Integer.MAX_VALUE);
 		myJobController.setMaximumNumberOfPendingJobs(max);
-	}
-
-	/**
-	 * Method displays the past jobs the user had.
-	 */
-	public void viewPastJobs() {
-		print("Past Jobs");
-		StaffMember user = (StaffMember) myUser;
-		List<Job> jobs = user.getPastJobs();
-		if (jobs.isEmpty()) {
-			System.out.println("No Past Jobs.");
-		} else {
-			for (Job job : jobs) {
-				System.out.println(job.toString());
-				print("");
-			}
-		}
-		getString("Press enter to continue...");
 	}
 
 }

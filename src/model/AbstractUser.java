@@ -33,10 +33,6 @@ public abstract class AbstractUser implements UniqueObject {
 		return myUsername;
 	}
 
-	@Override
-	public String toString(){
-		return myUsername + ", " + getClass().getSimpleName();
-	}
 	
 	@Override
 	public boolean equals(final Object theObject) {

@@ -29,20 +29,7 @@ public class Job implements UniqueObject
      */
     public static final int MAX_VOLUNTEERS = 30;
 
-    /**
-     * String format for toString method.
-     */
-    private static final String STRING_FORMAT = ""
-    		+ "Name:        %s" + System.lineSeparator()
-    		+ "Park:        %s" + System.lineSeparator()
-    		+ "Date:        %s" + System.lineSeparator()
-    		+ "Start Time:  %s" + System.lineSeparator()
-    		+ "End Time:    %s" + System.lineSeparator()
-    		+ "Description: %s" + System.lineSeparator()
-    		+ "Volunteers:"       + System.lineSeparator()
-    		+ "Light Duty:  %s" + System.lineSeparator()
-    		+ "Medium Duty: %s" + System.lineSeparator()
-    		+ "Heavy Duty:  %s";
+
     
     /**
      * The park manager who created the job.
@@ -276,21 +263,7 @@ public class Job implements UniqueObject
                 && (myPark.equals(((Job) theObject).myPark));
     }
     
-    @Override
-    public String toString() {
-    	DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-    	DateFormat timeFormat = new SimpleDateFormat("hh:mm a");
-    	return String.format(STRING_FORMAT,
-    			myName,
-				myPark,
-				dateFormat.format(myDate),
-				timeFormat.format(myStartTime),
-				timeFormat.format(myEndTime),
-				myDescription,
-				neededVolunteers.get(WorkDuty.LIGHT),
-				neededVolunteers.get(WorkDuty.MEDIUM),
-				neededVolunteers.get(WorkDuty.HEAVY));
-    }
+
     
     /**
      * This represents different work categories that can be used.

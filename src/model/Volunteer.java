@@ -101,13 +101,5 @@ public class Volunteer extends AbstractUser {
     }
     
 	
-	@Override
-	public String toString() {
-		return String.format("%s %s %s %s",
-				myFirstName,
-				myLastName,
-				myPhoneNumber,
-				myEmailAddress
-		);
-	}
+
 }

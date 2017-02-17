@@ -20,10 +20,7 @@ public class Park implements UniqueObject {
 	 */
 	private static final long serialVersionUID = -3504459221248501513L;
 	
-	/**
-	 * The format for string output of a park.
-	 */
-	private static final String STRING_FORMAT = "%s, %s";
+
 	
 	/**
 	 * The name of the park.
@@ -78,10 +75,6 @@ public class Park implements UniqueObject {
 		return myLocation;
 	}
 	
-	@Override
-	public String toString() {
-		return String.format(STRING_FORMAT, myName, myLocation);
-	}
 	
 	@Override
 	public boolean equals(final Object theObject) {

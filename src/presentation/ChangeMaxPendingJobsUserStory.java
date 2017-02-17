@@ -4,7 +4,7 @@
  */
 package presentation;
 
-import controller.UserController;
+import model.UserController;
 
 import ui.Driver;
 

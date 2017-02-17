@@ -3,7 +3,7 @@
  * Assignment: Deliverable 2
  */
 
-package controller;
+package model;
 
 import java.util.ArrayList;
 

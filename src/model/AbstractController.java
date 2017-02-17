@@ -2,7 +2,7 @@
  * TCSS 360: Group 1
  * Assignment: Deliverable 2
  */
-package controller;
+package model;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

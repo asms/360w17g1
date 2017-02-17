@@ -9,9 +9,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import controller.JobController;
-import controller.ParkController;
-import controller.UserController;
+import model.JobController;
+import model.ParkController;
+import model.UserController;
 import model.Job;
 import model.Park;
 import model.ParkManager;

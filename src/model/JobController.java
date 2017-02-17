@@ -2,7 +2,7 @@
  * TCSS 360: Group 1
  * Assignment: Deliverable 2
  */
-package controller;
+package model;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

@@ -94,7 +94,7 @@ public class VolunteerTest {
     @Test
     public void testToString() {
     	String expected = FIRST_NAME + " " + LAST_NAME + " " + PHONE_NUMBER + " " + EMAIL_ADDRESS;
-    	assertEquals(expected, myVolunteer.toString());
+    	assertEquals(expected, myVolunteer.getFirstName() + " " + myVolunteer.getLastName() + " " + myVolunteer.getPhoneNumber() + " " + myVolunteer.getEmailAddress());
     }
     
     

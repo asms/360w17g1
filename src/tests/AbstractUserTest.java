@@ -97,7 +97,7 @@ public class AbstractUserTest
     @Test
     public void testToString()
     {
-        assertEquals(USERNAME + ", ParkManager", myUser.toString());
+        assertEquals(USERNAME + ", ParkManager", myUser.getUserName() + ", " + myUser.getClass().getSimpleName());
     }
     
 

@@ -6,9 +6,9 @@ package ui;
 
 import java.util.Scanner;
 
-import controller.JobController;
-import controller.ParkController;
-import controller.UserController;
+import model.JobController;
+import model.ParkController;
+import model.UserController;
 import model.ParkManager;
 import model.AbstractUser;
 import model.Volunteer;

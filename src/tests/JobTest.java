@@ -9,7 +9,7 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-import controller.JobController;
+import model.JobController;
 import model.Job;
 import model.Job.WorkDuty;
 import model.Park;

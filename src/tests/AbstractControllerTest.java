@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import controller.UserController;
+import model.UserController;
 import model.AbstractUser;
 import model.Volunteer;
 

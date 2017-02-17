@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import controller.JobController;
+import model.JobController;
 import model.Job;
 import model.Job.WorkDuty;
 import model.Park;

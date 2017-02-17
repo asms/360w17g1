@@ -13,7 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import controller.ParkController;
+import model.ParkController;
 import model.Park;
 
 /**

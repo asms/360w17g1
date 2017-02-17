@@ -13,7 +13,7 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import controller.JobController;
+import model.JobController;
 import model.Job;
 import model.Park;
 import model.ParkManager;

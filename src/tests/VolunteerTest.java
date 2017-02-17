@@ -9,7 +9,7 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-import controller.JobController;
+import model.JobController;
 import model.Volunteer;
 
 public class VolunteerTest {

@@ -5,7 +5,7 @@
 package presentation;
 
 import controller.UserController;
-import model.StaffMember;
+
 import ui.Driver;
 
 /**
@@ -19,8 +19,7 @@ public final class ChangeMaxPendingJobsUserStory {
 	public static void main(final String... args) {
 		/* START SETUP */
 		final UserController uc = new UserController();
-		final StaffMember staff = new StaffMember("arthurl");
-		uc.addUser(staff);
+
 		/* END SETUP */
 		
 		Driver.main(null);

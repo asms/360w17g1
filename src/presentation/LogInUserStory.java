@@ -6,7 +6,6 @@ package presentation;
 
 import controller.UserController;
 import model.ParkManager;
-import model.StaffMember;
 import model.Volunteer;
 import ui.Driver;
 
@@ -22,10 +21,8 @@ public final class LogInUserStory {
 		/* START SETUP */
 		final UserController uc = new UserController();
 		final Volunteer volunteer = new Volunteer("kellyp", "Kelly", "Peterson", "253-123-4567", "kellypeterson5@gmail.com");
-		final StaffMember staff = new StaffMember("arthurl");
 		final ParkManager manager = new ParkManager("shawnj");
 		uc.addUser(volunteer);
-		uc.addUser(staff);
 		uc.addUser(manager);
 		/* END SETUP */
 		

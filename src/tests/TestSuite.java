@@ -22,7 +22,6 @@ import org.junit.runners.Suite;
 	JobTest.class,
 	ParkTest.class,
 	ParkManagerTest.class,
-	StaffMemberTest.class,
 	VolunteerTest.class
    
 })

@@ -15,7 +15,6 @@ import controller.UserController;
 import model.Job;
 import model.Park;
 import model.ParkManager;
-import model.StaffMember;
 import model.Volunteer;
 import ui.Driver;
 
@@ -35,7 +34,7 @@ public final class VolunteerForJobAndViewListingsUserStory {
 		
 		final Park sunset = new Park("Sunset", "1124 Sunset Drive W, University Place, WA 98466");
 		
-		final StaffMember staff = new StaffMember("jim");
+
 		
 		final ParkManager manager = new ParkManager("robertl");
 		manager.associateWithPark(sunset);
@@ -73,7 +72,6 @@ public final class VolunteerForJobAndViewListingsUserStory {
 		uc.addUser(manager);
 		uc.addUser(volunteer);
 		uc.addUser(crazyjoe);
-		uc.addUser(staff);
 		pc.addPark(sunset);
 		/* END SETUP */
 		

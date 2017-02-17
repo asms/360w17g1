@@ -10,7 +10,6 @@ import controller.JobController;
 import controller.ParkController;
 import controller.UserController;
 import model.ParkManager;
-import model.StaffMember;
 import model.AbstractUser;
 import model.Volunteer;
 
@@ -67,8 +66,7 @@ public final class Driver {
 				new VolunteerView(scanner, (Volunteer) user).show();
 			} else if (user instanceof ParkManager) {
 				new ParkManagerView(scanner, (ParkManager) user).show();
-			} else if (user instanceof StaffMember) {
-				new StaffMemberView(scanner, (StaffMember) user).show();
+
 			} else {
 				break;
 			}

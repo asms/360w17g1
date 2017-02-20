@@ -58,8 +58,7 @@ public class JobTest {
     
     @Test
     public void testNotEqualDifferentParkName() {
-    	final Job differentJobName = new Job(testJob1);
-    	differentJobName.setJobName(String.valueOf(Math.random()));
+    	final Job differentJobName = new Job(new ParkManager("pm"), "Different Job Name", new Park("Cherry Park", "Park Location"),  new Date(), new Date(), new Date(), "Cleaning up litter", 1, 3, 5);
         assertFalse(differentJobName.getJobName().equals(testJob1.getJobName()));
     }
     

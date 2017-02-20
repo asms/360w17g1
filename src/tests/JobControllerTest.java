@@ -58,7 +58,7 @@ public class JobControllerTest
         for (int i = 1; i < 30; i++)
         {
         	Date date = new Date();
-        	date.setDate(date.getDate() + i);
+    		date.setDate(date.getDate() + 1);
         	final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), date,  date,  date, 
                     "This job involves a lot of walking", i, 2, 4);
             jobs.add(job);
@@ -109,7 +109,6 @@ public class JobControllerTest
 	public void testCanAddWithDate() {
 		
 		Date date = new Date();
-		date.setDate(date.getDate() + 1);
 		final Job firstJob = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, new Date(), new Date(), 
                 "This job involves a lot of walking", 1, 2, 4);
 

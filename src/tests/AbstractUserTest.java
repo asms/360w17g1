@@ -69,17 +69,6 @@ public class AbstractUserTest
         assertFalse(myUser.getUserName().equals(wrongName));
     }
 
-    /**
-     * Test method for {@link model.User#login(java.lang.String)}.
-     */
-//    @Test
-//    public void testLogin()
-//    {
-//        fail("Not yet implemented");
-//    }
-	/**
-	 *  Test method for {@link model.AbstractUser#getFirstName()}.
-	 */
 
 
     /**
@@ -112,21 +101,33 @@ public class AbstractUserTest
        
     }
     
+    /**
+     * Test method for {@link model.AbstractUser#equals(java.lang.Object)}.
+     */
     @Test
-    public void testEquals_notEqualObject() {
+    public void testEquals_notEqualUser_notEqual() {
     	
     	assertFalse(myUser.equals(new ParkManager("Larry")));
     }
 
-    
+    /**
+     * Test method for {@link model.AbstractUser#equals(java.lang.Object)}.
+     */
     @Test
-    public void testHashCode_Equal() {
+    public void testEquals_notEqualObject_notEqual() {
     	
-    	assertEquals(myUser.hashCode(), myUser.hashCode());
+    	assertFalse(myUser.equals(new Park("Park", "Location")));
     }
     
     @Test
-    public void testHashCode_NotEqual() {
+    public void testHashCode_Equal_True() {
+    	
+    	assertEquals(myUser.hashCode(), myUser.hashCode());
+    }
+ 
+    
+    @Test
+    public void testHashCode_NotEqual_False() {
     	
     	assertTrue(myUser.hashCode() != (new ParkManager("Jerry").hashCode()));
     	

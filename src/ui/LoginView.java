@@ -5,7 +5,6 @@
 package ui;
 
 import java.util.Scanner;
-
 import model.AbstractUser;
 
 /**
@@ -13,22 +12,22 @@ import model.AbstractUser;
  * @author Steven Smith
  * @version 1.0
  */
-public class LoginView extends AbstractView {
+public class LoginView extends AbstractView<AbstractUser> {
 	
-	/**
-	 * The logged in user.
-	 */
+	/** The logged in user. */
 	private AbstractUser myUser;
 
 	/**
 	 * Constructs the view for logging in.
-	 * @param theScanner
+	 * @param theScanner (non-null, open) scanner 
 	 */
-
 	public LoginView(Scanner theScanner) {
-		super(theScanner, null);
+		super(theScanner, AbstractUser.GUEST);
 	}
-
+	
+	/**
+	 * Prompts for a username until a valid username has been entered.
+	 */
 	@Override
 	public void show() {
 		displayHeader();
@@ -41,12 +40,15 @@ public class LoginView extends AbstractView {
 	}
 	
 	/**
-	 * Returns the logged in user.
-	 * @return the user
+	 * Returns the logged in user. You must call {@link LoginView#show()} first.
+	 * 
+	 * @return the logged in user
+	 * @throws IllegalStateException if the user is null
 	 */
 	public AbstractUser getUser() {
+		if (myUser == null) {
+			throw new IllegalStateException();
+		}
 		return myUser;
 	}
-
-
 }

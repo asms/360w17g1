@@ -26,7 +26,7 @@ import ui.Command.CommandExecutor;
  * @author Steven Smith
  * @version 1.0
  */
-public class ParkManagerView extends AbstractView {
+public class ParkManagerView extends AbstractView<ParkManager> {
 
 	/**
 	 * BR: A job cannot be scheduled more than one month in the future.

@@ -25,7 +25,7 @@ import ui.Command.CommandExecutor;
  * @author Steven Smith
  * @version 1.0
  */
-public class VolunteerView extends AbstractView {
+public class VolunteerView extends AbstractView<Volunteer> {
 
 	private static enum COMMAND implements Command {
 		VIEW_JOBS("View jobs"), LOGOUT("Logout");

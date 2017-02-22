@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.InputMismatchException;
+import java.util.Objects;
 import java.util.Scanner;
 
 import model.JobController;
@@ -22,88 +23,72 @@ import model.AbstractUser;
  * @version 1.0
  *
  */
-public abstract class AbstractView {
+public abstract class AbstractView<T extends AbstractUser> {
 	
-	/**
-	 * Possible states of the view.
-	 */
+	/** Possible states of the view. */
 	public static enum Status {
+		/** The view will continue looping. */
 		RUN,
+		/** The view will stop looping. */
 		EXIT
 	}
 	
-	/**
-	 * The height of the screen buffer.
-	 */
+	/** The height of the console screen buffer. */
 	protected static final int SCREEN_BUFFER_HEIGHT = 60;
 	
-	/**
-	 * The width of the screen buffer.
-	 */
+	/** The width of the console screen buffer. */
 	protected static final int SCREEN_BUFFER_WIDTH = 160;
 	
-	/**
-	 * The header for the Urban Parks program.
-	 */
+	/** The header for the Urban Parks program. */
 	private static final String HEADER = "Urban Parks"
 			+ System.lineSeparator()
 			+ "Welcome %s, logged in as a %s.";
 	
-	/**
-	 * The format for a single line in a numbered list.
-	 */
+	/** The format for a single line in a numbered list. */
 	private static final String NUMBERED_LIST_FORMAT = "[%d] %s";
 	
-	/**
-	 * A string of "=" that spans the width of the screen buffer.
-	 */
+	/** A string of "=" that spans the width of the screen buffer. */
 	protected static final String LINE = new String(new char[SCREEN_BUFFER_WIDTH]).replace("\0", "-");
 	
-	/**
-	 * The format for a prompt prefix.
-	 */
+	/** The format for a prompt prefix. */
 	private static final String PROMPT = "%s: ";
 	
-	/**
-	 * The scanner object.
-	 */
+	/** The scanner object. */
 	protected final Scanner myScanner;
 	
-	/**
-	 * The user accessing the view.
-	 */
+	/** The user accessing the view. */
 	protected final AbstractUser myUser;
 	
-	/**
-	 * The job controller for interfacing with persistent job data.
-	 */
+	/** The job controller for interfacing with persistent job data. */
 	protected final JobController myJobController;
 	
-	/**
-	 * The user controller for interfacing with persistent user data.
-	 */
+	/** The user controller for interfacing with persistent user data. */
 	protected final UserController myUserController;
 	
-	/**
-	 * The park controller for interfacing with persistent park data.
-	 */
+	/** The park controller for interfacing with persistent park data. */
 	protected final ParkController myParkController;
 	
-	/**
-	 * The current status of the view.
-	 */
-	protected Status myStatus = Status.RUN;
+	/** The current status of the view. */
+	protected Status myStatus;
 	
 	/**
 	 * Instantiates the view with the controllers to be accessed by concrete views.
+	 * 
+	 * <p>Concrete views have access to the protected controllers:
+	 * 	{@link JobController},
+	 *  {@link ParkController},
+	 *  {@link UserController}
+	 *  </p>
 	 * @param theUser the user accessing the view
+	 * @throws NullPointerException if the scanner or user are null
 	 */
-	public AbstractView(final Scanner theScanner, final AbstractUser theUser) {
-		myScanner = theScanner;
-		myUser = theUser;
+	public AbstractView(final Scanner theScanner, final T theUser) {
+		myScanner = Objects.requireNonNull(theScanner);
+		myUser = Objects.requireNonNull(theUser);
 		myJobController = new JobController();
 		myParkController = new ParkController();
 		myUserController = new UserController();
+		myStatus = Status.RUN;
 	}
 	
 	/**

@@ -89,4 +89,14 @@ public class JobTest {
     	//System.out.println(pk.getUpcomingJobs());
     	
     }
+    
+    /**
+     * NEED TESTS FOR:
+     * addVolunteer
+     * hasMaxVolunteers
+     * this one needs a new name as well.
+     * 	public boolean needs(WorkDuty theWorkDuty) {
+		return volunteers.values().stream().filter(x -> x.equals(theWorkDuty)).count() < neededVolunteers.get(theWorkDuty);
+	}
+     */
 }

@@ -46,41 +46,6 @@ public class AbstractUserTest
 
 
     /**
-     * Test method for {@link model.AbstractUser#getUserName()}.
-     */
-    @Test
-    public void testGetUserByUserName_ba2012()
-    {
-        assertEquals(USERNAME, myUser.getUserName());
-    }
-
-    
-   /**
-     * Test method for {@link model.AbstractUser#getOptions()}.
-   */
-    
-    @Test
-    public void testGetUserByUserName_false()
-    {
-    	String noString = null;
-    	String wrongName = "wrong";
-    	
-        assertFalse(myUser.getUserName().equals(noString));
-        assertFalse(myUser.getUserName().equals(wrongName));
-    }
-
-
-
-    /**
-     * Test method for {@link model.AbstractUser#getKey()}.
-     */
-    @Test
-    public void testGetKey()
-    {
-        assertEquals(USERNAME, myUser.getKey());
-    }
-
-    /**
       Test method for {@link model.AbstractUser#toString()}.
     */
     @Test

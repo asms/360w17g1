@@ -116,17 +116,17 @@ public class Job implements UniqueObject {
 		volunteers = new HashMap<Volunteer, Job.WorkDuty>();
 	}
 
-	/**
-	 * A copy constructor that creates a copy of the existing job.
-	 * 
-	 * @param job
-	 *            job to be cloned.
-	 */
-	public Job(Job job) {
-		this(job.getManager(), job.getJobName(), job.getPark(), job.getDate(), job.getStartTime(), job.getEndTime(),
-				job.getDescription(), job.neededVolunteers.get(WorkDuty.LIGHT),
-				job.neededVolunteers.get(WorkDuty.MEDIUM), job.neededVolunteers.get(WorkDuty.HEAVY));
-	}
+//	/**
+//	 * A copy constructor that creates a copy of the existing job.
+//	 * 
+//	 * @param job
+//	 *            job to be cloned.
+//	 */
+//	public Job(Job job) {
+//		this(job.getManager(), job.getJobName(), job.getPark(), job.getDate(), job.getStartTime(), job.getEndTime(),
+//				job.getDescription(), job.neededVolunteers.get(WorkDuty.LIGHT),
+//				job.neededVolunteers.get(WorkDuty.MEDIUM), job.neededVolunteers.get(WorkDuty.HEAVY));
+//	}
 
 	/**
 	 * Gets the Park Manager associated with this park.

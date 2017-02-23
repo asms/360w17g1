@@ -4,8 +4,6 @@
  */
 package model;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,17 +45,17 @@ public class Job implements UniqueObject {
 	/**
 	 * The date of the job.
 	 */
-	private Date myDate;
+	private JobDate myDate;
 
 	/**
 	 * The start time of the job.
 	 */
-	private Date myStartTime;
+	private JobDate myStartTime;
 
 	/**
 	 * The end time of the job.
 	 */
-	private Date myEndTime;
+	private JobDate myEndTime;
 
 	/**
 	 * The description of the job.
@@ -87,8 +85,8 @@ public class Job implements UniqueObject {
 	 * @param theDifficulty
 	 *            the difficulty of the job.
 	 */
-	public Job(final ParkManager theManager, final String theName, final Park thePark, final Date theDate,
-			final Date theStartTime, final Date theEndTime, final String theDescription, final int theLightDuty,
+	public Job(final ParkManager theManager, final String theName, final Park thePark, final JobDate theDate,
+			final JobDate theStartTime, final JobDate theEndTime, final String theDescription, final int theLightDuty,
 			final int theMediumDuty, final int theHeavyDuty) {
 		myManager = Objects.requireNonNull(theManager);
 		myName = Objects.requireNonNull(theName);
@@ -173,7 +171,7 @@ public class Job implements UniqueObject {
 	 * 
 	 * @return returns the date of the job.
 	 */
-	public Date getDate() {
+	public JobDate getDate() {
 		return myDate;
 	}
 
@@ -182,7 +180,7 @@ public class Job implements UniqueObject {
 	 * 
 	 * @return returns the date of the job.
 	 */
-	public Date getStartTime() {
+	public JobDate getStartTime() {
 		return myStartTime;
 	}
 
@@ -191,7 +189,7 @@ public class Job implements UniqueObject {
 	 * 
 	 * @return returns the date of the job.
 	 */
-	public Date getEndTime() {
+	public JobDate getEndTime() {
 		return myEndTime;
 	}
 

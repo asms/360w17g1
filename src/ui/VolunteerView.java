@@ -103,27 +103,26 @@ public class VolunteerView extends AbstractView<Volunteer> {
 		int state = 1; // get park
 		final Park[] parks = myParkController.getAllParks().toArray(new Park[0]);
 		while(state == 1) {
-			final Park park = getSelectionFromList("Parks", "Enter a park number", parks, "Back");
+			final Park park = getSelectionFromList("Parks", "Enter a park number", parks, p -> p.getName(), new String[] {"Back"});
 			if (park != null) {
 				state = 2; // get job
 				while (state == 2) {
 					displayLineBreak();
-					final String[] jobNames = JobController.filterAtLeastThreeDaysAheadandNoSameDayConflict
-					                (myJobController.getByPark(park).stream()).map(x -> x.getJobName()).collect(Collectors.toList()).toArray(new String[0]);
-					final String jobName = getSelectionFromList("Jobs", "Enter a job number to sign up", jobNames, "Back");
-					final Job job = myJobController.getJob(jobName + park.toString());
+					final Job[] jobs = JobController.filterAtLeastThreeDaysAheadandNoSameDayConflict
+					                (myJobController.getByPark(park).stream()).toArray(Job[]::new);
+					final Job job = getSelectionFromList("Jobs", "Enter a job number to sign up", jobs, x -> x.getJobName(), new String[] {"Back"});
+					//final Job job = myJobController.getJob(jobName + park.toString());
 					if (job != null) {
 						displayLineBreak();
 						displayJob(job);
-						final String command = getSelectionFromList("Commands", "Select a command number", new String[] {"Sign Up", "Back"});
+						final String command = getSelectionFromList("Commands", "Select a command number", new String[] {"Sign Up", "Back"}, x -> x, new String[0]);
 						if (command.equals("Sign Up") && myJobController.canSignUp((Volunteer) myUser, job.getDate())) {
 							if (job.hasMaxVolunteers()) {
 								print("Maximum number of volunteers reached.");
 							} else {
-								final String duty = getSelectionFromList("Work Duty", "Select a skill level",
-										new String[]{WorkDuty.LIGHT.toString(), WorkDuty.MEDIUM.toString(), WorkDuty.HEAVY.toString()}, "Cancel");
+								final WorkDuty duty = getSelectionFromList("Work Duty", "Select a skill level", WorkDuty.values(), x -> x.toString(), new String[] {"Cancel"});
 								if (duty != null) {
-									if (job.addVolunteer((Volunteer) myUser, WorkDuty.valueOf(duty))) {
+									if (job.addVolunteer((Volunteer) myUser, duty)) {
 										myJobController.addJob(job);
 										print("Sign up successful.");
 										getString("Press enter to continue...");

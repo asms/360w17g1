@@ -19,6 +19,7 @@ import org.junit.Test;
 
 import model.Job;
 import model.JobController;
+import model.JobDate;
 import model.Park;
 import model.ParkManager;
 
@@ -57,8 +58,7 @@ public class JobControllerTest
         final ArrayList<Job> jobs = new ArrayList<Job>();
         for (int i = 1; i < 30; i++)
         {
-        	Date date = new Date();
-    		date.setDate(date.getDate() + 1);
+        	JobDate date = new JobDate().addDays(i);
         	final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), date,  date,  date, 
                     "This job involves a lot of walking", i, 2, 4);
             jobs.add(job);
@@ -86,7 +86,7 @@ public class JobControllerTest
     @Test
     public void testGetJob()
     {
-        final Job expectedJob = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), new Date(), new Date(), new Date(), 
+        final Job expectedJob = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), new JobDate(), new JobDate(), new JobDate(), 
                                         "This job involves a lot of walking", 1, 2, 4);
         myJobController.addJob(expectedJob);
         final Job job = myJobController.getJob(expectedJob.getKey());
@@ -108,11 +108,11 @@ public class JobControllerTest
 	@Test
 	public void testCanAddWithDate() {
 		
-		Date date = new Date();
-		final Job firstJob = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, new Date(), new Date(), 
+		JobDate date = new JobDate();
+		final Job firstJob = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, date, date, 
                 "This job involves a lot of walking", 1, 2, 4);
 
-		final Job anotherJob =  new Job(new ParkManager("pm"), "Rail Clearing", new Park("BirchCreek Park", "address"), date, new Date(), new Date(), 
+		final Job anotherJob =  new Job(new ParkManager("pm"), "Rail Clearing", new Park("BirchCreek Park", "address"), date, date, date, 
                 "This job involves a lot of walking", 1, 2, 4);
 		
 		

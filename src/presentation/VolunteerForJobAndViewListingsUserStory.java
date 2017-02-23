@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import model.JobController;
+import model.JobDate;
 import model.ParkController;
 import model.UserController;
 import model.Job;
@@ -43,23 +44,20 @@ public final class VolunteerForJobAndViewListingsUserStory {
 		
 		final Volunteer crazyjoe = new Volunteer("crazyjoe", "Joe", "Joe", "666-666-6666", "crazyjoe@loco.com");
 		crazyjoe.setBlackballedFlag(true);
-		
-		final int FOUR_DAYS = 86400 * 4 * 1000;
-		
 		DateFormat timeFormat = new SimpleDateFormat("hh:mm a");
 		
 		try {
 			final Job litter = new Job(manager, "Cleaning up litter", sunset,
-					new Date(new Date().getTime() + FOUR_DAYS), timeFormat.parse("10:00 am"),
-					timeFormat.parse("2:00 pm"), "Cleaning up after yesterday's little league tournament.", 2, 2,
+					new JobDate().addDays(4), new JobDate().setFromTimeString("10:00 am"),
+					new JobDate().setFromTimeString("2:00 pm"), "Cleaning up after yesterday's little league tournament.", 2, 2,
 					2);
 			final Job painting = new Job(manager, "Painting Parking Lines", sunset,
-					new Date(new Date().getTime() + FOUR_DAYS), timeFormat.parse("2:00 pm"),
-					timeFormat.parse("5:00 pm"), "Repainting the faded lines in the parking lot.", 2, 2,
+					new JobDate().addDays(4), new JobDate().setFromTimeString("2:00 pm"),
+					new JobDate().setFromTimeString("5:00 pm"), "Repainting the faded lines in the parking lot.", 2, 2,
 					2);
 			final Job collectFrogs = new Job(manager, "Collect Frogs", sunset,
-					new Date(new Date().getTime() + FOUR_DAYS * 2), timeFormat.parse("2:00 pm"),
-					timeFormat.parse("5:00 pm"), "Humanely collecting nuisance frogs and relocating them.", 2, 2,
+					new JobDate().addDays(2), new JobDate().setFromTimeString("2:00 pm"),
+					new JobDate().setFromTimeString("5:00 pm"), "Humanely collecting nuisance frogs and relocating them.", 2, 2,
 					2);
 			sunset.associateWithJob(litter);
 			sunset.associateWithJob(painting);

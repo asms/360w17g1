@@ -4,11 +4,7 @@
  */
 package model;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -24,15 +20,10 @@ import model.Volunteer;
  */
 public class JobController extends AbstractController<Job> {
 	
-	/**
-	 * BR: There can be no more than two jobs on any given day.
-	 */
 	public static final int MAX_JOBS_PER_DAY = 2;
-	
-	/**
-	 * BR: There can be no more than two jobs on any given day.
-	 */
 	public static final int DEFAULT_MAX_PENDING_JOBS = 30;
+	public static final int MAX_FUTURE_DATE_MONTHS_FROM_NOW_FOR_JOB_CREATION = 1;
+	public static final int MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP = 3;
 	
 	private int myMaximumNumberOfPendingJobs;
     
@@ -73,7 +64,7 @@ public class JobController extends AbstractController<Job> {
      * @return a steam of upcoming jobs
      */
     public static Stream<Job> filterUpcomingJobs(final Stream<Job> theStream) {
-    	return theStream.filter(x -> new Date().compareTo(x.getDate()) < 0);
+    	return theStream.filter(x -> new JobDate().compareTo(x.getDate()) < 0);
     }
     
     /**
@@ -82,9 +73,8 @@ public class JobController extends AbstractController<Job> {
      * @return a stream of upcoming jobs
      */
     public static Stream<Job> filterAtLeastThreeDaysAheadandNoSameDayConflict(final Stream<Job> theStream) {
-        Calendar c = Calendar.getInstance();
-        c.add(Calendar.DATE, 3); 
-        return theStream.filter(x -> x.getDate().after(c.getTime()) || x.getDate().equals(c));
+        JobDate futureDate = new JobDate().getStartOfDate().addDays(MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP);
+        return theStream.filter(x -> x.getDate().after(futureDate) || x.getDate().equals(futureDate));
     }
     
     /**
@@ -93,7 +83,7 @@ public class JobController extends AbstractController<Job> {
      * @return a steam of past jobs
      */
     public static Stream<Job> filterPastJobs(final Stream<Job> theStream) {
-    	return theStream.filter(x -> new Date().compareTo(x.getDate()) >= 0);
+    	return theStream.filter(x -> new JobDate().compareTo(x.getDate()) >= 0);
     }
     
     
@@ -117,7 +107,7 @@ public class JobController extends AbstractController<Job> {
         add(theJob);
     }
 
-	public boolean canAddWithDate(final Date theDate) {
+	public boolean canAddWithDate(final JobDate theDate) {
 		return myList.entrySet().stream().filter(x -> x.getValue().getDate().equals(theDate)).count() < MAX_JOBS_PER_DAY;
 	}
 	
@@ -134,15 +124,10 @@ public class JobController extends AbstractController<Job> {
 	 * @param theDate the date
 	 * @return whether the volunteer can sign up
 	 */
-	public boolean canSignUp(final Volunteer theVolunteer, final Date theDate) {
+	public boolean canSignUp(final Volunteer theVolunteer, final JobDate theDate) {
 		return !theVolunteer.isBlackballed() &&
 				getUpcomingJobs().stream().filter(x -> x.getVolunteers().contains(theVolunteer)
-						&& onSameDate(x.getDate(), theDate)).count() == 0;
-	}
-	
-	private boolean onSameDate(final Date theFirst, final Date theSecond) {
-		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-		return dateFormat.format(theFirst).equals(dateFormat.format(theSecond));
+						&& JobDate.sameDates(x.getDate(), theDate)).count() == 0;
 	}
 	
 	/**

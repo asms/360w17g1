@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import model.JobController;
+import model.JobDate;
 import model.Job;
 import model.Job.WorkDuty;
 import model.Park;
@@ -40,8 +41,8 @@ public class JobTest {
     public void setUp() throws Exception {
         
     	
-    	
-        testJob1 = new Job(new ParkManager("pm"), "Park Cleanup", new Park("Cherry Park", "Park Location"),  new Date(), new Date(), new Date(), "Cleaning up litter", 1, 3, 5);
+    	final JobDate date = new JobDate();
+        testJob1 = new Job(new ParkManager("pm"), "Park Cleanup", new Park("Cherry Park", "Park Location"),  date, date, date, "Cleaning up litter", 1, 3, 5);
         
         //represent volunteers sign up for light work category
         volunteerLight = new HashMap<String, WorkDuty>();
@@ -58,24 +59,8 @@ public class JobTest {
     
     @Test
     public void testNotEqualDifferentParkName() {
-    	final Job differentJobName = new Job(new ParkManager("pm"), "Different Job Name", new Park("Cherry Park", "Park Location"),  new Date(), new Date(), new Date(), "Cleaning up litter", 1, 3, 5);
+    	final Job differentJobName = new Job(new ParkManager("pm"), "Different Job Name", new Park("Cherry Park", "Park Location"),  new JobDate(), new JobDate(), new JobDate(), "Cleaning up litter", 1, 3, 5);
         assertFalse(differentJobName.getJobName().equals(testJob1.getJobName()));
-    }
-    
-    @Test
-    public void testOnJobName() {
-        assertEquals("Job name should be the same.", "Park Cleanup", testJob1.getJobName());
-    }
-    
-    @Test
-    public void testOnJobDescription() {
-        assertEquals("Job Description is different", "Cleaning up litter", testJob1.getDescription());
-    }
-    
-  
-    @Test
-    public void testOnJobDateTime() {
-        assertEquals("Job Date and Time is different.", new Date().getDay(), testJob1.getDate().getDay());
     }
     
     @Test
@@ -99,7 +84,7 @@ public class JobTest {
     
     @Test
     public void testGetVolunteers_VolunteersInList() {
-    	Job job = new Job(new ParkManager("pm"), "PARKNAM", new Park("Park", "Location"), new Date(), new Date(), new Date(), "description", 1,2,3);
+    	Job job = new Job(new ParkManager("pm"), "PARKNAM", new Park("Park", "Location"), new JobDate(), new JobDate(), new JobDate(), "description", 1,2,3);
     	pk.addJob(job);
     	//System.out.println(pk.getUpcomingJobs());
     	

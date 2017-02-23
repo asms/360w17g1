@@ -4,16 +4,15 @@
  */
 package ui;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.stream.Collectors;
-
+import java.util.function.Function;
 import model.JobController;
+import model.JobDate;
 import model.Job;
 import model.Park;
 import model.ParkManager;
@@ -27,11 +26,6 @@ import ui.Command.CommandExecutor;
  * @version 1.0
  */
 public class ParkManagerView extends AbstractView<ParkManager> {
-
-	/**
-	 * BR: A job cannot be scheduled more than one month in the future.
-	 */
-	private static final int MAX_FUTURE_DATE = 1;
 
 	/**
 	 * Possible commands a park manager can execute.
@@ -116,8 +110,12 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 		print("Create a new job");
 		displayLineBreak();
 		if (myJobController.getUpcomingJobs().size() < myJobController.getMaximumNumberOfPendingJobs()) {
-			final Park park = getSelectionFromList("Parks", "Enter park number",
-					myParkController.getAllParks().toArray(new Park[] {}));
+			final Park park = getSelectionFromList(
+					"Parks",
+					"Enter park number",
+					myParkController.getAllParks().toArray(new Park[] {}),
+					(Function<Park, String>) p -> p.getName(),
+					new String[0]);
 			
 			String name;
 			boolean validName = false;
@@ -129,22 +127,25 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 					printError("A job by that name already exists for this park.");
 				}
 			} while (!validName);
-			
-			final Calendar calendar = Calendar.getInstance();
-			calendar.add(Calendar.MONTH, MAX_FUTURE_DATE);
-			Date date;
+			JobDate maxFutureDate = new JobDate()
+					.addMonths(JobController.MAX_FUTURE_DATE_MONTHS_FROM_NOW_FOR_JOB_CREATION);
+			JobDate date;
 			boolean validDate = false;
 			do {
-				print("Job date must be no more 30 days after today.");
-				date = getDate("Enter date(MM/DD/YYYY)", new Date(System.currentTimeMillis()), calendar.getTime());
+				print(":::Note: Job date must be at least "
+						+ String.valueOf(JobController.MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP)
+						+ " days and no more than "
+						+ String.valueOf(JobController.MAX_FUTURE_DATE_MONTHS_FROM_NOW_FOR_JOB_CREATION)
+						+ " month from today:::");
+				date = getDate("Enter date(MM/DD/YYYY)", new JobDate().getStartOfDate(), maxFutureDate);
 				if (myJobController.canAddWithDate(date)) {
 					validDate = true;
 				} else {
 					printError("Maximum jobs per day (" + JobController.MAX_JOBS_PER_DAY + ") already reached.");
 				}
 			} while (!validDate);
-			final Date startTime = getTime("Enter start time(HH:MM AM/PM)");
-			final Date endTime = getTime("Enter end time(HH:MM AM/PM)", startTime);
+			final JobDate startTime = getTime("Enter start time(HH:MM AM/PM)");
+			final JobDate endTime = getTime("Enter end time(HH:MM AM/PM)", startTime);
 			final String description = getString("Enter description");
 			final int numLightVolunteers = getInteger("Enter number of light-duty volunteers",
 											0, Job.MAX_VOLUNTEERS);
@@ -181,11 +182,10 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 	private void viewVolunteers() {
 		displayLineBreak();
 		final Park[] parks = ((ParkManager) myUser).getAssociatedParks().toArray(new Park[0]);
-		final Park park = getSelectionFromList("Parks", "Enter a park number", parks);
+		final Park park = getSelectionFromList("Parks", "Enter a park number", parks, p -> p.getName(), new String[0]);
 		displayLineBreak();
-		final String[] jobNames = myJobController.getByPark(park).stream().map(x -> x.getJobName()).collect(Collectors.toList()).toArray(new String[0]);
-		final String jobName = getSelectionFromList("Jobs", "Enter a job number", jobNames);
-		final Job job = myJobController.getJob(jobName + park.toString());
+		final Job[] jobNames = myJobController.getByPark(park).toArray(new Job[0]);
+		final Job job = getSelectionFromList("Jobs", "Enter a job number", jobNames, j -> j.getJobName(), new String[0]);
 		displayLineBreak();
 		final Set<Volunteer> volunteers = job.getVolunteers();
 		final int numberVolunteers = volunteers.size();

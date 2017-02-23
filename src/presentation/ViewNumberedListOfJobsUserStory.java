@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import model.JobController;
+import model.JobDate;
 import model.ParkController;
 import model.UserController;
 import model.Job;
@@ -42,13 +43,11 @@ public final class ViewNumberedListOfJobsUserStory {
 		
 		final Volunteer volunteer = new Volunteer("carlyo", "Carly", "O'Hara", "253-425-2375", "carlyo@yahoo.com");
 		
-		final int FOUR_DAYS = 86400 * 4 * 1000;
-		
 		DateFormat timeFormat = new SimpleDateFormat("hh:mm a");
 		
 		try {
-			final Job litter = new Job(manager, "Cleaning up litter", sunset, new Date(new Date().getTime() + FOUR_DAYS), timeFormat.parse("10:00 am"),
-					timeFormat.parse("2:00 pm"), "Cleaning up after yesterday's little league tournament.", 2, 2,
+			final Job litter = new Job(manager, "Cleaning up litter", sunset, new JobDate().addDays(4), new JobDate().setFromTimeString("10:00 am"),
+					new JobDate().setFromTimeString("2:00 pm"), "Cleaning up after yesterday's little league tournament.", 2, 2,
 					2);
 			litter.addVolunteer(volunteer, WorkDuty.LIGHT);
 			jc.addJob(litter);

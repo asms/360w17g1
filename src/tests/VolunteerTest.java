@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import model.JobController;
+import model.JobDate;
 import model.Volunteer;
 
 public class VolunteerTest {
@@ -72,7 +73,7 @@ public class VolunteerTest {
     	final Volunteer volunteer = new Volunteer("smithsd", "Steve", "Smith", "XXX-XXX-XXXX", "xxxxxxx@uw.edu");
     	final JobController jobController = new JobController();
     	jobController.clear();
-    	Date twoDaysFromNow = new Date(new Date().getTime() + 172800);
+    	final JobDate twoDaysFromNow = new JobDate().addDays(2);
     	boolean canSignUp = jobController.canSignUp(volunteer, twoDaysFromNow);
     	assertTrue(canSignUp);
     }
@@ -82,7 +83,7 @@ public class VolunteerTest {
     	final Volunteer volunteer = new Volunteer("smithsd", "Steve", "Smith", "XXX-XXX-XXXX", "xxxxxxx@uw.edu");
     	final JobController jobController = new JobController();
     	jobController.clear();
-    	Date twoDaysFromNow = new Date(new Date().getTime() + 172800);
+    	final JobDate twoDaysFromNow = new JobDate().addDays(2);
     	volunteer.setBlackballedFlag(true);
     	boolean cantSignUp = jobController.canSignUp(volunteer, twoDaysFromNow);
     	assertFalse(cantSignUp);

@@ -31,7 +31,7 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 	 * Possible commands a park manager can execute.
 	 */
 	private static enum COMMAND implements Command {
-		CREATE_NEW_JOB("Create a new job"), VIEW_VOLUNTEERS("View volunteers"), LOGOUT(
+		CREATE_NEW_JOB("Create a new job"), /* VIEW_VOLUNTEERS("View volunteers"), */ LOGOUT(
 				"Logout");
 
 		/**
@@ -77,12 +77,12 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 				createNewJob();
 			}
 		});
-		commands.put(COMMAND.VIEW_VOLUNTEERS, new CommandExecutor() {
-			@Override
-			public void execute() {
-				viewVolunteers();
-			}
-		});
+//		commands.put(COMMAND.VIEW_VOLUNTEERS, new CommandExecutor() {
+//			@Override
+//			public void execute() {
+//				viewVolunteers();
+//			}
+//		});
 		commands.put(COMMAND.LOGOUT, new CommandExecutor() {
 			@Override
 			public void execute() {

@@ -83,8 +83,8 @@ public class VolunteerTest {
 			job = new Job(new ParkManager("asdf"),
 					"Cleaning up litter", new Park("Sunset", "location"),
 					new JobDate().addDays(4),
-					new JobDate().setFromTimeString("10:00 am"),
-					new JobDate().setFromTimeString("2:00 pm"),
+					new JobDate().setFromTimeString("10:00 AM"),
+					new JobDate().setFromTimeString("02:00 PM"),
 					"Cleaning up after yesterday's little league tournament.", 2, 2,
 					2);
 			volunteer.setBlackballedFlag(false);
@@ -101,8 +101,8 @@ public class VolunteerTest {
     	jobController.clear();
     	Job job;
 		try {
-			job = new Job(new ParkManager("asdf"), "Cleaning up litter", new Park("Sunset", "location"), new JobDate().addDays(4), new JobDate().setFromTimeString("10:00 am"),
-					new JobDate().setFromTimeString("2:00 pm"), "Cleaning up after yesterday's little league tournament.", 2, 2,
+			job = new Job(new ParkManager("asdf"), "Cleaning up litter", new Park("Sunset", "location"), new JobDate().addDays(4), new JobDate().setFromTimeString("10:00 PM"),
+					new JobDate().setFromTimeString("02:00 PM"), "Cleaning up after yesterday's little league tournament.", 2, 2,
 					2);
 			volunteer.setBlackballedFlag(true);
 	    	jobController.assertSigningUp(volunteer, job);

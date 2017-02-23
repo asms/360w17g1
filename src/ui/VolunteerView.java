@@ -96,7 +96,7 @@ public class VolunteerView extends AbstractView<Volunteer> {
 			clear();
 			displayHeader();
 			displayLineBreak();
-			displayCurrentJobs();
+//			displayCurrentJobs();
 			displayLineBreak();
 			COMMAND command = (COMMAND) getCommand("Enter a command", COMMAND.values());
 			if (command != null) {
@@ -151,17 +151,17 @@ public class VolunteerView extends AbstractView<Volunteer> {
 	
     /* These methods are for User Story: As a volunteer, I want to view listing of jobs I'm signed up for */
     
-//	private void displayJob(final Job theJob) {
-//		print(String.format(JOB_DISPLAY_FORMAT,
-//				theJob.getJobName(),		
-//				theJob.getPark().getName(),		
-//				theJob.getDate().toDateString(),		
-//				theJob.getStartTime().toTimeString(),		
-//				theJob.getEndTime().toTimeString(),		
-//				theJob.getDescription(),		
-//				theJob.getVolunteers().size()));
-//	}
-//	
+	private void displayJob(final Job theJob) {
+		print(String.format(JOB_DISPLAY_FORMAT,
+				theJob.getJobName(),		
+				theJob.getPark().getName(),		
+				theJob.getDate().toDateString(),		
+				theJob.getStartTime().toTimeString(),		
+				theJob.getEndTime().toTimeString(),		
+				theJob.getDescription(),		
+				theJob.getVolunteers().size()));
+	}
+	
 //	private void displayCurrentJobs() {
 //		final List<Job> jobs = ((Volunteer) myUser).getPendingJobs();
 //		print(String.format("%s%s%s%s%s",

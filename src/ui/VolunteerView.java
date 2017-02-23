@@ -149,38 +149,40 @@ public class VolunteerView extends AbstractView<Volunteer> {
 		}
 	}
 	
-	private void displayJob(final Job theJob) {
-		print(String.format(JOB_DISPLAY_FORMAT,
-				theJob.getJobName(),		
-				theJob.getPark().getName(),		
-				theJob.getDate().toDateString(),		
-				theJob.getStartTime().toTimeString(),		
-				theJob.getEndTime().toTimeString(),		
-				theJob.getDescription(),		
-				theJob.getVolunteers().size()));
-	}
-	
-	private void displayCurrentJobs() {
-		final List<Job> jobs = ((Volunteer) myUser).getPendingJobs();
-		print(String.format("%s%s%s%s%s",
-				pad("Pending Job", 25),
-				pad("Location", 50),
-				pad("Date", 15),
-				pad("Start time", 15),
-				pad("End time", 15)));
-		displayLine();
-		for (final Job job : jobs) {
-			print(String.format("%s%s%s%s%s", 
-					pad(job.getJobName(), 25),
-					pad(job.getPark().getLocation(), 50),
-					pad(job.getDate().toDateString(), 15),
-					pad(job.getStartTime().toTimeString(), 15),
-					pad(job.getEndTime().toTimeString(), 15)));
-		}
-		if (jobs.size() == 0) {
-			print("You are not signed up for any pending jobs.");
-		}
-		displayLine();
-	}
+    /* These methods are for User Story: As a volunteer, I want to view listing of jobs I'm signed up for */
+    
+//	private void displayJob(final Job theJob) {
+//		print(String.format(JOB_DISPLAY_FORMAT,
+//				theJob.getJobName(),		
+//				theJob.getPark().getName(),		
+//				theJob.getDate().toDateString(),		
+//				theJob.getStartTime().toTimeString(),		
+//				theJob.getEndTime().toTimeString(),		
+//				theJob.getDescription(),		
+//				theJob.getVolunteers().size()));
+//	}
+//	
+//	private void displayCurrentJobs() {
+//		final List<Job> jobs = ((Volunteer) myUser).getPendingJobs();
+//		print(String.format("%s%s%s%s%s",
+//				pad("Pending Job", 25),
+//				pad("Location", 50),
+//				pad("Date", 15),
+//				pad("Start time", 15),
+//				pad("End time", 15)));
+//		displayLine();
+//		for (final Job job : jobs) {
+//			print(String.format("%s%s%s%s%s", 
+//					pad(job.getJobName(), 25),
+//					pad(job.getPark().getLocation(), 50),
+//					pad(job.getDate().toDateString(), 15),
+//					pad(job.getStartTime().toTimeString(), 15),
+//					pad(job.getEndTime().toTimeString(), 15)));
+//		}
+//		if (jobs.size() == 0) {
+//			print("You are not signed up for any pending jobs.");
+//		}
+//		displayLine();
+//	}
 
 }

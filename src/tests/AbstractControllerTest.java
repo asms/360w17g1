@@ -6,11 +6,18 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.io.Serializable;
 import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
 import model.UserController;
+import model.AbstractController;
 import model.AbstractUser;
 import model.Volunteer;
 
@@ -61,6 +68,31 @@ public class AbstractControllerTest {
 		myController.addUser(new Volunteer("eli", "Eli", "Ile", "253-123-4567", "eli@gmail.com"));
 		myController.clear();
 		assertEquals(myController.getAllUsers(), new UserController().getAllUsers());
+	}
+	
+	@Test
+	public void testSerializeToDisk_IOException_ReturnsFalse() {
+		final String key = "key";
+		final AbstractUser object = AbstractUser.GUEST;
+		boolean expectedFalse = true;
+		try {
+			final String fileName = key + "_" + object.getClass().getSimpleName() + ".ser";
+			FileOutputStream out = new FileOutputStream(fileName);
+			out.write(new byte[0]);
+			out.close();
+			
+			RandomAccessFile file = new RandomAccessFile(fileName, "rw");
+		    java.nio.channels.FileLock lock = file.getChannel().lock();
+		    try {
+		    	expectedFalse = AbstractController.serializeToDisk(key, object);
+		    } finally {
+		        lock.release();
+		    }
+		    file.close();
+		} catch (Exception e) {
+			fail(e.getMessage().toString());
+		}
+		assertFalse(expectedFalse);
 	}
 
 }

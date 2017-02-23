@@ -181,12 +181,14 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 				.addMonths(JobController.MAX_FUTURE_DATE_MONTHS_FROM_NOW_FOR_JOB_CREATION);
 		boolean validDate = false;
 		do {
-			print(":::Note: Job date must be at least "
+			print(":::Note::: Job date must be at least "
 					+ String.valueOf(JobController.MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP)
-					+ " days and no more than "
+					+ " days from now and no more than "
 					+ String.valueOf(JobController.MAX_FUTURE_DATE_MONTHS_FROM_NOW_FOR_JOB_CREATION)
-					+ " month from today:::");
-			date = getDate("Enter date(MM/DD/YYYY)", new JobDate().getStartOfDate(), maxFutureDate);
+					+ " month from today.");
+			date = getDate("Enter date(MM/DD/YYYY)",
+					new JobDate().getStartOfDate().addDays(JobController.MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP),
+					maxFutureDate);
 			if (myJobController.canAddWithDate(date)) {
 				validDate = true;
 			} else {

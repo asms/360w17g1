@@ -4,10 +4,10 @@
  */
 package ui;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.function.Function;
@@ -104,63 +104,26 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 	}
 
 	/**
-	 * User Story: As a Park Manager I want to submit a new job.
+	 * Prompts for input to create a new job.
 	 */
 	private void createNewJob() {
 		print("Create a new job");
 		displayLineBreak();
 		if (myJobController.getUpcomingJobs().size() < myJobController.getMaximumNumberOfPendingJobs()) {
-			final Park park = getSelectionFromList(
-					"Parks",
-					"Enter park number",
-					myParkController.getAllParks().toArray(new Park[] {}),
-					(Function<Park, String>) p -> p.getName(),
-					new String[0]);
-			
-			String name;
-			boolean validName = false;
-			do {
-				name = getString("Enter job title");
-				if (myJobController.canAddWithNameAtPark(name, park)) {
-					validName = true;
-				} else {
-					printError("A job by that name already exists for this park.");
-				}
-			} while (!validName);
-			JobDate maxFutureDate = new JobDate()
-					.addMonths(JobController.MAX_FUTURE_DATE_MONTHS_FROM_NOW_FOR_JOB_CREATION);
-			JobDate date;
-			boolean validDate = false;
-			do {
-				print(":::Note: Job date must be at least "
-						+ String.valueOf(JobController.MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP)
-						+ " days and no more than "
-						+ String.valueOf(JobController.MAX_FUTURE_DATE_MONTHS_FROM_NOW_FOR_JOB_CREATION)
-						+ " month from today:::");
-				date = getDate("Enter date(MM/DD/YYYY)", new JobDate().getStartOfDate(), maxFutureDate);
-				if (myJobController.canAddWithDate(date)) {
-					validDate = true;
-				} else {
-					printError("Maximum jobs per day (" + JobController.MAX_JOBS_PER_DAY + ") already reached.");
-				}
-			} while (!validDate);
+			final Park park = promptForPark();
+			final String name = promptForJobName(park);
+			final JobDate date = promptForJobDate();
 			final JobDate startTime = getTime("Enter start time(HH:MM AM/PM)");
 			final JobDate endTime = getTime("Enter end time(HH:MM AM/PM)", startTime);
 			final String description = getString("Enter description");
-			final int numLightVolunteers = getInteger("Enter number of light-duty volunteers",
-											0, Job.MAX_VOLUNTEERS);
-			final int numMediumVolunteers = getInteger("Enter number of medium-duty volunteers",
-											0, Job.MAX_VOLUNTEERS - numLightVolunteers);
-			final int numHeavyVolunteers = getInteger("Enter number of heavy-duty volunteers",
-											0, Job.MAX_VOLUNTEERS - numLightVolunteers - numMediumVolunteers);
-	
-			final Job job = new Job((ParkManager) myUser, name, park, date, startTime, endTime, description, numLightVolunteers,
-					numMediumVolunteers, numHeavyVolunteers);
+			final int numLightVolunteers = getInteger("Enter number of light-duty volunteers", 0, Job.MAX_VOLUNTEERS);
+			final int numMediumVolunteers = getInteger("Enter number of medium-duty volunteers", 0, Job.MAX_VOLUNTEERS - numLightVolunteers);
+			final int numHeavyVolunteers = getInteger("Enter number of heavy-duty volunteers", 0, Job.MAX_VOLUNTEERS - numLightVolunteers - numMediumVolunteers);
+			final Job job = new Job((ParkManager) myUser, name, park, date, startTime, endTime, description, numLightVolunteers, numMediumVolunteers, numHeavyVolunteers);
 			displayLine();
 			print(job.toString());
 			displayLine();
 			final boolean shouldSubmit = getBooleanYesNo("Are you sure you want to submit this job (Y/N)");
-	
 			if (shouldSubmit) {
 		        park.associateWithJob(job);
 		        myParkController.addPark(park);
@@ -174,10 +137,67 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 		}
 		getString("Press enter to continue...");
 	}
+	
+	/**
+	 * Prompts for a park from a list of parks.
+	 * @return the park
+	 */
+	private Park promptForPark() {
+		return getSelectionFromList(
+				"Parks",
+				"Enter park number",
+				myParkController.getAllParks().toArray(new Park[] {}),
+				(Function<Park, String>) p -> p.getName(),
+				new String[0]);
+	}
+	
+	/**
+	 * Prompts for a unique job name.
+	 * @param thePark the park that the job will be added to
+	 * @return the job name
+	 * @throws NullPointerException if the park is null
+	 */
+	private String promptForJobName(final Park thePark) {
+		String jobName;
+		boolean validName = false;
+		do {
+			jobName = getString("Enter job title");
+			if (myJobController.canAddWithNameAtPark(jobName, Objects.requireNonNull(thePark))) {
+				validName = true;
+			} else {
+				printError("A job by that name already exists for this park.");
+			}
+		} while (!validName);
+		return jobName;
+	}
+	
+	/**
+	 * Prompts for a job date.
+	 * @return the job date
+	 */
+	private JobDate promptForJobDate() {
+		JobDate date;
+		JobDate maxFutureDate = new JobDate()
+				.addMonths(JobController.MAX_FUTURE_DATE_MONTHS_FROM_NOW_FOR_JOB_CREATION);
+		boolean validDate = false;
+		do {
+			print(":::Note: Job date must be at least "
+					+ String.valueOf(JobController.MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP)
+					+ " days and no more than "
+					+ String.valueOf(JobController.MAX_FUTURE_DATE_MONTHS_FROM_NOW_FOR_JOB_CREATION)
+					+ " month from today:::");
+			date = getDate("Enter date(MM/DD/YYYY)", new JobDate().getStartOfDate(), maxFutureDate);
+			if (myJobController.canAddWithDate(date)) {
+				validDate = true;
+			} else {
+				printError("Maximum jobs per day (" + JobController.MAX_JOBS_PER_DAY + ") already reached.");
+			}
+		} while (!validDate);
+		return date;
+	}
 
 	/**
-	 * User Story: As a Park Manager I want to view a numbered list of
-	 * Volunteers for a job (past or present) in the parks that I manage.
+	 * Prompts for a park name, prompts for a job at that park, displays volunteers at that job.
 	 */
 	private void viewVolunteers() {
 		displayLineBreak();
@@ -198,9 +218,14 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 		getString("Press enter to continue...");
 	}
 	
+	/**
+	 * Displays a set of volunteers' info in a grid.
+	 * @param theVolunteers the set of volunteers
+	 * @throws NullPointerException if the set of volunteers is null
+	 */
 	protected void displayVolunteerGrid(final Set<Volunteer> theVolunteers) {
 		StringBuilder sb = new StringBuilder();
-		Iterator<Volunteer> it = theVolunteers.iterator();
+		Iterator<Volunteer> it = Objects.requireNonNull(theVolunteers).iterator();
 		sb.append(pad("No.", 20));
 		sb.append(pad("First Name", 20));
 		sb.append(pad("Last Name", 20));

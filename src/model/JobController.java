@@ -108,6 +108,10 @@ public class JobController extends AbstractController<Job> {
         add(theJob);
     }
 
+    /**
+     * @param theDate
+     * @return True if the Job can be added for that date
+     */
 	public boolean canAddWithDate(final JobDate theDate) {
 		return myList.entrySet().stream().filter(x -> x.getValue().getDate().equals(theDate)).count() < MAX_JOBS_PER_DAY;
 	}

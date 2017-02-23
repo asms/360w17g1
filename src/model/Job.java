@@ -45,9 +45,14 @@ public class Job implements UniqueObject {
 	private Park myPark;
 
 	/**
-	 * The date of the job.
+	 * The start date of the job.
 	 */
-	private JobDate myDate;
+	private JobDate myStartDate;
+	
+	/**
+	 * The end date of the job.
+	 */
+	private JobDate myEndDate;
 
 	/**
 	 * The start time of the job.
@@ -95,7 +100,7 @@ public class Job implements UniqueObject {
 
 		myPark = Objects.requireNonNull(thePark);
 
-		myDate = Objects.requireNonNull(theDate);
+		myStartDate = Objects.requireNonNull(theDate);
 
 		myStartTime = Objects.requireNonNull(theStartTime);
 
@@ -174,7 +179,7 @@ public class Job implements UniqueObject {
 	 * @return returns the date of the job.
 	 */
 	public JobDate getDate() {
-		return myDate;
+		return myStartDate;
 	}
 
 	/**

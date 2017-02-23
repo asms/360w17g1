@@ -34,7 +34,7 @@ public class JobDateTest {
 	 */
 	@Test
 	public final void testGetStartOfDate() {
-		assertEquals(myJobDate.getStartOfDate().toTimeString(), "12:00 PM");
+		assertEquals(myJobDate.getStartOfDate().toTimeString(), "12:00 AM");
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class JobDateTest {
 	@Test
 	public final void testSetFromTimeString() {
 		try {
-			myJobDate.setFromTimeString("11:11 am");
+			myJobDate.setFromTimeString("11:11 AM");
 			assertEquals(myJobDate.toTimeString(), "11:11 AM");
 		} catch (ParseException e) {
 			fail(e.getMessage());
@@ -123,7 +123,7 @@ public class JobDateTest {
 	@Test
 	public final void testSetFromDateString() {
 		try {
-			myJobDate.setFromDateString("2/2/2222");
+			myJobDate.setFromDateString("02/02/2222");
 			assertEquals(myJobDate.toDateString(), "02/02/2222");
 		} catch (ParseException e) {
 			fail(e.getMessage());

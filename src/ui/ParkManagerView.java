@@ -198,54 +198,57 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 		return date;
 	}
 
-	/**
-	 * Prompts for a park name, prompts for a job at that park, displays volunteers at that job.
-	 */
-	private void viewVolunteers() {
-		displayLineBreak();
-		final Park[] parks = ((ParkManager) myUser).getAssociatedParks().toArray(new Park[0]);
-		final Park park = getSelectionFromList("Parks", "Enter a park number", parks, p -> p.getName(), new String[0]);
-		displayLineBreak();
-		final Job[] jobNames = myJobController.getByPark(park).toArray(new Job[0]);
-		final Job job = getSelectionFromList("Jobs", "Enter a job number", jobNames, j -> j.getJobName(), new String[0]);
-		displayLineBreak();
-		final Set<Volunteer> volunteers = job.getVolunteers();
-		final int numberVolunteers = volunteers.size();
-		if (numberVolunteers > 0) {
-			print("Volunteers (" + numberVolunteers + "/30):");
-			displayVolunteerGrid(volunteers);
-		} else {
-			print("There are no volunteers for this job.");
-		}
-		getString("Press enter to continue...");
-	}
-	
-	/**
-	 * Displays a set of volunteers' info in a grid.
-	 * @param theVolunteers the set of volunteers
-	 * @throws NullPointerException if the set of volunteers is null
-	 */
-	protected void displayVolunteerGrid(final Set<Volunteer> theVolunteers) {
-		StringBuilder sb = new StringBuilder();
-		Iterator<Volunteer> it = Objects.requireNonNull(theVolunteers).iterator();
-		sb.append(pad("No.", 20));
-		sb.append(pad("First Name", 20));
-		sb.append(pad("Last Name", 20));
-		sb.append(pad("Phone Number", 20));
-		sb.append(pad("Email", 20));
-		sb.append(System.lineSeparator());
-		sb.append(LINE);
-		sb.append(System.lineSeparator());
-		for (int i=0; i<theVolunteers.size(); i++) {
-			final Volunteer volunteer = it.next();
-			sb.append(pad("[" + (i+1)+ "]", 20));
-			String[] args = volunteer.toString().split(" ");
-			for (int j = 0; j<args.length; j++) {
-				sb.append(pad(args[j], 20));
-			}
-			sb.append(System.lineSeparator());
-		}
-		print(sb.toString());
-	}
+    /* These methods are for User Story: As a park manager, I want to view 
+       listing of volunteer for a job in the park I managed */
+    
+//	/**
+//	 * Prompts for a park name, prompts for a job at that park, displays volunteers at that job.
+//	 */
+//	private void viewVolunteers() {
+//		displayLineBreak();
+//		final Park[] parks = ((ParkManager) myUser).getAssociatedParks().toArray(new Park[0]);
+//		final Park park = getSelectionFromList("Parks", "Enter a park number", parks, p -> p.getName(), new String[0]);
+//		displayLineBreak();
+//		final Job[] jobNames = myJobController.getByPark(park).toArray(new Job[0]);
+//		final Job job = getSelectionFromList("Jobs", "Enter a job number", jobNames, j -> j.getJobName(), new String[0]);
+//		displayLineBreak();
+//		final Set<Volunteer> volunteers = job.getVolunteers();
+//		final int numberVolunteers = volunteers.size();
+//		if (numberVolunteers > 0) {
+//			print("Volunteers (" + numberVolunteers + "/30):");
+//			displayVolunteerGrid(volunteers);
+//		} else {
+//			print("There are no volunteers for this job.");
+//		}
+//		getString("Press enter to continue...");
+//	}
+//	
+//	/**
+//	 * Displays a set of volunteers' info in a grid.
+//	 * @param theVolunteers the set of volunteers
+//	 * @throws NullPointerException if the set of volunteers is null
+//	 */
+//	protected void displayVolunteerGrid(final Set<Volunteer> theVolunteers) {
+//		StringBuilder sb = new StringBuilder();
+//		Iterator<Volunteer> it = Objects.requireNonNull(theVolunteers).iterator();
+//		sb.append(pad("No.", 20));
+//		sb.append(pad("First Name", 20));
+//		sb.append(pad("Last Name", 20));
+//		sb.append(pad("Phone Number", 20));
+//		sb.append(pad("Email", 20));
+//		sb.append(System.lineSeparator());
+//		sb.append(LINE);
+//		sb.append(System.lineSeparator());
+//		for (int i=0; i<theVolunteers.size(); i++) {
+//			final Volunteer volunteer = it.next();
+//			sb.append(pad("[" + (i+1)+ "]", 20));
+//			String[] args = volunteer.toString().split(" ");
+//			for (int j = 0; j<args.length; j++) {
+//				sb.append(pad(args[j], 20));
+//			}
+//			sb.append(System.lineSeparator());
+//		}
+//		print(sb.toString());
+//	}
 
 }

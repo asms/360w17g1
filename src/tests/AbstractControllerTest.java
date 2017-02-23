@@ -89,27 +89,15 @@ public class AbstractControllerTest {
 	
 	@Test
 	public void testSerializeToDisk_IOException_ReturnsFalse() {
-		final String key = "key";
+		final String key = "/";
 		final AbstractUser object = AbstractUser.GUEST;
 		boolean expectedFalse = true;
 		try {
-			final String fileName = key + "_" + object.getClass().getSimpleName() + ".ser";
-			FileOutputStream out = new FileOutputStream(fileName);
-			out.write(new byte[0]);
-			out.close();
-			
-			RandomAccessFile file = new RandomAccessFile(fileName, "rw");
-		    java.nio.channels.FileLock lock = file.getChannel().lock();
-		    try {
-		    	expectedFalse = AbstractController.serializeToDisk(key, object);
-		    } finally {
-		        lock.release();
-		    }
-		    file.close();
+			expectedFalse = AbstractController.serializeToDisk(key, object);
 		} catch (Exception e) {
 			fail(e.getMessage().toString());
 		}
-assertFalse(expectedFalse);
+		assertFalse(expectedFalse);
 	}
 
 }

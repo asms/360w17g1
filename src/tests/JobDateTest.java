@@ -83,8 +83,8 @@ public class JobDateTest {
 	 */
 	@Test(expected = NullPointerException.class)
 	public final void testSameDatesExpectsNullPointerExceptionWhenParametersAreNull() {
-		myJobDate.sameDates(null, new JobDate());
-		myJobDate.sameDates(new JobDate(), null);
+		JobDate.sameDates(null, new JobDate());
+		JobDate.sameDates(new JobDate(), null);
 	}
 	
 	/**
@@ -112,8 +112,7 @@ public class JobDateTest {
 			myJobDate.setFromTimeString("11:11 am");
 			assertEquals(myJobDate.toTimeString(), "11:11 AM");
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		}
 	}
 
@@ -126,8 +125,7 @@ public class JobDateTest {
 			myJobDate.setFromDateString("2/2/2222");
 			assertEquals(myJobDate.toDateString(), "02/02/2222");
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		}
 	}
 

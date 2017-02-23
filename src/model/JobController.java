@@ -6,6 +6,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -112,19 +114,21 @@ public class JobController extends AbstractController<Job> {
      * @param theDate
      * @return True if the Job can be added for that date
      */
-	public boolean canAddWithDate(final JobDate theDate) {
-		return myList.entrySet().stream().filter(x -> x.getValue().getDate().equals(theDate)).count() < MAX_JOBS_PER_DAY;
-	}
-	
-	public boolean canAddWithNameAtPark(final String theName, final Park thePark) {
-		return !myList.containsKey(theName + thePark);
-	}
-	
+    public boolean canAddWithDate(final JobDate theDate) {
+    	Predicate<Job> dateSameAsJobDate = x -> x.getDate().equals(theDate);
+    	return myList.values().stream().filter(dateSameAsJobDate).count() < MAX_JOBS_PER_DAY;
+    }
 
-	public boolean volunteerCanSignUpOnDate(final Volunteer theVolunteer, final JobDate theDate) {
-		return getUpcomingJobs().stream().filter(x -> x.getVolunteers().contains(theVolunteer)
-														&& JobDate.sameDates(x.getDate(), theDate)).count() == 0;
-	}
+    public boolean canAddWithNameAtPark(final String theName, final Park thePark) {
+    	return !myList.containsKey(theName + thePark);
+    }
+
+
+    public boolean volunteerCanSignUpOnDate(final Volunteer theVolunteer, final JobDate theDate) {
+    	final Predicate<Job> dateSameAsJobDateAndJobContainsVolunteer = x -> x.getVolunteers().contains(theVolunteer)
+    			&& JobDate.sameDates(x.getDate(), theDate);
+    	return getUpcomingJobs().stream().filter(dateSameAsJobDateAndJobContainsVolunteer).count() == 0;
+    }
 	
 	/**
 	 * Asserts that a volunteer wants to sign up for a job.

@@ -26,7 +26,7 @@ import ui.Driver;
  * @author Steven Smith
  * @version 1.0
  */
-public final class ViewNumberedListOfJobsUserStory {
+public final class ViewNumberedListOfJobsUserStoryRunOnce {
 
 	public static void main(final String... args) {
 		/* START SETUP */
@@ -43,7 +43,6 @@ public final class ViewNumberedListOfJobsUserStory {
 		
 		final Volunteer volunteer = new Volunteer("carlyo", "Carly", "O'Hara", "253-425-2375", "carlyo@yahoo.com");
 		
-		DateFormat timeFormat = new SimpleDateFormat("hh:mm a");
 		
 		try {
 			final Job litter = new Job(manager, "Cleaning up litter", sunset, new JobDate().addDays(4), new JobDate().setFromTimeString("10:00 am"),

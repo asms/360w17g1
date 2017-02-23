@@ -26,7 +26,7 @@ import ui.Driver;
  * @author Steven Smith
  * @version 1.0
  */
-public final class SubmitNewJobUserStory {
+public final class SubmitNewJobUserStoryRunOnce {
 
 	public static void main(final String... args) {
 		/* START SETUP */

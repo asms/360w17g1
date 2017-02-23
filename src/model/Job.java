@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import model.Job.WorkDuty;
+
 /**
  * Job model class.
  * 
@@ -236,6 +238,10 @@ public class Job implements UniqueObject {
 
 	public boolean hasMaxVolunteers() {
 		return volunteers.size() == MAX_VOLUNTEERS || volunteers.size() == neededVolunteers.size();
+	}
+
+	public boolean needs(WorkDuty theWorkDuty) {
+		return volunteers.values().stream().filter(x -> x.equals(theWorkDuty)).count() < neededVolunteers.get(theWorkDuty);
 	}
 
 }

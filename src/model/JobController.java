@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import model.Job;
+import model.Job.WorkDuty;
 import model.Park;
 import model.Volunteer;
 
@@ -115,19 +116,39 @@ public class JobController extends AbstractController<Job> {
 		return !myList.containsKey(theName + thePark);
 	}
 	
+
+	public boolean volunteerCanSignUpOnDate(final Volunteer theVolunteer, final JobDate theDate) {
+		return getUpcomingJobs().stream().filter(x -> x.getVolunteers().contains(theVolunteer)
+														&& JobDate.sameDates(x.getDate(), theDate)).count() == 0;
+	}
+	
 	/**
-	 * Checks whether the volunteers can sign up for the job.
-	 * 
-	 * <p>The volunteer cannot sign up if they have already signed up for a job on this day. The volunteers cannot
-	 * sign up if they are blackballed.</p>
-	 * @param theVolunteer the volunteer
-	 * @param theDate the date
-	 * @return whether the volunteer can sign up
+	 * Asserts that a volunteer wants to sign up for a job.
+	 * @param theVolunteer a volunteer
+	 * @param theJob the job that the volunteer wants to sign up for
+	 * @return true if the volunteer can sign up for the job
+	 * @throws IllegalStateException if the volunteer cannot sign up for the job
 	 */
-	public boolean canSignUp(final Volunteer theVolunteer, final JobDate theDate) {
-		return !theVolunteer.isBlackballed() &&
-				getUpcomingJobs().stream().filter(x -> x.getVolunteers().contains(theVolunteer)
-						&& JobDate.sameDates(x.getDate(), theDate)).count() == 0;
+	public boolean assertSigningUp(final Volunteer theVolunteer, final Job theJob) throws IllegalStateException {
+		boolean canSignUp = false;
+		if (theVolunteer.isBlackballed()) {
+			throw new IllegalStateException("Blackballed");
+		} else if (!volunteerCanSignUpOnDate(theVolunteer, theJob.getDate())) {
+			throw new IllegalStateException("Preoccupied");
+		} else if(theJob.hasMaxVolunteers()) {
+			throw new IllegalStateException("JobFull");
+		} else {
+			canSignUp = true;
+		}
+		return canSignUp;
+	}
+	
+	public void signUp(final Volunteer theVolunteer, final Job theJob, final WorkDuty theWorkDuty) {
+		if (assertSigningUp(theVolunteer, theJob) && theJob.needs(theWorkDuty) && theJob.addVolunteer(theVolunteer, theWorkDuty)) {
+			addJob(theJob);
+		} else {
+			throw new IllegalStateException("WorkerNotNeeded");
+		}
 	}
 	
 	/**

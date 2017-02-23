@@ -5,8 +5,7 @@
 package presentation;
 
 import model.UserController;
-import model.ParkManager;
-import model.Volunteer;
+
 import ui.Driver;
 
 /**
@@ -15,15 +14,12 @@ import ui.Driver;
  * @author Steven Smith
  * @version 1.0
  */
-public final class LogInUserStory {
+public final class ChangeMaxPendingJobsUserStoryRunOnce {
 
 	public static void main(final String... args) {
 		/* START SETUP */
 		final UserController uc = new UserController();
-		final Volunteer volunteer = new Volunteer("kellyp", "Kelly", "Peterson", "253-123-4567", "kellypeterson5@gmail.com");
-		final ParkManager manager = new ParkManager("shawnj");
-		uc.addUser(volunteer);
-		uc.addUser(manager);
+
 		/* END SETUP */
 		
 		Driver.main(null);

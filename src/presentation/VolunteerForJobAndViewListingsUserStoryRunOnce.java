@@ -4,11 +4,7 @@
  */
 package presentation;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import model.JobController;
 import model.JobDate;
 import model.ParkController;
@@ -25,7 +21,7 @@ import ui.Driver;
  * @author Steven Smith
  * @version 1.0
  */
-public final class VolunteerForJobAndViewListingsUserStory {
+public final class VolunteerForJobAndViewListingsUserStoryRunOnce {
 
 	public static void main(final String... args) {
 		/* START SETUP */
@@ -44,7 +40,6 @@ public final class VolunteerForJobAndViewListingsUserStory {
 		
 		final Volunteer crazyjoe = new Volunteer("crazyjoe", "Joe", "Joe", "666-666-6666", "crazyjoe@loco.com");
 		crazyjoe.setBlackballedFlag(true);
-		DateFormat timeFormat = new SimpleDateFormat("hh:mm a");
 		
 		try {
 			final Job litter = new Job(manager, "Cleaning up litter", sunset,
@@ -74,6 +69,5 @@ public final class VolunteerForJobAndViewListingsUserStory {
 		/* END SETUP */
 		
 		Driver.main(null);
-		Driver.clearAll();
 	}
 }

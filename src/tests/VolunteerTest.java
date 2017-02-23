@@ -3,14 +3,19 @@ package tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import java.text.ParseException;
 import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import model.Job;
 import model.JobController;
 import model.JobDate;
+import model.Park;
+import model.ParkManager;
 import model.Volunteer;
 
 public class VolunteerTest {
@@ -73,20 +78,38 @@ public class VolunteerTest {
     	final Volunteer volunteer = new Volunteer("smithsd", "Steve", "Smith", "XXX-XXX-XXXX", "xxxxxxx@uw.edu");
     	final JobController jobController = new JobController();
     	jobController.clear();
-    	final JobDate twoDaysFromNow = new JobDate().addDays(2);
-    	boolean canSignUp = jobController.canSignUp(volunteer, twoDaysFromNow);
-    	assertTrue(canSignUp);
+    	Job job;
+    	try {
+			job = new Job(new ParkManager("asdf"),
+					"Cleaning up litter", new Park("Sunset", "location"),
+					new JobDate().addDays(4),
+					new JobDate().setFromTimeString("10:00 am"),
+					new JobDate().setFromTimeString("2:00 pm"),
+					"Cleaning up after yesterday's little league tournament.", 2, 2,
+					2);
+			volunteer.setBlackballedFlag(false);
+	    	jobController.assertSigningUp(volunteer, job);
+		} catch (ParseException e) {
+			fail(e.getMessage());
+		}
     }
     
-    @Test
+    @Test(expected = IllegalStateException.class)
     public void testIfBlackballedCannotSignUp() {
     	final Volunteer volunteer = new Volunteer("smithsd", "Steve", "Smith", "XXX-XXX-XXXX", "xxxxxxx@uw.edu");
     	final JobController jobController = new JobController();
     	jobController.clear();
-    	final JobDate twoDaysFromNow = new JobDate().addDays(2);
-    	volunteer.setBlackballedFlag(true);
-    	boolean cantSignUp = jobController.canSignUp(volunteer, twoDaysFromNow);
-    	assertFalse(cantSignUp);
+    	Job job;
+		try {
+			job = new Job(new ParkManager("asdf"), "Cleaning up litter", new Park("Sunset", "location"), new JobDate().addDays(4), new JobDate().setFromTimeString("10:00 am"),
+					new JobDate().setFromTimeString("2:00 pm"), "Cleaning up after yesterday's little league tournament.", 2, 2,
+					2);
+			volunteer.setBlackballedFlag(true);
+	    	jobController.assertSigningUp(volunteer, job);
+		} catch (ParseException e) {
+			fail(e.getMessage());
+		}
+    	
     }
     
     /**

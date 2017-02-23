@@ -13,12 +13,15 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import model.UserController;
 import model.AbstractController;
 import model.AbstractUser;
+import model.JobController;
 import model.Volunteer;
 
 /**
@@ -44,10 +47,24 @@ public class AbstractControllerTest {
 	public void setUp() {
 		myController = new UserController();
 	}
-
-	/*
-	 * Currently this does not pass because AbstractController is not complete.
-	 */
+	
+	@Test
+	public void testConstructor_FileNotExists_CreatesFileAndHashMap() {
+		final String fileName = "JobController_LIST_HashMap.ser";
+		try {
+			File file = new File(fileName);
+			if (file.exists()) {
+				file.delete();
+			}
+			assertFalse(file.exists());
+			JobController jc = new JobController();
+			assertTrue(jc.getAllJobs().isEmpty());
+			assertTrue(file.exists());
+		} catch (Exception e) {
+			fail(e.getMessage().toString());
+		}
+	}
+	
 	@Test
 	public void testSerialization_AddUser_ContainsUser() {
 		// Creates a random Volunteer and adds it to my controller.

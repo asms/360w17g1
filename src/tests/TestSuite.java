@@ -22,7 +22,9 @@ import org.junit.runners.Suite;
 	JobTest.class,
 	ParkTest.class,
 	ParkManagerTest.class,
-	VolunteerTest.class
+	VolunteerTest.class,
+	
+	JobDateTest.class
    
 })
 

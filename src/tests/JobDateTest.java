@@ -87,12 +87,13 @@ public class JobDateTest {
 		JobDate.sameDates(new JobDate(), null);
 	}
 	
+	
 	/**
 	 * Test method for {@link model.JobDate#sameDates(model.JobDate, model.JobDate)}.
 	 */
 	@Test
 	public final void testSameDatesExpectsTrueWhenDatesAreSame() {
-		assertEquals(new JobDate().getStartOfDate(), new JobDate().getStartOfDate());
+		assertTrue(JobDate.sameDates(new JobDate().getStartOfDate(), new JobDate().getStartOfDate()));
 	}
 	
 	/**
@@ -100,7 +101,7 @@ public class JobDateTest {
 	 */
 	@Test
 	public final void testSameDatesExpectsFalseWhenDatesAreNotSame() {
-		assertNotEquals(new JobDate(), new JobDate().addDays(1));
+		assertFalse(JobDate.sameDates(new JobDate().getStartOfDate(), new JobDate().addDays(1)));
 	}
 
 	/**

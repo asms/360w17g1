@@ -118,7 +118,7 @@ public class VolunteerView extends AbstractView<Volunteer> {
 				state = 2; // get job
 				while (state == 2) {
 					displayLineBreak();
-					final Job[] jobs = JobController.filterAtLeastThreeDaysAheadandNoSameDayConflict
+					final Job[] jobs = JobController.filterAtLeastMinimumDaysAhead
 							(myJobController.getByPark(park).stream()).toArray(Job[]::new);
 					final Job job = getSelectionFromList("Jobs", "Enter a job number to sign up", jobs, x -> x.getJobName(), new String[] {"Back"});
 					if (job != null) {

@@ -74,7 +74,7 @@ public class JobController extends AbstractController<Job> {
      * @param theStream the stream of jobs
      * @return a stream of upcoming jobs
      */
-    public static Stream<Job> filterAtLeastThreeDaysAheadandNoSameDayConflict(final Stream<Job> theStream) {
+    public static Stream<Job> filterAtLeastMinimumDaysAhead(final Stream<Job> theStream) {
         JobDate futureDate = new JobDate().getStartOfDate().addDays(MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP);
         return theStream.filter(x -> x.getDate().after(futureDate) || x.getDate().equals(futureDate));
     }

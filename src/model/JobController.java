@@ -22,10 +22,10 @@ import model.Volunteer;
  */
 public class JobController extends AbstractController<Job> {
 	
-	public static final int MAX_JOBS_PER_DAY = 2;
-	public static final int DEFAULT_MAX_PENDING_JOBS = 30;
-	public static final int MAX_FUTURE_DATE_MONTHS_FROM_NOW_FOR_JOB_CREATION = 1;
-	public static final int MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP = 3;
+	public static final int MAX_JOBS_PER_DAY = 4;
+	public static final int DEFAULT_MAX_PENDING_JOBS = 20;
+	public static final int MAX_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_CREATION = 75;
+	public static final int MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP = 2;
 	
 	private int myMaximumNumberOfPendingJobs;
     

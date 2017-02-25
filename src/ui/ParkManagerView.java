@@ -178,14 +178,14 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 	private JobDate promptForJobDate() {
 		JobDate date;
 		JobDate maxFutureDate = new JobDate()
-				.addMonths(JobController.MAX_FUTURE_DATE_MONTHS_FROM_NOW_FOR_JOB_CREATION);
+				.addMonths(JobController.MAX_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_CREATION);
 		boolean validDate = false;
 		do {
 			print(":::Note::: Job date must be at least "
 					+ String.valueOf(JobController.MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP)
 					+ " days from now and no more than "
-					+ String.valueOf(JobController.MAX_FUTURE_DATE_MONTHS_FROM_NOW_FOR_JOB_CREATION)
-					+ " month from today.");
+					+ String.valueOf(JobController.MAX_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_CREATION)
+					+ " days from now.");
 			date = getDate("Enter date(MM/DD/YYYY)",
 					new JobDate().getStartOfDate().addDays(JobController.MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP),
 					maxFutureDate);

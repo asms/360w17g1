@@ -24,11 +24,6 @@ public class Volunteer extends AbstractUser {
 	 */
 	private static final long serialVersionUID = -1831128233221318812L;
 	
-	/**
-     * Flag for whether or not the volunteer is blackballed
-     */
-    private boolean blackballed;
-	
 	private final String myFirstName;
 	private final String myLastName;
 	private final String myPhoneNumber;
@@ -47,7 +42,6 @@ public class Volunteer extends AbstractUser {
 			final String thePhoneNumber, final String theEmailAddress) {
 		super(theUserName);
 		
-		blackballed = false;
 		
 		myFirstName = Objects.requireNonNull(theFirstName);
 		myLastName = Objects.requireNonNull(theLastName);
@@ -84,22 +78,4 @@ public class Volunteer extends AbstractUser {
 		return new JobController().getUpcomingJobs().stream().filter(x -> x.getVolunteers().contains(this)).collect(Collectors.toList());
 	}
 	
-	/**
-     * Tells whether or not the volunteer is blackballed
-     * @return true if volunteer is blackballed, false otherwise
-     */
-    public boolean isBlackballed()
-    {
-        return blackballed;
-    }
-    
-    /**
-     * Sets the blackballed flag of this volunteer to true or false
-     */
-    public void setBlackballedFlag(boolean b){
-        blackballed = b;
-    }
-    
-	
-
 }

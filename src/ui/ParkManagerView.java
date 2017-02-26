@@ -189,7 +189,7 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 			date = getDate("Enter date(MM/DD/YYYY)",
 					new JobDate().getStartOfDate().addDays(JobController.MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP),
 					maxFutureDate);
-			if (myJobController.canAddWithDate(date)) {
+			if (myJobController.isLessThanMaxJobsOnThisDate(date)) {
 				validDate = true;
 			} else {
 				printError("Maximum jobs per day (" + JobController.MAX_JOBS_PER_DAY + ") already reached.");

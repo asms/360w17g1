@@ -39,7 +39,7 @@ public final class VolunteerForJobAndViewListingsUserStoryRunOnce {
 		final Volunteer volunteer = new Volunteer("carlyo", "Carly", "O'Hara", "253-425-2375", "carlyo@yahoo.com");
 		
 		final Volunteer crazyjoe = new Volunteer("crazyjoe", "Joe", "Joe", "666-666-6666", "crazyjoe@loco.com");
-		crazyjoe.setBlackballedFlag(true);
+
 		
 		try {
 			final Job litter = new Job(manager, "Cleaning up litter", sunset,

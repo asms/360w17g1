@@ -113,7 +113,7 @@ public class JobController extends AbstractController<Job> {
      * @param theDate
      * @return True if the Job can be added for that date
      */
-    public boolean canAddWithDate(final JobDate theDate) {
+    public boolean isLessThanMaxJobsOnThisDate(final JobDate theDate) {
     	Predicate<Job> dateSameAsJobDate = x -> x.getDate().equals(theDate);
     	return myList.values().stream().filter(dateSameAsJobDate).count() < MAX_JOBS_PER_DAY;
     }
@@ -138,9 +138,7 @@ public class JobController extends AbstractController<Job> {
 	 */
 	public boolean assertSigningUp(final Volunteer theVolunteer, final Job theJob) throws IllegalStateException {
 		boolean canSignUp = false;
-		if (theVolunteer.isBlackballed()) {
-			throw new IllegalStateException("Blackballed");
-		} else if (!volunteerCanSignUpOnDate(theVolunteer, theJob.getDate())) {
+		if (!volunteerCanSignUpOnDate(theVolunteer, theJob.getDate())) {
 			throw new IllegalStateException("Preoccupied");
 		} else if(theJob.hasMaxVolunteers()) {
 			throw new IllegalStateException("JobFull");

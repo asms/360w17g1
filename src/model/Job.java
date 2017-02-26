@@ -127,6 +127,7 @@ public class Job implements UniqueObject {
 //				job.getDescription(), job.neededVolunteers.get(WorkDuty.LIGHT),
 //				job.neededVolunteers.get(WorkDuty.MEDIUM), job.neededVolunteers.get(WorkDuty.HEAVY));
 //	}
+	
 
 	/**
 	 * Gets the Park Manager associated with this park.
@@ -245,7 +246,7 @@ public class Job implements UniqueObject {
 		return volunteers.size() == MAX_VOLUNTEERS || volunteers.size() == neededVolunteers.size();
 	}
 
-	public boolean needs(WorkDuty theWorkDuty) {
+	public boolean needsWorkDuty(WorkDuty theWorkDuty) {
 		return volunteers.values().stream().filter(x -> x.equals(theWorkDuty)).count() < neededVolunteers.get(theWorkDuty);
 	}
 

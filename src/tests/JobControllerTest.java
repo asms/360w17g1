@@ -124,8 +124,7 @@ public class JobControllerTest
                                        "This job involves a lot of walking", i, 2, 4);
                 myJobController.addJob(job);
             }
-                
-            
+                 
         }
         final List<Job> upcomingJobs = myJobController.getUpcomingJobs();
         

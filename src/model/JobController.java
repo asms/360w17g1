@@ -149,7 +149,7 @@ public class JobController extends AbstractController<Job> {
 	}
 	
 	public void signUp(final Volunteer theVolunteer, final Job theJob, final WorkDuty theWorkDuty) {
-		if (assertSigningUp(theVolunteer, theJob) && theJob.needs(theWorkDuty) && theJob.addVolunteer(theVolunteer, theWorkDuty)) {
+		if (assertSigningUp(theVolunteer, theJob) && theJob.needsWorkDuty(theWorkDuty) && theJob.addVolunteer(theVolunteer, theWorkDuty)) {
 			addJob(theJob);
 		} else {
 			throw new IllegalStateException("WorkerNotNeeded");

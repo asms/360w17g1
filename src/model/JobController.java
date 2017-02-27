@@ -49,13 +49,15 @@ public class JobController extends AbstractController<Job> {
     
     /**
      * Returns all jobs that are after the current date.
-     * @return all upcoming jobs
      */
     public List<Job> getUpcomingJobs()
     {
     	return new ArrayList<Job>(filterUpcomingJobs(myList.values().stream()).collect(Collectors.toList()));
     }
     
+    /**
+     * Returns all jobs that are before the current date.s
+     */
     public List<Job> getPastJobs() {
     	return new ArrayList<Job>(filterPastJobs(myList.values().stream()).collect(Collectors.toList()));
     }
@@ -110,19 +112,33 @@ public class JobController extends AbstractController<Job> {
     }
 
     /**
-     * @param theDate
-     * @return True if the Job can be added for that date
+     * Checks if a given date can take any more jobs
+     * @param theDate the date to check.
+     * @return True if the date can take more jobs, false if max jobs are on that date.
      */
     public boolean isLessThanMaxJobsOnThisDate(final JobDate theDate) {
     	Predicate<Job> dateSameAsJobDate = x -> x.getDate().equals(theDate);
     	return myList.values().stream().filter(dateSameAsJobDate).count() < MAX_JOBS_PER_DAY;
     }
-
+    
+    /**
+     * Checks if job already exists at park.
+     * @param theName the name of the job to be checked
+     * @param thePark the park the job is going to be held at.
+     * @return true if job doesn't already exist at park, false otherwise.
+     */
     public boolean canAddWithNameAtPark(final String theName, final Park thePark) {
     	return !myList.containsKey(theName + thePark);
     }
 
-
+    /**
+     * Returns whether the volunteer is already working a job on that date.
+     * 
+     * @param theVolunteer the volunteer being looked at
+     * @param theDate the date to be checked
+     * @return false if volunteer is already working a job on that date, true otherwise.
+     * @throws NullPointerException if null job date is passed in
+     */
     public boolean volunteerCanSignUpOnDate(final Volunteer theVolunteer, final JobDate theDate) {
     	final Predicate<Job> dateSameAsJobDateAndJobContainsVolunteer = x -> x.getVolunteers().contains(theVolunteer)
     			&& JobDate.sameDates(x.getDate(), theDate);
@@ -135,6 +151,7 @@ public class JobController extends AbstractController<Job> {
 	 * @param theJob the job that the volunteer wants to sign up for
 	 * @return true if the volunteer can sign up for the job
 	 * @throws IllegalStateException if the volunteer cannot sign up for the job
+	 * @throws NullPointerException if the job passed in is null
 	 */
 	public boolean assertSigningUp(final Volunteer theVolunteer, final Job theJob) throws IllegalStateException {
 		boolean canSignUp = false;
@@ -148,6 +165,15 @@ public class JobController extends AbstractController<Job> {
 		return canSignUp;
 	}
 	
+	/**
+	 * Signs up volunteer for requested job if all criteria are met.
+	 * 
+	 * @param theVolunteer the volunteer to be signed up
+	 * @param theJob the job to sign up the volunteer for
+	 * @param theWorkDuty the workload volunteer is signing up for.
+	 * @throws IllegalStateException if workload is not needed
+	 * @throws NullPointerException if either job or work duty are null
+	 */
 	public void signUp(final Volunteer theVolunteer, final Job theJob, final WorkDuty theWorkDuty) {
 		if (assertSigningUp(theVolunteer, theJob) && theJob.needsWorkDuty(theWorkDuty) && theJob.addVolunteer(theVolunteer, theWorkDuty)) {
 			addJob(theJob);

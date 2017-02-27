@@ -132,7 +132,6 @@ public class JobControllerTest
     }
     
 
-
     /**
      * Test method for {@link controller.JobController#getJob(java.lang.String)}.
      * Also tests addJob.
@@ -229,6 +228,7 @@ public class JobControllerTest
         assertTrue(pastJobs.containsAll(jobs));
     }
 
+    
 	@Test
 	public void isLessThanMaxJobsOnThisDate_NoStoredJobs_ExpectedTrue() {	
 		JobDate date = new JobDate().addDays(5);			
@@ -277,7 +277,6 @@ public class JobControllerTest
     }
 	
 
-	
 	@Test
     public void CanAddWithNameAtPark_JobNameAlreadyExists_ExpectedFalse() {
 	    
@@ -306,6 +305,18 @@ public class JobControllerTest
         
     }
 	
+	@Test (expected = NullPointerException.class)
+    public void volunteerCanSignUpOnDate_NullWorkDuty(){
+        final Volunteer eli = new Volunteer("eli", "Eli", "Ile", "253-123-4567", "eli@gmail.com");
+        JobDate date = new JobDate().addDays(5);
+        final Job firstJob = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, date, date, 
+                                        "This job involves a lot of walking", 1, 2, 4);
+        myJobController.addJob(firstJob);
+        firstJob.addVolunteer(eli, WorkDuty.LIGHT);
+        eli.addJob(firstJob);
+        myJobController.volunteerCanSignUpOnDate(eli, null);
+    }
+	
 	@Test
 	public void volunteerCanSignUpOnDate_AlreadyJobOnThatDate_ExpectedFalse(){
 	    final Volunteer eli = new Volunteer("eli", "Eli", "Ile", "253-123-4567", "eli@gmail.com");
@@ -329,7 +340,13 @@ public class JobControllerTest
         assertTrue(myJobController.volunteerCanSignUpOnDate(eli, date.addDays(5)));
     }
 	
-	
+	@Test (expected = NullPointerException.class)
+    public void assertSigningUp_NullParam(){
+        final Volunteer eli = new Volunteer("eli", "Eli", "Ile", "253-123-4567", "eli@gmail.com");
+        
+        myJobController.assertSigningUp(eli, null);
+    }
+    
 	@Test (expected = IllegalStateException.class)
     public void assertSigningUp_ConflictingJobDates(){
 	    final Volunteer eli = new Volunteer("eli", "Eli", "Ile", "253-123-4567", "eli@gmail.com");
@@ -376,6 +393,22 @@ public class JobControllerTest
         assertTrue(myJobController.assertSigningUp(eli, job));
     }
 	
+	
+   @Test (expected = NullPointerException.class)
+    public void signUp_NullWorkDuty(){
+        final Volunteer eli = new Volunteer("eli", "Eli", "Ile", "253-123-4567", "eli@gmail.com");
+        JobDate date = new JobDate().addDays(5);
+        final Job job = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, date, date, 
+                                        "This job involves a lot of walking", 1, 2, 0);
+        myJobController.signUp(eli, job, null);
+    }
+	
+   @Test (expected = NullPointerException.class)
+   public void signUp_NullJob(){
+       final Volunteer eli = new Volunteer("eli", "Eli", "Ile", "253-123-4567", "eli@gmail.com");
+       myJobController.signUp(eli, null, WorkDuty.LIGHT);
+   }
+   
 	@Test (expected = IllegalStateException.class)
 	public void signUp_VolunteerTypeIsNotNeeded(){
 	    final Volunteer eli = new Volunteer("eli", "Eli", "Ile", "253-123-4567", "eli@gmail.com");

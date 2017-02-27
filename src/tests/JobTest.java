@@ -2,14 +2,13 @@ package tests;
 
 import static org.junit.Assert.*;
 
-import java.util.Date;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import model.JobController;
 import model.JobDate;
 import model.Job;
 import model.Job.WorkDuty;

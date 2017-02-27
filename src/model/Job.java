@@ -27,7 +27,7 @@ public class Job implements UniqueObject {
 	/**
 	 * BR: A maximum of 30 volunteers for any job.
 	 */
-	public static final int MAX_VOLUNTEERS = 30;
+	public static final int MAX_VOLUNTEERS = 10;
 
 	/**
 	 * The park manager who created the job.
@@ -204,8 +204,11 @@ public class Job implements UniqueObject {
 	/**
 	 * Adds a volunteer to the list of volunteers for this job.
 	 * 
-	 * @param theVolunteer
-	 *            the volunteer to be added.
+	 * @param theVolunteer the volunteer to be added.
+	 * @param theWorkDuty the specified work duty.
+	 * @return true if the job's max volunteers has not been exceeded and the work duty
+	 * offered by the volunteer is needed, false otherwise.
+	 * @throws NullPointerException if work duty passed in is null
 	 */
 	public boolean addVolunteer(Volunteer theVolunteer, WorkDuty theWorkDuty) {
 		final boolean wasAdded;
@@ -218,7 +221,11 @@ public class Job implements UniqueObject {
 		}
 		return wasAdded;
 	}
-
+	/**
+	 * Determines the equality of two jobs by looking at location and job name
+	 * 
+	 * @returns True if job location and name are the same, false otherwise. 
+	 */
 	@Override
 	public boolean equals(final Object theObject) {
 		return (theObject instanceof Job) && (myName.equals(((Job) theObject).myName))
@@ -245,7 +252,13 @@ public class Job implements UniqueObject {
 	public boolean hasMaxVolunteers() {
 		return volunteers.size() == MAX_VOLUNTEERS || volunteers.size() == neededVolunteers.size();
 	}
-
+	/**
+	 * Returns whether or not the work duty offered by the Volunteer is needed for this job.
+	 * 
+	 * @param theWorkDuty the workload the volunteer is volunteering for.
+	 * @return true if the workload is needed, false otherwise.
+	 * @throws NullPointerException if work duty passed in is null
+	 */
 	public boolean needsWorkDuty(WorkDuty theWorkDuty) {
 		return volunteers.values().stream().filter(x -> x.equals(theWorkDuty)).count() < neededVolunteers.get(theWorkDuty);
 	}

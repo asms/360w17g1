@@ -70,12 +70,12 @@ public class Volunteer extends AbstractUser {
 		myJobs.add(job);
 	}
 	
-	/**
-	 * Gets a list of all pending jobs for this Volunteer.
-	 * @return the list of jobs
-	 */
-	public List<Job> getPendingJobs() {
-		return new JobController().getUpcomingJobs().stream().filter(x -> x.getVolunteers().contains(this)).collect(Collectors.toList());
-	}
+//	/**
+//	 * Gets a list of all pending jobs for this Volunteer.
+//	 * @return the list of jobs
+//	 */
+//	public List<Job> getPendingJobs() {
+//		return new JobController().getUpcomingJobs().stream().filter(x -> x.getVolunteers().contains(this)).collect(Collectors.toList());
+//	}
 	
 }

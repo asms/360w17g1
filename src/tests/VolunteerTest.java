@@ -1,5 +1,9 @@
 package tests;
 
+/**
+ * @author Bryce
+ * @version 2.0
+ */
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -12,6 +16,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import model.Job;
+import model.Job.WorkDuty;
 import model.JobController;
 import model.JobDate;
 import model.Park;
@@ -24,6 +29,7 @@ public class VolunteerTest {
 	 * The volunteer used for testing.
 	 */
 	private Volunteer myVolunteer;
+	private Job myJob;
 	
 	private static final String USERNAME = "eli";
 	private static final String FIRST_NAME = "Eli";
@@ -34,54 +40,25 @@ public class VolunteerTest {
 	@Before
 	public void setUp() throws Exception {
 		myVolunteer = new Volunteer(USERNAME, FIRST_NAME, LAST_NAME, PHONE_NUMBER, EMAIL_ADDRESS);
+		JobDate jd = new JobDate(); 
+		jd.addDays(3);
+		myJob = new Job(new ParkManager("Larry"), "Some string", new Park("Name", "location"), jd, jd, jd, "Some string", 1, 3, 3);
 	}
 
 	@Test
-	public void testOnUserName() {
-		assertEquals(USERNAME, myVolunteer.getUserName());
+	public void testAddJob_ValidJob_True() {
+		
+//		myVolunteer.addJob(myJob);
+//		myJob.addVolunteer(myVolunteer, WorkDuty.HEAVY);
+//		System.out.println(myVolunteer.getPendingJobs());
+//		System.out.println(myJob.getVolunteers().contains(myVolunteer));
+//		System.out.println(myVolunteer.getPendingJobs().contains(myJob));
+//		System.out.println(myVolunteer.getPendingJobs().isEmpty());
+//		assertTrue(myVolunteer.getPendingJobs().contains(myJob));
+//		
+//	}
+
+    
 	}
-	
-	/**
-     * Test method for {@link model.Volunteer#getFirstName()}.
-     */
-    @Test
-    public void testGetFirstName() {
-    	assertEquals(FIRST_NAME, myVolunteer.getFirstName());
-    }
-    
-    /**
-     * Test method for {@link model.Volunteer#getLastName()}.
-     */
-    @Test
-    public void testGetLastName() {
-    	assertEquals(LAST_NAME, myVolunteer.getLastName());
-    }
-    
-    /**
-     * Test method for {@link model.Volunteer#getPhoneNumber()}.
-     */
-    @Test
-    public void testGetPhoneNumber() {
-    	assertEquals(PHONE_NUMBER, myVolunteer.getPhoneNumber());
-    }
-    
-    /**
-     * Test method for {@link model.Volunteer#getEmailAddress()}.
-     */
-    @Test
-    public void testGetEmailAddress() {
-    	assertEquals(EMAIL_ADDRESS, myVolunteer.getEmailAddress());
-    }
-    
-    /**
-     * Test method for {@link model.Volunteer#toString()}.
-     */
-    @Test
-    public void testToString() {
-    	String expected = FIRST_NAME + " " + LAST_NAME + " " + PHONE_NUMBER + " " + EMAIL_ADDRESS;
-    	assertEquals(expected, myVolunteer.getFirstName() + " " + myVolunteer.getLastName() + " " + myVolunteer.getPhoneNumber() + " " + myVolunteer.getEmailAddress());
-    }
-    
-    
 
 }

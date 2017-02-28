@@ -104,16 +104,9 @@ public class JobDateTime implements Serializable, Comparable<JobDateTime> {
 		myDate = myDate.plusDays(theDays);
 		return this;
 	}
-<<<<<<< HEAD:src/model/JobDate.java
 
-	/**
-	 * Adds hours to this date
-	 * @param theHours the number of hours to add
-	 * @return a reference to this job date for chaining
-	 */
-	public JobDate addHours(final int theHours) {
-=======
-	
+
+
 	/**
 	 * Adds hours to this date.
 	 * 
@@ -121,7 +114,6 @@ public class JobDateTime implements Serializable, Comparable<JobDateTime> {
 	 * @return a reference to this job for chaining
 	 */
 	public JobDateTime addHours(final int theHours) {
->>>>>>> origin/dev:src/model/JobDateTime.java
 		myDate = myDate.plusHours(theHours);
 		return this;
 	}

@@ -13,13 +13,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import model.Job;
-<<<<<<< HEAD
-import model.JobDate;
-=======
-import model.Job.WorkDuty;
-import model.JobController;
+
+
 import model.JobDateTime;
->>>>>>> origin/dev
+
 import model.Park;
 import model.ParkManager;
 import model.Volunteer;

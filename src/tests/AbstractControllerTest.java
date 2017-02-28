@@ -33,7 +33,7 @@ import model.Volunteer;
  * </p>
  * 
  * @author Steven Smith
- * @author Amy Irving
+ * @author Amy I
  * @version 1.0
  *
  */

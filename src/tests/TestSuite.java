@@ -24,7 +24,7 @@ import org.junit.runners.Suite;
 	ParkManagerTest.class,
 	VolunteerTest.class,
 	
-	JobDateTest.class
+	JobDateTimeTest.class
    
 })
 

@@ -16,7 +16,7 @@ import model.JobDateTime;
  * @author Steven Smith
  * @version 1.0
  */
-public class JobDateTest {
+public class JobDateTimeTest {
 
 	private JobDateTime myJobDate;
 

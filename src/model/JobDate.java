@@ -99,6 +99,11 @@ public class JobDate implements Serializable, Comparable<JobDate> {
 		return this;
 	}
 
+	/**
+	 * Adds hours to this date
+	 * @param theHours the number of hours to add
+	 * @return a reference to this job date for chaining
+	 */
 	public JobDate addHours(final int theHours) {
 		myDate = myDate.plusHours(theHours);
 		return this;

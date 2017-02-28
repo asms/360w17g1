@@ -31,20 +31,36 @@ public abstract class AbstractUser implements UniqueObject {
 
 	private final String myUsername;
 
+	/**
+	 * Constructor for an Abstract User
+	 * @param theUserName
+	 */
 	public AbstractUser(final String theUserName) {
 		myUsername = Objects.requireNonNull(theUserName);
 	}
 	
+	/**
+	 * Gets the user name.
+	 * @return user name
+	 */
 	public String getUserName() {
 		return myUsername;
 	}
 	
+	/**
+	 * Gets the key.
+	 * @return User name
+	 */
 	@Override
 	public String getKey() {
 		return myUsername;
 	}
 
 	
+	/**
+	 * Checks if two objects are equal
+	 * @return true if they are equal, false otherwise
+	 */
 	@Override
 	public boolean equals(final Object theObject) {
 		
@@ -52,6 +68,10 @@ public abstract class AbstractUser implements UniqueObject {
 				&& getKey().equals(((AbstractUser) theObject).getKey());
 	}
 
+	/**
+	 * Hashes the user name. 
+	 * @return the key for the hash
+	 */
 	@Override
 	public int hashCode() {
 		return Objects.hash(getKey());

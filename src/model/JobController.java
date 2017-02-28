@@ -191,6 +191,11 @@ public class JobController extends AbstractController<Job> {
 		return myMaximumNumberOfPendingJobs;
 	}
 
+	/**
+	 * Gets the Jobs at the park being looked at
+	 * @param the Park 
+	 * @return Jobs in that Park.
+	 */
 	public List<Job> getByPark(final Park park) {
 		return myList.values().stream().filter(x -> x.getPark().equals(park)).collect(Collectors.toList());
 	}

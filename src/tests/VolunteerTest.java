@@ -4,20 +4,15 @@ package tests;
  * @author Bryce
  * @version 2.0
  */
-import static org.junit.Assert.assertEquals;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
-import java.text.ParseException;
-import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import model.Job;
-import model.Job.WorkDuty;
-import model.JobController;
 import model.JobDate;
 import model.Park;
 import model.ParkManager;
@@ -48,17 +43,15 @@ public class VolunteerTest {
 	@Test
 	public void testAddJob_ValidJob_True() {
 		
-//		myVolunteer.addJob(myJob);
-//		myJob.addVolunteer(myVolunteer, WorkDuty.HEAVY);
-//		System.out.println(myVolunteer.getPendingJobs());
-//		System.out.println(myJob.getVolunteers().contains(myVolunteer));
-//		System.out.println(myVolunteer.getPendingJobs().contains(myJob));
-//		System.out.println(myVolunteer.getPendingJobs().isEmpty());
-//		assertTrue(myVolunteer.getPendingJobs().contains(myJob));
-//		
-//	}
-
-    
+		myVolunteer.addJob(myJob);
+		assertTrue(myVolunteer.myJobs.contains(myJob));    
+	}
+	
+	@Test 
+	public void testAddJob_NonValidJob() {
+		myJob = null;
+		myVolunteer.addJob(myJob);
+		assertFalse(myVolunteer.myJobs.contains(myJob)); 
 	}
 
 }

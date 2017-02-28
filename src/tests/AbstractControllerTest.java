@@ -45,7 +45,7 @@ public class AbstractControllerTest {
 	}
 	
 	@Test
-	public void testConstructor_FileNotExists_CreatesFileAndHashMap() {
+	public void testConstructor_FileNotExists_ExpectedCreatesFileAndHashMap() {
 		final String fileName = "JobController_LIST_HashMap.ser";
 		try {
 			File file = new File(fileName);
@@ -61,7 +61,7 @@ public class AbstractControllerTest {
 	}
 	
 	@Test
-	public void testSerialization_AddUser_ContainsUser() {
+	public void testSerialization_AddUserToBeSerialized_ExpectedContainsUser() {
 		// Creates a random Volunteer and adds it to my controller.
 		// myController then should serialize the data.
 		Volunteer testObject = new Volunteer("eli", "Eli", "Ile", "253-123-4567", "eli@gmail.com");

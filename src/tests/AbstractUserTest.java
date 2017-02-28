@@ -50,7 +50,7 @@ public class AbstractUserTest
       Test method for {@link model.AbstractUser#toString()}.
     */
     @Test
-    public void ToString_TwoStringsAreEqual_expectedTrue()
+    public void testToString_TwoStringsAreEqual_ExpectedTrue()
     {
         assertEquals(USERNAME + ", ParkManager", myUser.getUserName() + ", " + myUser.getClass().getSimpleName());
     }
@@ -86,14 +86,14 @@ public class AbstractUserTest
     }
     
     @Test
-    public void testHashCode_Equal_ExpectedTrue() {
+    public void testHashCode_EqualObjects_ExpectedTrue() {
     	
     	assertEquals(myUser.hashCode(), myUser.hashCode());
     }
  
     
     @Test
-    public void testHashCode_NotEqual_ExpectedFalse() {
+    public void testHashCode_NotEqualObjects_ExpectedFalse() {
     	
     	assertTrue(myUser.hashCode() != (new ParkManager("Jerry").hashCode()));
     	

@@ -5,12 +5,8 @@
 package model;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
-
-import model.JobController;
 
 /**
  * 
@@ -28,7 +24,7 @@ public class Volunteer extends AbstractUser {
 	private final String myLastName;
 	private final String myPhoneNumber;
 	private final String myEmailAddress;
-	private final Set<Job> myJobs;
+	public Set<Job> myJobs;
 	
 	/**
 	 * Constructs a volunteer.
@@ -50,26 +46,49 @@ public class Volunteer extends AbstractUser {
 		myJobs = new HashSet<Job>();
 	}
 	
+	
+	/**
+	 * Gets the Volunteers first name.
+	 * @return first name
+	 */
 	public String getFirstName() {
 		return myFirstName;
 	}
 	
+	/**
+	 * Gets the Volunteers last name.
+	 * @return last name
+	 */
 	public String getLastName() {
 		return myLastName;
 	}
 	
+	/**
+	 * Gets the phone number.
+	 * @return phone number
+	 */
 	public String getPhoneNumber() {
 		return myPhoneNumber;
 	}
 	
+	/**
+	 * Gets the email address
+	 * @return email address
+	 */
 	public String getEmailAddress() {
 		return myEmailAddress;
 	}
 	
+	/**
+	 * Adds the Job to the Volunteer's jobs.
+	 * @param A valid job
+	 */
 	public void addJob(final Job job) {
+		if(job!= null) {
 		myJobs.add(job);
+		}
+		
 	}
-	
 //	/**
 //	 * Gets a list of all pending jobs for this Volunteer.
 //	 * @return the list of jobs

@@ -16,6 +16,7 @@ import model.ParkManager;
  * Test Suite for User class.
  * 
  * @author Mohamed Mohamed
+ * @author Amy Irving
  * @author Bryce
  * @version 1.0
  */

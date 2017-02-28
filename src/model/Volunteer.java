@@ -81,6 +81,7 @@ public class Volunteer extends AbstractUser {
 	
 	/**
 	 * Adds the Job to the Volunteer's jobs.
+	 * If the job is null it will not be added.
 	 * @param A valid job
 	 */
 	public void addJob(final Job job) {
@@ -89,12 +90,5 @@ public class Volunteer extends AbstractUser {
 		}
 		
 	}
-//	/**
-//	 * Gets a list of all pending jobs for this Volunteer.
-//	 * @return the list of jobs
-//	 */
-//	public List<Job> getPendingJobs() {
-//		return new JobController().getUpcomingJobs().stream().filter(x -> x.getVolunteers().contains(this)).collect(Collectors.toList());
-//	}
 	
 }

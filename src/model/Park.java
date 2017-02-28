@@ -11,6 +11,7 @@ import java.util.Set;
 /**
  * Park model class.
  * @author Steven Smith
+ * @author Trinh Nguyen 
  * @version 1.0
  */
 public class Park implements UniqueObject {

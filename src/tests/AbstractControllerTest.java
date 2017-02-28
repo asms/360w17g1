@@ -28,6 +28,7 @@ import model.Volunteer;
  * </p>
  * 
  * @author Steven Smith
+ * @author Amy I
  * @version 1.0
  *
  */
@@ -51,7 +52,6 @@ public class AbstractControllerTest {
 			if (file.exists()) {
 				file.delete();
 			}
-			assertFalse(file.exists());
 			JobController jc = new JobController();
 			assertTrue(jc.getAllJobs().isEmpty());
 			assertTrue(file.exists());

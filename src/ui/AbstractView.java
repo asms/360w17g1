@@ -13,7 +13,7 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 import model.JobController;
-import model.JobDate;
+import model.JobDateTime;
 import model.ParkController;
 import model.UserController;
 import model.AbstractUser;
@@ -307,11 +307,11 @@ public abstract class AbstractView<T extends AbstractUser> {
 	 * @throws NullPointerException if the prompt, minimum date, or maximum date are null
 	 * @throws IllegalArgumentException if the minimum date is greater than the maximum date
 	 */
-	protected JobDate getDate(final String thePrompt, final JobDate theMin, final JobDate theMax) {
+	protected JobDateTime getDate(final String thePrompt, final JobDateTime theMin, final JobDateTime theMax) {
 		if (Objects.requireNonNull(theMin).after(Objects.requireNonNull(theMax))) {
 			throw new IllegalArgumentException();
 		}
-		JobDate date = new JobDate();
+		JobDateTime date = new JobDateTime();
 		boolean validated = false;
 		while (!validated) {
 			try {
@@ -335,8 +335,8 @@ public abstract class AbstractView<T extends AbstractUser> {
 	 * @return the input time as a date object
 	 * @throws NullPointerException if the prompt or minimum date are null
 	 */
-	protected JobDate getTime(final String thePrompt, final JobDate theMin) {
-		JobDate time = new JobDate();
+	protected JobDateTime getTime(final String thePrompt, final JobDateTime theMin) {
+		JobDateTime time = new JobDateTime();
 		boolean validated = false;
 		while (!validated) {
 			try {
@@ -359,8 +359,8 @@ public abstract class AbstractView<T extends AbstractUser> {
 	 * @return the input time as a date object
 	 * @throws NullPointerException if the prompt is null
 	 */
-	protected JobDate getTime(final String thePrompt) {
-		return getTime(Objects.requireNonNull(thePrompt), new JobDate().getStartOfDate());
+	protected JobDateTime getTime(final String thePrompt) {
+		return getTime(Objects.requireNonNull(thePrompt), new JobDateTime().getStartOfDate());
 	}
 
 	/**

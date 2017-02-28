@@ -45,22 +45,22 @@ public class Job implements UniqueObject {
 	/**
 	 * The start date of the job.
 	 */
-	private JobDate myStartDate;
+	private final JobDateTime myStartDate;
 	
 	/**
 	 * The end date of the job.
 	 */
-	private JobDate myEndDate;
+	private final JobDateTime myEndDate;
 
 	/**
 	 * The start time of the job.
 	 */
-	private JobDate myStartTime;
+	private final JobDateTime myStartTime;
 
 	/**
 	 * The end time of the job.
 	 */
-	private JobDate myEndTime;
+	private final JobDateTime myEndTime;
 
 	/**
 	 * The description of the job.
@@ -90,18 +90,17 @@ public class Job implements UniqueObject {
 	 * @param theDifficulty
 	 *            the difficulty of the job.
 	 */
-	public Job(final ParkManager theManager, final String theName, final Park thePark, final JobDate theDate,
-			final JobDate theStartTime, final JobDate theEndTime, final String theDescription, final int theLightDuty,
-			final int theMediumDuty, final int theHeavyDuty) {
+	public Job(final ParkManager theManager, final String theName, final Park thePark, final JobDateTime theStartDate,
+			final JobDateTime theEndDate, final JobDateTime theStartTime, final JobDateTime theEndTime,
+			final String theDescription, final int theLightDuty, final int theMediumDuty, final int theHeavyDuty) {
 		myManager = Objects.requireNonNull(theManager);
 		myName = Objects.requireNonNull(theName);
 
 		myPark = Objects.requireNonNull(thePark);
 
-		myStartDate = Objects.requireNonNull(theDate);
-
+		myStartDate = Objects.requireNonNull(theStartDate);
+		myEndDate = Objects.requireNonNull(theEndDate);
 		myStartTime = Objects.requireNonNull(theStartTime);
-
 		myEndTime = Objects.requireNonNull(theEndTime);
 
 		myDescription = Objects.requireNonNull(theDescription);
@@ -177,8 +176,17 @@ public class Job implements UniqueObject {
 	 * 
 	 * @return returns the date of the job.
 	 */
-	public JobDate getDate() {
+	public JobDateTime getStartDate() {
 		return myStartDate;
+	}
+	
+	/**
+	 * Returns the date of the job.
+	 * 
+	 * @return returns the date of the job.
+	 */
+	public JobDateTime getEndDate() {
+		return myEndDate;
 	}
 
 	/**
@@ -186,7 +194,7 @@ public class Job implements UniqueObject {
 	 * 
 	 * @return returns the date of the job.
 	 */
-	public JobDate getStartTime() {
+	public JobDateTime getStartTime() {
 		return myStartTime;
 	}
 
@@ -195,7 +203,7 @@ public class Job implements UniqueObject {
 	 * 
 	 * @return returns the date of the job.
 	 */
-	public JobDate getEndTime() {
+	public JobDateTime getEndTime() {
 		return myEndTime;
 	}
 
@@ -259,6 +267,12 @@ public class Job implements UniqueObject {
 	 */
 	public boolean needsWorkDuty(WorkDuty theWorkDuty) {
 		return volunteers.values().stream().filter(x -> x.equals(theWorkDuty)).count() < neededVolunteers.get(theWorkDuty);
+	}
+
+	public int getNumberOfPossibleVolunteers() {
+		return neededVolunteers.get(WorkDuty.LIGHT)
+				+ neededVolunteers.get(WorkDuty.MEDIUM)
+				+ neededVolunteers.get(WorkDuty.HEAVY);
 	}
 
 }

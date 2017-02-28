@@ -6,7 +6,7 @@ package presentation;
 
 import java.text.ParseException;
 import model.JobController;
-import model.JobDate;
+import model.JobDateTime;
 import model.ParkController;
 import model.UserController;
 import model.Job;
@@ -43,16 +43,16 @@ public final class VolunteerForJobAndViewListingsUserStoryRunOnce {
 		
 		try {
 			final Job litter = new Job(manager, "Cleaning up litter", sunset,
-					new JobDate().addDays(4), new JobDate().setFromTimeString("10:00 am"),
-					new JobDate().setFromTimeString("2:00 pm"), "Cleaning up after yesterday's little league tournament.", 2, 2,
+					new JobDateTime().addDays(4), new JobDateTime().addDays(5), new JobDateTime().setFromTimeString("10:00 AM"),
+					new JobDateTime().setFromTimeString("02:00 PM"), "Cleaning up after yesterday's little league tournament.", 2, 2,
 					2);
 			final Job painting = new Job(manager, "Painting Parking Lines", sunset,
-					new JobDate().addDays(4), new JobDate().setFromTimeString("2:00 pm"),
-					new JobDate().setFromTimeString("5:00 pm"), "Repainting the faded lines in the parking lot.", 2, 2,
+					new JobDateTime().addDays(4), new JobDateTime().addDays(5), new JobDateTime().setFromTimeString("02:00 PM"),
+					new JobDateTime().setFromTimeString("05:00 PM"), "Repainting the faded lines in the parking lot.", 2, 2,
 					2);
 			final Job collectFrogs = new Job(manager, "Collect Frogs", sunset,
-					new JobDate().addDays(2), new JobDate().setFromTimeString("2:00 pm"),
-					new JobDate().setFromTimeString("5:00 pm"), "Humanely collecting nuisance frogs and relocating them.", 2, 2,
+					new JobDateTime().addDays(2), new JobDateTime().addDays(3), new JobDateTime().setFromTimeString("02:00 PM"),
+					new JobDateTime().setFromTimeString("05:00 PM"), "Humanely collecting nuisance frogs and relocating them.", 2, 2,
 					2);
 			sunset.associateWithJob(litter);
 			sunset.associateWithJob(painting);

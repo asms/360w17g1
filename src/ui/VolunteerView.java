@@ -5,7 +5,6 @@
 package ui;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -23,18 +22,6 @@ import ui.Command.CommandExecutor;
  * @version 1.0
  */
 public class VolunteerView extends AbstractView<Volunteer> {
-	
-	/**
-	 * String format for toString method.		
-	 */		
-	private static final String JOB_DISPLAY_FORMAT = ""		
-			+ "Name:        %s"				+ System.lineSeparator()		
-			+ "Park:        %s"				+ System.lineSeparator()		
-			+ "Date:        %s"				+ System.lineSeparator()		
-			+ "Start Time:  %s" 			+ System.lineSeparator()		
-			+ "End Time:    %s"				+ System.lineSeparator()		
-			+ "Description: %s" 			+ System.lineSeparator()		
-			+ "Number of Volunteers: %s" + System.lineSeparator();
 
 	private static enum COMMAND implements Command {
 		SIGN_UP_FOR_JOBS("Sign up for a job"), LOGOUT("Logout");
@@ -123,7 +110,7 @@ public class VolunteerView extends AbstractView<Volunteer> {
 					final Job job = getSelectionFromList("Jobs", "Enter a job number to sign up", jobs, x -> x.getJobName(), new String[] {"Back"});
 					if (job != null) {
 						displayLineBreak();
-						displayJob(job);
+						print(JobUIFormatter.format(job));
 						final String command = getSelectionFromList("Commands", "Select a command number", new String[] {"Sign Up", "Back"}, x -> x, new String[0]);
 						try {
 							if (myJobController.assertSigningUp((Volunteer) myUser, job)) {
@@ -149,18 +136,7 @@ public class VolunteerView extends AbstractView<Volunteer> {
 		}
 	}
 	
-    /* These methods are for User Story: As a volunteer, I want to view listing of jobs I'm signed up for */
-    
-	private void displayJob(final Job theJob) {
-		print(String.format(JOB_DISPLAY_FORMAT,
-				theJob.getJobName(),		
-				theJob.getPark().getName(),		
-				theJob.getDate().toDateString(),		
-				theJob.getStartTime().toTimeString(),		
-				theJob.getEndTime().toTimeString(),		
-				theJob.getDescription(),		
-				theJob.getVolunteers().size()));
-	}
+
 	
 //	private void displayCurrentJobs() {
 //		final List<Job> jobs = ((Volunteer) myUser).getPendingJobs();

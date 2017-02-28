@@ -12,7 +12,7 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.function.Function;
 import model.JobController;
-import model.JobDate;
+import model.JobDateTime;
 import model.Job;
 import model.Park;
 import model.ParkManager;
@@ -112,16 +112,17 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 		if (myJobController.getUpcomingJobs().size() < myJobController.getMaximumNumberOfPendingJobs()) {
 			final Park park = promptForPark();
 			final String name = promptForJobName(park);
-			final JobDate date = promptForJobDate();
-			final JobDate startTime = getTime("Enter start time(HH:MM AM/PM)");
-			final JobDate endTime = getTime("Enter end time(HH:MM AM/PM)", startTime);
+			final JobDateTime startDate = promptForJobStartDate();
+			final JobDateTime endDate = promptForJobEndDate(startDate);
+			final JobDateTime startTime = getTime("Enter start time(HH:MM AM/PM)");
+			final JobDateTime endTime = getTime("Enter end time(HH:MM AM/PM)", startTime);
 			final String description = getString("Enter description");
 			final int numLightVolunteers = getInteger("Enter number of light-duty volunteers", 0, Job.MAX_VOLUNTEERS);
 			final int numMediumVolunteers = getInteger("Enter number of medium-duty volunteers", 0, Job.MAX_VOLUNTEERS - numLightVolunteers);
 			final int numHeavyVolunteers = getInteger("Enter number of heavy-duty volunteers", 0, Job.MAX_VOLUNTEERS - numLightVolunteers - numMediumVolunteers);
-			final Job job = new Job((ParkManager) myUser, name, park, date, startTime, endTime, description, numLightVolunteers, numMediumVolunteers, numHeavyVolunteers);
+			final Job job = new Job((ParkManager) myUser, name, park, startDate, endDate, startTime, endTime, description, numLightVolunteers, numMediumVolunteers, numHeavyVolunteers);
 			displayLine();
-			print(job.toString());
+			print(JobUIFormatter.format(job));
 			displayLine();
 			final boolean shouldSubmit = getBooleanYesNo("Are you sure you want to submit this job (Y/N)");
 			if (shouldSubmit) {
@@ -172,12 +173,12 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 	}
 	
 	/**
-	 * Prompts for a job date.
-	 * @return the job date
+	 * Prompts for a job start date.
+	 * @return the job start date
 	 */
-	private JobDate promptForJobDate() {
-		JobDate date;
-		JobDate maxFutureDate = new JobDate()
+	private JobDateTime promptForJobStartDate() {
+		JobDateTime date;
+		JobDateTime maxFutureDate = new JobDateTime()
 				.addMonths(JobController.MAX_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_CREATION);
 		boolean validDate = false;
 		do {
@@ -186,10 +187,37 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 					+ " days from now and no more than "
 					+ String.valueOf(JobController.MAX_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_CREATION)
 					+ " days from now.");
-			date = getDate("Enter date(MM/DD/YYYY)",
-					new JobDate().getStartOfDate().addDays(JobController.MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP),
+			date = getDate("Enter start date(MM/DD/YYYY)",
+					new JobDateTime().getStartOfDate().addDays(JobController.MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP),
 					maxFutureDate);
 			if (myJobController.isLessThanMaxJobsOnThisDate(date)) {
+				validDate = true;
+			} else {
+				printError("Maximum jobs per day (" + JobController.MAX_JOBS_PER_DAY + ") already reached.");
+			}
+		} while (!validDate);
+		return date;
+	}
+	
+	/**
+	 * Prompts for a job end date.
+	 * @return the job end date
+	 */
+	private JobDateTime promptForJobEndDate(final JobDateTime theStartDate) {
+		JobDateTime date;
+		JobDateTime maxFutureDate = new JobDateTime()
+				.addMonths(JobController.MAX_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_CREATION);
+		boolean validDate = false;
+		do {
+			print(":::Note::: Job date must be at least "
+					+ String.valueOf(JobController.MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP)
+					+ " days from now and no more than "
+					+ String.valueOf(JobController.MAX_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_CREATION)
+					+ " days from now.");
+			date = getDate("Enter end date(MM/DD/YYYY)",
+					new JobDateTime().getStartOfDate().addDays(JobController.MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP),
+					maxFutureDate);
+			if (myJobController.isLessThanMaxJobsOnThisDateRange(theStartDate, date)) {
 				validDate = true;
 			} else {
 				printError("Maximum jobs per day (" + JobController.MAX_JOBS_PER_DAY + ") already reached.");

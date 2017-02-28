@@ -20,10 +20,11 @@ import org.junit.Test;
 import model.Job;
 import model.Job.WorkDuty;
 import model.JobController;
-import model.JobDate;
+import model.JobDateTime;
 import model.Park;
 import model.ParkController;
 import model.ParkManager;
+import model.UserController;
 import model.Volunteer;
 
 
@@ -71,8 +72,8 @@ public class JobControllerTest
     {
         for (int i = 1; i < 30; i++)
         {
-            JobDate date = new JobDate();
-            final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), date,  date,  date, 
+            JobDateTime date = new JobDateTime();
+            final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), date, date,  date,  date, 
                     "This job involves a lot of walking", 1, 2, 4);
             myJobController.addJob(job);
         }
@@ -90,8 +91,8 @@ public class JobControllerTest
         final ArrayList<Job> jobs = new ArrayList<Job>();
         for (int i = 1; i < 30; i++)
         {
-            JobDate date = new JobDate().addDays(i);
-            final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), date,  date,  date, 
+            JobDateTime date = new JobDateTime().addDays(i);
+            final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), date, date,  date,  date, 
                     "This job involves a lot of walking", i, 2, 4);
             jobs.add(job);
             myJobController.addJob(job);
@@ -107,20 +108,20 @@ public class JobControllerTest
     @Test
     public void GetUpcomingJobs_MixOfUpcomingAndPastJobs_ExpectedReturnOnlyUpcomingJobs()
     {
-        JobDate jobDate;
+        JobDateTime jobDate;
         final ArrayList<Job> jobs = new ArrayList<Job>();
         for (int i = 1; i < 30; i++)
         {
             if(i % 2 == 0){
-                jobDate = new JobDate().addDays(i);
-                final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), jobDate,  jobDate,  jobDate, 
+                jobDate = new JobDateTime().addDays(i);
+                final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), jobDate, jobDate,  jobDate,  jobDate, 
                                         "This job involves a lot of walking", i, 2, 4);
                 jobs.add(job);
                 myJobController.addJob(job);
             }
             else{
-                jobDate = new JobDate();
-                final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), jobDate,  jobDate,  jobDate, 
+                jobDate = new JobDateTime();
+                final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), jobDate, jobDate,  jobDate,  jobDate, 
                                        "This job involves a lot of walking", i, 2, 4);
                 myJobController.addJob(job);
             }
@@ -139,7 +140,7 @@ public class JobControllerTest
     @Test
     public void GetJob_StoredJob_ExpectedCorrectJobReturned()
     {
-        final Job expectedJob = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), new JobDate(), new JobDate(), new JobDate(), 
+        final Job expectedJob = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), new JobDateTime(), new JobDateTime(), new JobDateTime(), new JobDateTime(), 
                                         "This job involves a lot of walking", 1, 2, 4);
         myJobController.addJob(expectedJob);
         final Job job = myJobController.getJob(expectedJob.getKey());
@@ -166,8 +167,8 @@ public class JobControllerTest
     {
         for (int i = 1; i < 30; i++)
         {
-            JobDate date = new JobDate().addDays(i);
-            final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), date,  date,  date, 
+            JobDateTime date = new JobDateTime().addDays(i);
+            final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), date, date, date,  date, 
                     "This job involves a lot of walking", i, 2, 4);
             myJobController.addJob(job);
         }
@@ -186,8 +187,8 @@ public class JobControllerTest
         final ArrayList<Job> jobs = new ArrayList<Job>();
         for (int i = 1; i < 30; i++)
         {
-            JobDate date = new JobDate();
-            final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), date,  date,  date, 
+            JobDateTime date = new JobDateTime();
+            final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), date, date, date, date, 
                     "This job involves a lot of walking", 1, 2, 4);
             myJobController.addJob(job);
             jobs.add(job);
@@ -204,20 +205,20 @@ public class JobControllerTest
     @Test
     public void GetPastJobs_MixOfPastJobsAndPendingJobs_ExpectedOnlyListOfPastJobs()
     {
-        JobDate jobDate;
+        JobDateTime jobDate;
         final ArrayList<Job> jobs = new ArrayList<Job>();
         for (int i = 1; i < 30; i++)
         {
             if(i % 2 == 0){
-                jobDate = new JobDate().addDays(i);
-                final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), jobDate,  jobDate,  jobDate, 
+                jobDate = new JobDateTime().addDays(i);
+                final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), jobDate, jobDate,  jobDate,  jobDate, 
                                         "This job involves a lot of walking", i, 2, 4);
                 
                 myJobController.addJob(job);
             }
             else{
-                jobDate = new JobDate();
-                final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), jobDate,  jobDate,  jobDate, 
+                jobDate = new JobDateTime();
+                final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), jobDate, jobDate,  jobDate,  jobDate, 
                                        "This job involves a lot of walking", i, 2, 4);
                 jobs.add(job);
                 myJobController.addJob(job);
@@ -231,43 +232,32 @@ public class JobControllerTest
     
 	@Test
 	public void isLessThanMaxJobsOnThisDate_NoStoredJobs_ExpectedTrue() {	
-		JobDate date = new JobDate().addDays(5);			
+		JobDateTime date = new JobDateTime().addDays(5);			
 		assertTrue(myJobController.isLessThanMaxJobsOnThisDate(date));
 	}
 	
 	@Test
 	public void isLessThanMaxJobsOnThisDate_AlreadyMaxJobsOnRequestedDay_ExpectedFalse() {
-        JobDate date = new JobDate();
-        final Job firstJob = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, date, date, 
-                "This job involves a lot of walking", 1, 2, 4);
-
-        final Job secondJob =  new Job(new ParkManager("pm"), "Rail Clearing", new Park("BirchCreek Park", "address"), date, date, date, 
-                "This job involves a lot of walking", 1, 2, 4);
-        
-        final Job thirdJob =  new Job(new ParkManager("pm"), "Raking", new Park("BirchCreek Park", "address"), date, date, date, 
-                                       "This job involves a lot of walking", 1, 2, 4);
-        
-        final Job fourthJob =  new Job(new ParkManager("pm"), "Planting", new Park("BirchCreek Park", "address"), date, date, date, 
-                                       "This job involves a lot of walking", 1, 2, 4);
-        
-        myJobController.addJob(firstJob);
-        myJobController.addJob(secondJob);
-        myJobController.addJob(thirdJob);
-        myJobController.addJob(fourthJob);
+        JobDateTime date = new JobDateTime();
+        for (int i = 0; i < JobController.MAX_JOBS_PER_DAY; i++) {
+        	final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), date, date, date, date, 
+                    "This job involves a lot of walking", 1, 2, 4);
+            myJobController.addJob(job);
+        }
         
         assertFalse(myJobController.isLessThanMaxJobsOnThisDate(date));
     }
 	
 	@Test
 	public void isLessThanMaxJobsOnThisDate_LessThanMaxJobsOnRequestedDate_ExpectedTrue() {
-	    JobDate date = new JobDate();
-        final Job firstJob = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, date, date, 
+	    JobDateTime date = new JobDateTime();
+        final Job firstJob = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, date, date, date, 
                 "This job involves a lot of walking", 1, 2, 4);
 
-        final Job secondJob =  new Job(new ParkManager("pm"), "Rail Clearing", new Park("BirchCreek Park", "address"), date, date, date, 
+        final Job secondJob =  new Job(new ParkManager("pm"), "Rail Clearing", new Park("BirchCreek Park", "address"), date, date, date, date, 
                 "This job involves a lot of walking", 1, 2, 4);
         
-        final Job thirdJob =  new Job(new ParkManager("pm"), "Raking", new Park("BirchCreek Park", "address"), date, date, date, 
+        final Job thirdJob =  new Job(new ParkManager("pm"), "Raking", new Park("BirchCreek Park", "address"), date, date, date, date, 
                                        "This job involves a lot of walking", 1, 2, 4);
         myJobController.addJob(firstJob);
         myJobController.addJob(secondJob);
@@ -280,11 +270,11 @@ public class JobControllerTest
 	@Test
     public void CanAddWithNameAtPark_JobNameAlreadyExists_ExpectedFalse() {
 	    
-	    JobDate date = new JobDate();
+	    JobDateTime date = new JobDateTime();
 	    Park park = new Park("Springwood Park", "Kent");
 
 	    
-	    final Job firstJob = new Job(new ParkManager("pm"), "Trail Clearing", park, date, date, date, 
+	    final Job firstJob = new Job(new ParkManager("pm"), "Trail Clearing", park, date, date, date, date, 
 	                                "This job involves a lot of walking", 1, 2, 4);
 
         myJobController.addJob(firstJob);
@@ -293,11 +283,11 @@ public class JobControllerTest
 	
 	@Test
     public void CanAddWithNameAtPark_JobNameDoesntAlreadyExistAtPark_ExpectedTrue() {
-	    JobDate date = new JobDate();
+	    JobDateTime date = new JobDateTime();
         Park park = new Park("Springwood Park", "Kent");
 
         
-        final Job firstJob = new Job(new ParkManager("pm"), "Trail Clearing", park, date, date, date, 
+        final Job firstJob = new Job(new ParkManager("pm"), "Trail Clearing", park, date, date, date, date, 
                                     "This job involves a lot of walking", 1, 2, 4);
 
         myJobController.addJob(firstJob);
@@ -308,36 +298,36 @@ public class JobControllerTest
 	@Test (expected = NullPointerException.class)
     public void volunteerCanSignUpOnDate_NullWorkDuty(){
         final Volunteer eli = new Volunteer("eli", "Eli", "Ile", "253-123-4567", "eli@gmail.com");
-        JobDate date = new JobDate().addDays(5);
-        final Job firstJob = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, date, date, 
+        JobDateTime date = new JobDateTime().addDays(5);
+        final Job firstJob = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, date, date, date, 
                                         "This job involves a lot of walking", 1, 2, 4);
         myJobController.addJob(firstJob);
         firstJob.addVolunteer(eli, WorkDuty.LIGHT);
         eli.addJob(firstJob);
-        myJobController.volunteerCanSignUpOnDate(eli, null);
+        myJobController.volunteerCanSignUpOnDateRange(eli, null, null);
     }
 	
 	@Test
 	public void volunteerCanSignUpOnDate_AlreadyJobOnThatDate_ExpectedFalse(){
 	    final Volunteer eli = new Volunteer("eli", "Eli", "Ile", "253-123-4567", "eli@gmail.com");
-	    JobDate date = new JobDate().addDays(5);
-	    final Job firstJob = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, date, date, 
+	    JobDateTime date = new JobDateTime().addDays(5);
+	    final Job firstJob = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, date, date, date, 
 	                                    "This job involves a lot of walking", 1, 2, 4);
 	    myJobController.addJob(firstJob);
 	    firstJob.addVolunteer(eli, WorkDuty.LIGHT);
 	    eli.addJob(firstJob);
-	    assertFalse(myJobController.volunteerCanSignUpOnDate(eli, date));
+	    assertFalse(myJobController.volunteerCanSignUpOnDateRange(eli, date, date));
 	}
 	
 	@Test
     public void volunteerCanSignUpOnDate_NoJobOnThatDate_ExpectedTrue(){
 	    final Volunteer eli = new Volunteer("eli", "Eli", "Ile", "253-123-4567", "eli@gmail.com");
-        JobDate date = new JobDate().addDays(5);
-        final Job firstJob = new Job(new ParkManager("pm"), "Rail Clearing", new Park("BirchCreek Park", "address"), date, date, date, 
+        JobDateTime date = new JobDateTime().addDays(5);
+        final Job firstJob = new Job(new ParkManager("pm"), "Rail Clearing", new Park("BirchCreek Park", "address"), date, date, date, date, 
                                         "This job involves a lot of walking", 1, 2, 4);
         myJobController.addJob(firstJob);
         eli.addJob(firstJob);
-        assertTrue(myJobController.volunteerCanSignUpOnDate(eli, date.addDays(5)));
+        assertTrue(myJobController.volunteerCanSignUpOnDateRange(eli, date.addDays(5), date.addDays(5)));
     }
 	
 	@Test (expected = NullPointerException.class)
@@ -350,19 +340,20 @@ public class JobControllerTest
 	@Test (expected = IllegalStateException.class)
     public void assertSigningUp_ConflictingJobDates(){
 	    final Volunteer eli = new Volunteer("eli", "Eli", "Ile", "253-123-4567", "eli@gmail.com");
-        JobDate date = new JobDate().addDays(5);
-        final Job firstJob = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, date, date, 
+        JobDateTime date = new JobDateTime().addDays(5);
+        final Job firstJob = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, date, date, date, 
                                         "This job involves a lot of walking", 1, 2, 4);
-        myJobController.addJob(firstJob);
         firstJob.addVolunteer(eli, WorkDuty.LIGHT);
+        myJobController.addJob(firstJob);
         eli.addJob(firstJob);
+        new UserController().addUser(eli);
         myJobController.assertSigningUp(eli, firstJob);
     }
 	
 	@Test (expected = IllegalStateException.class)
     public void assertSigningUp_JobHasMaxVolunteers(){
-	    JobDate date = new JobDate().addDays(5);
-	    final Job jobWithMaxVolunteers = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, date, date, 
+	    JobDateTime date = new JobDateTime().addDays(5);
+	    final Job jobWithMaxVolunteers = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, date, date, date, 
                                      "This job involves a lot of walking", 30, 0, 0);
 	    final Volunteer jackson = new Volunteer("jackson", "Jackson", "Howard", "360-641-6734", "jackson@outlook.com");
         
@@ -387,8 +378,8 @@ public class JobControllerTest
 	@Test 
     public void assertSigningUp_VolunteerCanSignUp_ExpectedTrue(){
 	    final Volunteer eli = new Volunteer("eli", "Eli", "Ile", "253-123-4567", "eli@gmail.com");
-        JobDate date = new JobDate().addDays(5);
-        final Job job = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, date, date, 
+        JobDateTime date = new JobDateTime().addDays(5);
+        final Job job = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, date, date, date, 
                                         "This job involves a lot of walking", 1, 2, 4);
         assertTrue(myJobController.assertSigningUp(eli, job));
     }
@@ -397,8 +388,8 @@ public class JobControllerTest
    @Test (expected = NullPointerException.class)
     public void signUp_NullWorkDuty(){
         final Volunteer eli = new Volunteer("eli", "Eli", "Ile", "253-123-4567", "eli@gmail.com");
-        JobDate date = new JobDate().addDays(5);
-        final Job job = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, date, date, 
+        JobDateTime date = new JobDateTime().addDays(5);
+        final Job job = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, date, date, date, 
                                         "This job involves a lot of walking", 1, 2, 0);
         myJobController.signUp(eli, job, null);
     }
@@ -412,8 +403,8 @@ public class JobControllerTest
 	@Test (expected = IllegalStateException.class)
 	public void signUp_VolunteerTypeIsNotNeeded(){
 	    final Volunteer eli = new Volunteer("eli", "Eli", "Ile", "253-123-4567", "eli@gmail.com");
-        JobDate date = new JobDate().addDays(5);
-        final Job job = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, date, date, 
+        JobDateTime date = new JobDateTime().addDays(5);
+        final Job job = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, date, date, date, 
                                         "This job involves a lot of walking", 1, 2, 0);
         myJobController.signUp(eli, job, WorkDuty.HEAVY);
 	}
@@ -421,8 +412,8 @@ public class JobControllerTest
 	@Test
     public void signUp_VolunteerTypeIsNeeded_ExpectedJobIsInVolunteersUpcomingJobsList(){
 	    final Volunteer eli = new Volunteer("eli", "Eli", "Ile", "253-123-4567", "eli@gmail.com");
-        JobDate date = new JobDate().addDays(5);
-        final Job job = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, date, date, 
+        JobDateTime date = new JobDateTime().addDays(5);
+        final Job job = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, date, date, date, 
                                         "This job involves a lot of walking", 1, 2, 1);
         myJobController.signUp(eli, job, WorkDuty.HEAVY);
         job.addVolunteer(eli, WorkDuty.HEAVY);

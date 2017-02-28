@@ -9,7 +9,7 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-import model.JobDate;
+import model.JobDateTime;
 import model.Job;
 import model.Job.WorkDuty;
 import model.Park;
@@ -39,8 +39,8 @@ public class JobTest {
     public void setUp() throws Exception {
         
     	
-    	final JobDate date = new JobDate();
-        jobToUseForTests = new Job(new ParkManager("pm"), "Park Cleanup", new Park("Cherry Park", "Park Location"),  date, date, date, "Cleaning up litter", 30, 1, 0);
+    	final JobDateTime date = new JobDateTime();
+        jobToUseForTests = new Job(new ParkManager("pm"), "Park Cleanup", new Park("Cherry Park", "Park Location"), date, date, date, date, "Cleaning up litter", 30, 1, 0);
         
         //represent volunteers sign up for light work category
         volunteerLight = new HashMap<String, WorkDuty>();
@@ -58,13 +58,13 @@ public class JobTest {
     
     @Test
     public void Equals_EqualSameJobName_ExpectedTrueReturn() {
-        final Job differentJobName = new Job(new ParkManager("pm"), "Park Cleanup", new Park("Cherry Park", "Park Location"),  new JobDate(), new JobDate(), new JobDate(), "Cleaning up litter", 1, 3, 5);
+        final Job differentJobName = new Job(new ParkManager("pm"), "Park Cleanup", new Park("Cherry Park", "Park Location"), new JobDateTime(),  new JobDateTime(), new JobDateTime(), new JobDateTime(), "Cleaning up litter", 1, 3, 5);
         assertTrue(differentJobName.getJobName().equals(jobToUseForTests.getJobName()));
     }
     
     @Test
     public void Equals_NotEqualDifferentJobName_ExpectedFalseReturn() {
-    	final Job differentJobName = new Job(new ParkManager("pm"), "Different Job Name", new Park("Cherry Park", "Park Location"),  new JobDate(), new JobDate(), new JobDate(), "Cleaning up litter", 1, 3, 5);
+    	final Job differentJobName = new Job(new ParkManager("pm"), "Different Job Name", new Park("Cherry Park", "Park Location"), new JobDateTime(), new JobDateTime(), new JobDateTime(), new JobDateTime(), "Cleaning up litter", 1, 3, 5);
         assertFalse(differentJobName.getJobName().equals(jobToUseForTests.getJobName()));
     }
     

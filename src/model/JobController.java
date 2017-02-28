@@ -63,31 +63,32 @@ public class JobController extends AbstractController<Job> {
     }
     
     /**
-     * Selects only the upcoming jobs from a stream of jobs.
+     * Filters a stream of jobs so that only the jobs after the current date remain.
      * @param theStream the stream of jobs
      * @return a steam of upcoming jobs
      */
     public static Stream<Job> filterUpcomingJobs(final Stream<Job> theStream) {
-    	return theStream.filter(x -> new JobDate().compareTo(x.getDate()) < 0);
+    	return theStream.filter(x -> new JobDateTime().compareTo(x.getStartDate()) < 0);
     }
     
     /**
-     * Selects only the jobs a volunteer can sign up for.
+     * Filters a stream of jobs so that only the jobs that start {@link MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP}
+     * past the current date remain.
      * @param theStream the stream of jobs
      * @return a stream of upcoming jobs
      */
     public static Stream<Job> filterAtLeastMinimumDaysAhead(final Stream<Job> theStream) {
-        JobDate futureDate = new JobDate().getStartOfDate().addDays(MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP);
-        return theStream.filter(x -> x.getDate().after(futureDate) || x.getDate().equals(futureDate));
+        JobDateTime futureDate = new JobDateTime().getStartOfDate().addDays(MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP);
+        return theStream.filter(x -> x.getStartDate().after(futureDate) || x.getStartDate().equals(futureDate));
     }
     
     /**
-     * Selects only the past jobs from a stream of jobs.
+     * Filters a stream of jobs so that only the jobs that start before the current date remain.
      * @param theStream the stream of jobs
      * @return a steam of past jobs
      */
     public static Stream<Job> filterPastJobs(final Stream<Job> theStream) {
-    	return theStream.filter(x -> new JobDate().compareTo(x.getDate()) >= 0);
+    	return theStream.filter(x -> new JobDateTime().compareTo(x.getStartDate()) >= 0);
     }
     
     
@@ -96,8 +97,7 @@ public class JobController extends AbstractController<Job> {
      * @param theName the name of a job
      * @return the job that has the specified name
      */
-    public Job getJob(final String theKey) 
-    {
+    public Job getJob(final String theKey) {
         return myList.get(theKey);
     }
     
@@ -106,8 +106,7 @@ public class JobController extends AbstractController<Job> {
      * Adds a job to the database.
      * @param theJob the job to be added.
      */
-    public void addJob(Job theJob)
-    {
+    public void addJob(Job theJob) {
         add(theJob);
     }
 
@@ -116,10 +115,16 @@ public class JobController extends AbstractController<Job> {
      * @param theDate the date to check.
      * @return True if the date can take more jobs, false if max jobs are on that date.
      */
-    public boolean isLessThanMaxJobsOnThisDate(final JobDate theDate) {
-    	Predicate<Job> dateSameAsJobDate = x -> x.getDate().equals(theDate);
-    	return myList.values().stream().filter(dateSameAsJobDate).count() < MAX_JOBS_PER_DAY;
+    public boolean isLessThanMaxJobsOnThisDate(final JobDateTime theDate) {
+    	Predicate<Job> dateSameAsJobDate = x -> JobDateTime.intersects(theDate, theDate, x.getStartDate(), x.getEndDate());
+    	final long numberOfJobs = myList.values().stream().filter(dateSameAsJobDate).count();
+    	return numberOfJobs < MAX_JOBS_PER_DAY;
     }
+    
+	public boolean isLessThanMaxJobsOnThisDateRange(JobDateTime theStartDate, JobDateTime theEndDate) {
+		Predicate<Job> dateSameAsJobDate = x -> JobDateTime.intersects(theStartDate, theEndDate, x.getStartDate(), x.getEndDate());
+    	return myList.values().stream().filter(dateSameAsJobDate).count() < MAX_JOBS_PER_DAY;
+	}
     
     /**
      * Checks if job already exists at park.
@@ -131,6 +136,20 @@ public class JobController extends AbstractController<Job> {
     	return !myList.containsKey(theName + thePark);
     }
 
+//    /**
+//     * Returns whether the volunteer is already working a job on that date.
+//     * 
+//     * @param theVolunteer the volunteer being looked at
+//     * @param theDate the date to be checked
+//     * @return false if volunteer is already working a job on that date, true otherwise.
+//     * @throws NullPointerException if null job date is passed in
+//     */
+//    public boolean volunteerCanSignUpOnDate(final Volunteer theVolunteer, final JobDateTime theDate) {
+//    	final Predicate<Job> dateSameAsJobDateAndJobContainsVolunteer = x -> x.getVolunteers().contains(theVolunteer)
+//    			&& theDate.between(x.getStartDate(), x.getEndDate());
+//    	return getUpcomingJobs().stream().filter(dateSameAsJobDateAndJobContainsVolunteer).count() == 0;
+//    }
+    
     /**
      * Returns whether the volunteer is already working a job on that date.
      * 
@@ -139,9 +158,10 @@ public class JobController extends AbstractController<Job> {
      * @return false if volunteer is already working a job on that date, true otherwise.
      * @throws NullPointerException if null job date is passed in
      */
-    public boolean volunteerCanSignUpOnDate(final Volunteer theVolunteer, final JobDate theDate) {
+    public boolean volunteerCanSignUpOnDateRange(final Volunteer theVolunteer, final JobDateTime theStartDate,
+    		final JobDateTime theEndDate) {
     	final Predicate<Job> dateSameAsJobDateAndJobContainsVolunteer = x -> x.getVolunteers().contains(theVolunteer)
-    			&& JobDate.sameDates(x.getDate(), theDate);
+    			&& JobDateTime.intersects(theStartDate, theEndDate, x.getStartDate(), x.getEndDate());
     	return getUpcomingJobs().stream().filter(dateSameAsJobDateAndJobContainsVolunteer).count() == 0;
     }
 	
@@ -155,7 +175,7 @@ public class JobController extends AbstractController<Job> {
 	 */
 	public boolean assertSigningUp(final Volunteer theVolunteer, final Job theJob) throws IllegalStateException {
 		boolean canSignUp = false;
-		if (!volunteerCanSignUpOnDate(theVolunteer, theJob.getDate())) {
+		if (!volunteerCanSignUpOnDateRange(theVolunteer, theJob.getStartDate(), theJob.getEndDate())) {
 			throw new IllegalStateException("Preoccupied");
 		} else if(theJob.hasMaxVolunteers()) {
 			throw new IllegalStateException("JobFull");

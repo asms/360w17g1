@@ -11,7 +11,7 @@ import java.util.Calendar;
 import org.junit.Before;
 import org.junit.Test;
 
-import model.JobDate;
+import model.JobDateTime;
 
 /**
  * @author Steven
@@ -19,18 +19,18 @@ import model.JobDate;
  */
 public class JobDateTest {
 
-	private JobDate myJobDate;
+	private JobDateTime myJobDate;
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-		myJobDate = new JobDate();
+		myJobDate = new JobDateTime();
 	}
 
 	/**
-	 * Test method for {@link model.JobDate#getStartOfDate()}.
+	 * Test method for {@link model.JobDateTime#getStartOfDate()}.
 	 */
 	@Test
 	public final void testGetStartOfDate() {
@@ -38,7 +38,7 @@ public class JobDateTest {
 	}
 
 	/**
-	 * Test method for {@link model.JobDate#setTime(java.util.Date)}.
+	 * Test method for {@link model.JobDateTime#setTime(java.util.Date)}.
 	 */
 	@Test(expected = NullPointerException.class)
 	public final void testSetTime() {
@@ -46,7 +46,7 @@ public class JobDateTest {
 	}
 
 	/**
-	 * Test method for {@link model.JobDate#addYears(int)}.
+	 * Test method for {@link model.JobDateTime#addYears(int)}.
 	 */
 	@Test
 	public final void testAddYears() {
@@ -57,7 +57,7 @@ public class JobDateTest {
 	}
 
 	/**
-	 * Test method for {@link model.JobDate#addMonths(int)}.
+	 * Test method for {@link model.JobDateTime#addMonths(int)}.
 	 */
 	@Test
 	public final void testAddMonths() {
@@ -68,7 +68,7 @@ public class JobDateTest {
 	}
 
 	/**
-	 * Test method for {@link model.JobDate#addDays(int)}.
+	 * Test method for {@link model.JobDateTime#addDays(int)}.
 	 */
 	@Test
 	public final void testAddDays() {
@@ -79,33 +79,33 @@ public class JobDateTest {
 	}
 
 	/**
-	 * Test method for {@link model.JobDate#sameDates(model.JobDate, model.JobDate)}.
+	 * Test method for {@link model.JobDateTime#sameDates(model.JobDateTime, model.JobDateTime)}.
 	 */
 	@Test(expected = NullPointerException.class)
 	public final void testSameDatesExpectsNullPointerExceptionWhenParametersAreNull() {
-		JobDate.sameDates(null, new JobDate());
-		JobDate.sameDates(new JobDate(), null);
+		JobDateTime.sameDates(null, new JobDateTime());
+		JobDateTime.sameDates(new JobDateTime(), null);
 	}
 	
 	
 	/**
-	 * Test method for {@link model.JobDate#sameDates(model.JobDate, model.JobDate)}.
+	 * Test method for {@link model.JobDateTime#sameDates(model.JobDateTime, model.JobDateTime)}.
 	 */
 	@Test
 	public final void testSameDatesExpectsTrueWhenDatesAreSame() {
-		assertTrue(JobDate.sameDates(new JobDate().getStartOfDate(), new JobDate().getStartOfDate()));
+		assertTrue(JobDateTime.sameDates(new JobDateTime().getStartOfDate(), new JobDateTime().getStartOfDate()));
 	}
 	
 	/**
-	 * Test method for {@link model.JobDate#sameDates(model.JobDate, model.JobDate)}.
+	 * Test method for {@link model.JobDateTime#sameDates(model.JobDateTime, model.JobDateTime)}.
 	 */
 	@Test
 	public final void testSameDatesExpectsFalseWhenDatesAreNotSame() {
-		assertFalse(JobDate.sameDates(new JobDate().getStartOfDate(), new JobDate().addDays(1)));
+		assertFalse(JobDateTime.sameDates(new JobDateTime().getStartOfDate(), new JobDateTime().addDays(1)));
 	}
 
 	/**
-	 * Test method for {@link model.JobDate#setFromTimeString(java.lang.String)}.
+	 * Test method for {@link model.JobDateTime#setFromTimeString(java.lang.String)}.
 	 */
 	@Test
 	public final void testSetFromTimeString() {
@@ -118,7 +118,7 @@ public class JobDateTest {
 	}
 
 	/**
-	 * Test method for {@link model.JobDate#setFromDateString(java.lang.String)}.
+	 * Test method for {@link model.JobDateTime#setFromDateString(java.lang.String)}.
 	 */
 	@Test
 	public final void testSetFromDateString() {
@@ -131,39 +131,39 @@ public class JobDateTest {
 	}
 
 	/**
-	 * Test method for {@link model.JobDate#between(model.JobDate, model.JobDate)}.
+	 * Test method for {@link model.JobDateTime#between(model.JobDateTime, model.JobDateTime)}.
 	 */
 	@Test
 	public final void testBetweenExpectsTrueWhenBetween() {
-		assertTrue(myJobDate.between(new JobDate().addDays(-1), new JobDate().addDays(1)));
+		assertTrue(myJobDate.between(new JobDateTime().addDays(-1), new JobDateTime().addDays(1)));
 	}
 	
 	/**
-	 * Test method for {@link model.JobDate#between(model.JobDate, model.JobDate)}.
+	 * Test method for {@link model.JobDateTime#between(model.JobDateTime, model.JobDateTime)}.
 	 */
 	@Test
 	public final void testBetweenExpectsFalseWhenNotBetween() {
-		assertFalse(myJobDate.between(new JobDate().addDays(1), new JobDate().addDays(2)));
+		assertFalse(myJobDate.between(new JobDateTime().addDays(1), new JobDateTime().addDays(2)));
 	}
 
 	/**
-	 * Test method for {@link model.JobDate#after(model.JobDate)}.
+	 * Test method for {@link model.JobDateTime#after(model.JobDateTime)}.
 	 */
 	@Test
 	public final void testAfter() {
-		assertTrue(new JobDate().addDays(1).after(new JobDate()));
+		assertTrue(new JobDateTime().addDays(1).after(new JobDateTime()));
 	}
 
 	/**
-	 * Test method for {@link model.JobDate#before(model.JobDate)}.
+	 * Test method for {@link model.JobDateTime#before(model.JobDateTime)}.
 	 */
 	@Test
 	public final void testBefore() {
-		assertTrue(new JobDate().before(new JobDate().addDays(1)));
+		assertTrue(new JobDateTime().before(new JobDateTime().addDays(1)));
 	}
 	
 	/**
-	 * Test method for {@link model.JobDate#after(model.JobDate)}.
+	 * Test method for {@link model.JobDateTime#after(model.JobDateTime)}.
 	 */
 	@Test(expected = NullPointerException.class)
 	public final void testAfterExpectedNullPointerExceptionOnNullParameter() {
@@ -171,7 +171,7 @@ public class JobDateTest {
 	}
 
 	/**
-	 * Test method for {@link model.JobDate#before(model.JobDate)}.
+	 * Test method for {@link model.JobDateTime#before(model.JobDateTime)}.
 	 */
 	@Test(expected = NullPointerException.class)
 	public final void testBeforeExpectedNullPointerExceptionOnNullParameter() {
@@ -179,7 +179,7 @@ public class JobDateTest {
 	}
 
 	/**
-	 * Test method for {@link model.JobDate#equals(java.lang.Object)}.
+	 * Test method for {@link model.JobDateTime#equals(java.lang.Object)}.
 	 */
 	@Test
 	public final void testEqualsObjectExpectsTrueWhenObjectsAreEqual() {
@@ -187,7 +187,7 @@ public class JobDateTest {
 	}
 	
 	/**
-	 * Test method for {@link model.JobDate#equals(java.lang.Object)}.
+	 * Test method for {@link model.JobDateTime#equals(java.lang.Object)}.
 	 */
 	@Test
 	public final void testEqualsObjectExpectsFalseWhenObjectsAreEqual() {

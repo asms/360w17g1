@@ -8,6 +8,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import model.Park;
@@ -37,6 +38,11 @@ public class ParkTest {
      * Default park location to use for park test location.
      */
     private static final String PARK_LOCATION = "1900 Commerce St, Tacoma, WA 98402";
+    
+    @Before
+    public void setup() {
+    	myPark = new Park(PARK_NAME, PARK_LOCATION);
+    }
     
     /**
      * Test method for {@link Park#Park()}

@@ -18,7 +18,7 @@ import org.junit.Test;
 import model.Job;
 import model.Job.WorkDuty;
 import model.JobController;
-import model.JobDate;
+import model.JobDateTime;
 import model.Park;
 import model.ParkManager;
 import model.Volunteer;
@@ -40,9 +40,9 @@ public class VolunteerTest {
 	@Before
 	public void setUp() throws Exception {
 		myVolunteer = new Volunteer(USERNAME, FIRST_NAME, LAST_NAME, PHONE_NUMBER, EMAIL_ADDRESS);
-		JobDate jd = new JobDate(); 
+		JobDateTime jd = new JobDateTime(); 
 		jd.addDays(3);
-		myJob = new Job(new ParkManager("Larry"), "Some string", new Park("Name", "location"), jd, jd, jd, "Some string", 1, 3, 3);
+		myJob = new Job(new ParkManager("Larry"), "Some string", new Park("Name", "location"), jd, jd, jd, jd, "Some string", 1, 3, 3);
 	}
 
 	@Test

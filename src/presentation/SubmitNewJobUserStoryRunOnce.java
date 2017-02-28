@@ -7,10 +7,8 @@ package presentation;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import model.JobController;
-import model.JobDate;
+import model.JobDateTime;
 import model.ParkController;
 import model.UserController;
 import model.Job;
@@ -78,8 +76,8 @@ public final class SubmitNewJobUserStoryRunOnce {
 		};
 		
 		try {
-			final Job litter = new Job(manager, "Cleaning up litter", sunset, new JobDate().addDays(FOUR_DAYS), new JobDate().setFromTimeString("10:00 am"),
-					new JobDate().setFromTimeString("2:00 pm"), "Cleaning up after yesterday's little league tournament.", 30, 0,
+			final Job litter = new Job(manager, "Cleaning up litter", sunset, new JobDateTime().addDays(FOUR_DAYS), new JobDateTime().addDays(FOUR_DAYS + FOUR_DAYS), new JobDateTime().setFromTimeString("10:00 am"),
+					new JobDateTime().setFromTimeString("2:00 pm"), "Cleaning up after yesterday's little league tournament.", 30, 0,
 					0);
 			for (final Volunteer volunteer : volunteers) {
 				litter.addVolunteer(volunteer, WorkDuty.LIGHT);

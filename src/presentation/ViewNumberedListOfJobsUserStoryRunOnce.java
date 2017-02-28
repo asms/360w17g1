@@ -4,13 +4,9 @@
  */
 package presentation;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import model.JobController;
-import model.JobDate;
+import model.JobDateTime;
 import model.ParkController;
 import model.UserController;
 import model.Job;
@@ -45,8 +41,8 @@ public final class ViewNumberedListOfJobsUserStoryRunOnce {
 		
 		
 		try {
-			final Job litter = new Job(manager, "Cleaning up litter", sunset, new JobDate().addDays(4), new JobDate().setFromTimeString("10:00 am"),
-					new JobDate().setFromTimeString("2:00 pm"), "Cleaning up after yesterday's little league tournament.", 2, 2,
+			final Job litter = new Job(manager, "Cleaning up litter", sunset, new JobDateTime().addDays(4), new JobDateTime().addDays(5), new JobDateTime().setFromTimeString("10:00 am"),
+					new JobDateTime().setFromTimeString("2:00 pm"), "Cleaning up after yesterday's little league tournament.", 2, 2,
 					2);
 			litter.addVolunteer(volunteer, WorkDuty.LIGHT);
 			jc.addJob(litter);

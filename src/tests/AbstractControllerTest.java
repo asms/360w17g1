@@ -57,7 +57,6 @@ public class AbstractControllerTest {
 			if (file.exists()) {
 				file.delete();
 			}
-			assertFalse(file.exists());
 			JobController jc = new JobController();
 			assertTrue(jc.getAllJobs().isEmpty());
 			assertTrue(file.exists());

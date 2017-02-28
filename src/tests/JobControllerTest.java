@@ -9,7 +9,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
@@ -22,7 +21,6 @@ import model.Job.WorkDuty;
 import model.JobController;
 import model.JobDate;
 import model.Park;
-import model.ParkController;
 import model.ParkManager;
 import model.Volunteer;
 

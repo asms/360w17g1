@@ -46,16 +46,5 @@ public class UserController extends AbstractController<AbstractUser> {
 		return new ArrayList<AbstractUser>(myList.values());
 	}
 
-//	/**
-//	 *  @return A list of all the Users 
-//	 */
-//	public ArrayList<AbstractUser> getUserList() {
-//
-//		return new ArrayList<AbstractUser>(myList.values());
-//	}
-
-
-
-
 
 }

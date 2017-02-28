@@ -3,6 +3,7 @@ package tests;
 /**
  * @author Bryce
  * @version 2.0
+ * getters not tested
  */
 
 import static org.junit.Assert.assertFalse;
@@ -43,6 +44,9 @@ public class VolunteerTest {
 		myJob = new Job(new ParkManager("Larry"), "Some string", new Park("Name", "location"), jd, jd, jd, jd, "Some string", 1, 3, 3);
 	}
 
+	/**
+	 * test method for addJob {@link model.Volunteer#addJob(Job)}
+	 */
 	@Test
 	public void testAddJob_ValidJob_True() {
 		

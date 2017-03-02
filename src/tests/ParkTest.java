@@ -4,14 +4,15 @@
  */
 package tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import model.Job;
+import model.JobDateTime;
 import model.Park;
+import model.ParkManager;
 
 /**
  * Test suite for {@link Park}.
@@ -132,5 +133,6 @@ public class ParkTest {
         final int expected = new Park(new String(PARK_NAME), "1234 56th Street, City, State 78910").hashCode();
         assertNotEquals(expected, myPark.hashCode());
     }
+    
     
 }

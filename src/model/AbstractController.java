@@ -55,6 +55,7 @@ public abstract class AbstractController<T extends UniqueObject> {
 			oos.close();
 			succeeded = true;
 		} catch (final Exception theException) {
+			//System.err.println(theException.getMessage());
 			succeeded = false;
 		}
 		return succeeded;
@@ -78,6 +79,7 @@ public abstract class AbstractController<T extends UniqueObject> {
 			theObject = (E) os.readObject();
 			os.close();
 		} catch (Exception e) {
+			//System.err.println(e.getMessage());
 			theObject = null;
 		}
 		return theObject;

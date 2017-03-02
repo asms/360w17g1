@@ -83,11 +83,10 @@ public class Volunteer extends AbstractUser {
 	 * Adds the Job to the Volunteer's jobs.
 	 * If the job is null it will not be added.
 	 * @param A valid job
+	 * @throws NullPointerException
 	 */
 	public void addJob(final Job job) {
-		if(job!= null) {
-		myJobs.add(job);
-		}
+		myJobs.add(Objects.requireNonNull(job));
 		
 	}
 	

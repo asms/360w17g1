@@ -133,7 +133,7 @@ public class JobController extends AbstractController<Job> {
      * @return true if job doesn't already exist at park, false otherwise.
      */
     public boolean canAddWithNameAtPark(final String theName, final Park thePark) {
-    	return !myList.containsKey(theName + thePark);
+    	return !myList.containsKey(theName + thePark.getKey());
     }
 
 //    /**

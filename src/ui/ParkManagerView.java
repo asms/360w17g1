@@ -126,7 +126,7 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 			displayLine();
 			final boolean shouldSubmit = getBooleanYesNo("Are you sure you want to submit this job (Y/N)");
 			if (shouldSubmit) {
-		        park.associateWithJob(job);
+//		        park.associateWithJob(job);
 		        myParkController.addPark(park);
 				myJobController.addJob(job);
 				print("Job added.");

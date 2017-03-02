@@ -29,8 +29,9 @@ public class JobDateTime implements Serializable, Comparable<JobDateTime> {
 	/** The wrapped data structure of this date class. */
 	private LocalDateTime myDate;
 	
-	private final DateTimeFormatter myDateFormatter;
-	private final DateTimeFormatter myTimeFormatter;
+	
+	private transient final DateTimeFormatter myDateFormatter;
+	private transient final DateTimeFormatter myTimeFormatter;
 
 	/**
 	 * Creates a new job date at the specified local date and time.

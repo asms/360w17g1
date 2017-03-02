@@ -33,7 +33,7 @@ public class Park implements UniqueObject {
 	 */
 	private final String myLocation;
 	
-	private final Set<Job> myAssociatedJobs;
+//	public final Set<Job> myAssociatedJobs;
 	
 	/**
 	 * Create a new instance of a park from a non-null name and non-null location.
@@ -41,24 +41,24 @@ public class Park implements UniqueObject {
 	public Park(final String theName, final String theLocation) {
 		myName = Objects.requireNonNull(theName);
 		myLocation = Objects.requireNonNull(theLocation);
-		myAssociatedJobs = new HashSet<Job>();
+//		myAssociatedJobs = new HashSet<Job>();
 	}
 	
 	/**
 	 * Associates the park with the current job.
 	 * @param theJob the job
 	 */
-	public void associateWithJob(final Job theJob) {
-		myAssociatedJobs.add(theJob);
-	}
+//	public void associateWithJob(final Job theJob) {
+//		myAssociatedJobs.add(theJob);
+//	}
 	
 	/**
 	 * Gets the list of associated jobs.
 	 * @param theJob the job
 	 */
-	public Set<Job> getAssociatedJobs() {
-		return myAssociatedJobs;
-	}
+//	public Set<Job> getAssociatedJobs() {
+//		return myAssociatedJobs;
+//	}
 	
 	/**
 	 * Returns the name of the park.

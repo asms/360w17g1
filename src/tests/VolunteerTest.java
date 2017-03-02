@@ -48,17 +48,16 @@ public class VolunteerTest {
 	 * test method for addJob {@link model.Volunteer#addJob(Job)}
 	 */
 	@Test
-	public void testAddJob_ValidJob_True() {
+	public void testAddJob_NonNullJob_True() {
 		
 		myVolunteer.addJob(myJob);
 		assertTrue(myVolunteer.myJobs.contains(myJob));    
 	}
 	
-	@Test 
+	@Test (expected = NullPointerException.class)
 	public void testAddJob_NonValidJob() {
 		myJob = null;
 		myVolunteer.addJob(myJob);
-		assertFalse(myVolunteer.myJobs.contains(myJob)); 
 	}
 
 }

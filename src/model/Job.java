@@ -247,7 +247,7 @@ public class Job implements UniqueObject {
 
 	@Override
 	public String getKey() {
-		return myName + myPark;
+		return myName + myPark.getKey();
 	}
 
 	@Override

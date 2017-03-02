@@ -35,7 +35,7 @@ public final class VolunteerForJobAndViewListingsUserStoryRunOnce {
 		
 		final ParkManager manager = new ParkManager("robertl");
 		manager.associateWithPark(sunset);
-		
+		pc.addPark(sunset);
 		final Volunteer volunteer = new Volunteer("carlyo", "Carly", "O'Hara", "253-425-2375", "carlyo@yahoo.com");
 		
 		final Volunteer crazyjoe = new Volunteer("crazyjoe", "Joe", "Joe", "666-666-6666", "crazyjoe@loco.com");
@@ -54,9 +54,9 @@ public final class VolunteerForJobAndViewListingsUserStoryRunOnce {
 					new JobDateTime().addDays(2), new JobDateTime().addDays(3), new JobDateTime().setFromTimeString("02:00 PM"),
 					new JobDateTime().setFromTimeString("05:00 PM"), "Humanely collecting nuisance frogs and relocating them.", 2, 2,
 					2);
-			sunset.associateWithJob(litter);
-			sunset.associateWithJob(painting);
-			sunset.associateWithJob(collectFrogs);
+//			sunset.associateWithJob(litter);
+//			sunset.associateWithJob(painting);
+//			sunset.associateWithJob(collectFrogs);
 			jc.addJob(litter);
 			jc.addJob(painting);
 			jc.addJob(collectFrogs);
@@ -65,7 +65,7 @@ public final class VolunteerForJobAndViewListingsUserStoryRunOnce {
 		uc.addUser(manager);
 		uc.addUser(volunteer);
 		uc.addUser(crazyjoe);
-		pc.addPark(sunset);
+		
 		/* END SETUP */
 		
 		Driver.main(null);

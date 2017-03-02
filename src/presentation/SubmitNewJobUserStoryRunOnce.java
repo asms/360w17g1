@@ -91,8 +91,5 @@ public final class SubmitNewJobUserStoryRunOnce {
 		uc.addUser(manager);
 		pc.addPark(sunset);
 		/* END SETUP */
-		
-		Driver.main(null);
-		Driver.clearAll();
 	}
 }

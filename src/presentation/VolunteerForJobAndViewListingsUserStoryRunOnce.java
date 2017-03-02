@@ -67,7 +67,5 @@ public final class VolunteerForJobAndViewListingsUserStoryRunOnce {
 		uc.addUser(crazyjoe);
 		pc.addPark(sunset);
 		/* END SETUP */
-		
-		Driver.main(null);
 	}
 }

@@ -25,8 +25,5 @@ public final class LogInUserStoryRunOnce {
 		uc.addUser(volunteer);
 		uc.addUser(manager);
 		/* END SETUP */
-		
-		Driver.main(null);
-		Driver.clearAll();
 	}
 }

@@ -53,8 +53,5 @@ public final class ViewNumberedListOfJobsUserStoryRunOnce {
 		pc.addPark(sunset);
 		pc.addPark(chambers);
 		/* END SETUP */
-		
-		Driver.main(null);
-		Driver.clearAll();
 	}
 }

@@ -50,7 +50,7 @@ public class AbstractUserTest
       Test method for {@link model.AbstractUser#toString()}.
     */
     @Test
-    public void testToString()
+    public void testToString_TwoStringsAreEqual_ExpectedTrue()
     {
         assertEquals(USERNAME + ", ParkManager", myUser.getUserName() + ", " + myUser.getClass().getSimpleName());
     }
@@ -60,7 +60,7 @@ public class AbstractUserTest
      * Test method for {@link model.AbstractUser#equals(java.lang.Object)}.
      */
     @Test
-    public void testEquals_EqualObject()
+    public void testEquals_EqualObject_expectedTrue()
     {
     	assertEquals(myUser, myUser);
     	assertEquals(myUser.getClass().getSimpleName(), myUser.getClass().getSimpleName());
@@ -71,7 +71,7 @@ public class AbstractUserTest
      * Test method for {@link model.AbstractUser#equals(java.lang.Object)}.
      */
     @Test
-    public void testEquals_notEqualUser_notEqual() {
+    public void testEquals_notEqualUser_ExpectedFalse() {
     	
     	assertFalse(myUser.equals(new ParkManager("Larry")));
     }
@@ -80,20 +80,20 @@ public class AbstractUserTest
      * Test method for {@link model.AbstractUser#equals(java.lang.Object)}.
      */
     @Test
-    public void testEquals_notEqualObject_notEqual() {
+    public void testEquals_notEqualObject_ExpectedFalse() {
     	
     	assertFalse(myUser.equals(new Park("Park", "Location")));
     }
     
     @Test
-    public void testHashCode_Equal_True() {
+    public void testHashCode_EqualObjects_ExpectedTrue() {
     	
     	assertEquals(myUser.hashCode(), myUser.hashCode());
     }
  
     
     @Test
-    public void testHashCode_NotEqual_False() {
+    public void testHashCode_NotEqualObjects_ExpectedFalse() {
     	
     	assertTrue(myUser.hashCode() != (new ParkManager("Jerry").hashCode()));
     	

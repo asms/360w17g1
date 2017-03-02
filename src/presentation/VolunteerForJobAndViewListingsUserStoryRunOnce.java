@@ -54,9 +54,6 @@ public final class VolunteerForJobAndViewListingsUserStoryRunOnce {
 					new JobDateTime().addDays(2), new JobDateTime().addDays(3), new JobDateTime().setFromTimeString("02:00 PM"),
 					new JobDateTime().setFromTimeString("05:00 PM"), "Humanely collecting nuisance frogs and relocating them.", 2, 2,
 					2);
-//			sunset.associateWithJob(litter);
-//			sunset.associateWithJob(painting);
-//			sunset.associateWithJob(collectFrogs);
 			jc.addJob(litter);
 			jc.addJob(painting);
 			jc.addJob(collectFrogs);
@@ -68,6 +65,6 @@ public final class VolunteerForJobAndViewListingsUserStoryRunOnce {
 		
 		/* END SETUP */
 		
-		Driver.main(null);
+
 	}
 }

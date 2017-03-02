@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import exceptionsWithLongNames.AllreadySignedUpForJobOnThisDateException;
 import model.JobController;
 import model.Job;
 import model.Job.WorkDuty;
@@ -83,7 +84,7 @@ public class VolunteerView extends AbstractView<Volunteer> {
 			clear();
 			displayHeader();
 			displayLineBreak();
-//			displayCurrentJobs();
+			// displayCurrentJobs();
 			displayLineBreak();
 			COMMAND command = (COMMAND) getCommand("Enter a command", COMMAND.values());
 			if (command != null) {
@@ -91,7 +92,7 @@ public class VolunteerView extends AbstractView<Volunteer> {
 			}
 		}
 	}
-	
+
 	/**
 	 * Displays a view for finding and signing up for jobs.
 	 */
@@ -99,33 +100,49 @@ public class VolunteerView extends AbstractView<Volunteer> {
 		displayLineBreak();
 		int state = 1; // get park
 		final Park[] parks = myParkController.getAllParks().toArray(new Park[0]);
-		while(state == 1) {
-			final Park park = getSelectionFromList("Parks", "Enter a park number", parks, p -> p.getName(), new String[] {"Back"});
+		while (state == 1) {
+			final Park park = getSelectionFromList("Parks", "Enter a park number", parks, p -> p.getName(),
+					new String[] { "Back" });
 			if (park != null) {
 				state = 2; // get job
 				while (state == 2) {
 					displayLineBreak();
-					final Job[] jobs = JobController.filterAtLeastMinimumDaysAhead
-							(myJobController.getByPark(park).stream()).toArray(Job[]::new);
-					final Job job = getSelectionFromList("Jobs", "Enter a job number to sign up", jobs, x -> x.getJobName(), new String[] {"Back"});
+					final Job[] jobs = JobController
+							.filterAtLeastMinimumDaysAhead(myJobController.getByPark(park).stream())
+							.toArray(Job[]::new);
+					final Job job = getSelectionFromList("Jobs", "Enter a job number to sign up", jobs,
+							x -> x.getJobName(), new String[] { "Back" });
 					if (job != null) {
 						displayLineBreak();
 						print(JobUIFormatter.format(job));
-						final String command = getSelectionFromList("Commands", "Select a command number", new String[] {"Sign Up", "Back"}, x -> x, new String[0]);
+						final String command = getSelectionFromList("Commands", "Select a command number",
+								new String[] { "Sign Up", "Back" }, x -> x, new String[0]);
 						try {
-							if (myJobController.assertSigningUp((Volunteer) myUser, job)) {
-								final WorkDuty duty = getSelectionFromList("Work Duty", "Select a skill level", WorkDuty.values(), x -> x.toString(), new String[] {"Cancel"});
+							if (command.equals("Back")){
+								
+							} else if(myJobController.assertSigningUp((Volunteer) myUser, job)) {
+								final WorkDuty duty = getSelectionFromList("Work Duty", "Select a skill level",
+										WorkDuty.values(), x -> x.toString(), new String[] { "Cancel" });
 								if (duty != null) {
 									myJobController.signUp((Volunteer) myUser, job, duty);
 								}
-							} else if (command.equals("Back")) {
 							} else {
 								print("You cannot sign up for this job.");
 							}
-						} catch(final IllegalStateException theException) {
-							printError(theException.getMessage()); //TODO: Handle different illegal states.
+						} catch (final AllreadySignedUpForJobOnThisDateException e) {
+							displayLineBreak();
+							printError("YOU ARE ALREADY SIGNED UP FOR A JOB ON THIS DATE");
+							getString("Press enter to continue");
+						} 
+						catch (final IllegalStateException theException) {
+							
+							printError(theException.getMessage()); // TODO:
+							// Handle
+							// different
+							// illegal
+							// states.
 						}
-						
+
 					} else {
 						state = 1;
 					}
@@ -135,30 +152,28 @@ public class VolunteerView extends AbstractView<Volunteer> {
 			}
 		}
 	}
-	
 
-	
-//	private void displayCurrentJobs() {
-//		final List<Job> jobs = ((Volunteer) myUser).getPendingJobs();
-//		print(String.format("%s%s%s%s%s",
-//				pad("Pending Job", 25),
-//				pad("Location", 50),
-//				pad("Date", 15),
-//				pad("Start time", 15),
-//				pad("End time", 15)));
-//		displayLine();
-//		for (final Job job : jobs) {
-//			print(String.format("%s%s%s%s%s", 
-//					pad(job.getJobName(), 25),
-//					pad(job.getPark().getLocation(), 50),
-//					pad(job.getDate().toDateString(), 15),
-//					pad(job.getStartTime().toTimeString(), 15),
-//					pad(job.getEndTime().toTimeString(), 15)));
-//		}
-//		if (jobs.size() == 0) {
-//			print("You are not signed up for any pending jobs.");
-//		}
-//		displayLine();
-//	}
+	// private void displayCurrentJobs() {
+	// final List<Job> jobs = ((Volunteer) myUser).getPendingJobs();
+	// print(String.format("%s%s%s%s%s",
+	// pad("Pending Job", 25),
+	// pad("Location", 50),
+	// pad("Date", 15),
+	// pad("Start time", 15),
+	// pad("End time", 15)));
+	// displayLine();
+	// for (final Job job : jobs) {
+	// print(String.format("%s%s%s%s%s",
+	// pad(job.getJobName(), 25),
+	// pad(job.getPark().getLocation(), 50),
+	// pad(job.getDate().toDateString(), 15),
+	// pad(job.getStartTime().toTimeString(), 15),
+	// pad(job.getEndTime().toTimeString(), 15)));
+	// }
+	// if (jobs.size() == 0) {
+	// print("You are not signed up for any pending jobs.");
+	// }
+	// displayLine();
+	// }
 
 }

@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import exceptionsWithLongNames.AllreadySignedUpForJobOnThisDateException;
 import model.Job;
 import model.Job.WorkDuty;
 import model.Park;
@@ -176,7 +177,7 @@ public class JobController extends AbstractController<Job> {
 	public boolean assertSigningUp(final Volunteer theVolunteer, final Job theJob) throws IllegalStateException {
 		boolean canSignUp = false;
 		if (!volunteerCanSignUpOnDateRange(theVolunteer, theJob.getStartDate(), theJob.getEndDate())) {
-			throw new IllegalStateException("Preoccupied");
+			throw new AllreadySignedUpForJobOnThisDateException();
 		} else if(theJob.hasMaxVolunteers()) {
 			throw new IllegalStateException("JobFull");
 		} else {

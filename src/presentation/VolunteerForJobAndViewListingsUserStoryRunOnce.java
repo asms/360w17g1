@@ -43,7 +43,7 @@ public final class VolunteerForJobAndViewListingsUserStoryRunOnce {
 		
 		try {
 			final Job litter = new Job(manager, "Cleaning up litter", sunset,
-					new JobDateTime().addDays(4), new JobDateTime().addDays(5), new JobDateTime().setFromTimeString("10:00 AM"),
+					new JobDateTime().addDays(0), new JobDateTime().addDays(5), new JobDateTime().setFromTimeString("10:00 AM"),
 					new JobDateTime().setFromTimeString("02:00 PM"), "Cleaning up after yesterday's little league tournament.", 2, 2,
 					2);
 			final Job painting = new Job(manager, "Painting Parking Lines", sunset,

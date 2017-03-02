@@ -3,6 +3,7 @@
  */
 package model;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,8 +31,8 @@ public class JobDateTime implements Serializable, Comparable<JobDateTime> {
 	private LocalDateTime myDate;
 	
 	
-	private transient final DateTimeFormatter myDateFormatter;
-	private transient final DateTimeFormatter myTimeFormatter;
+	private transient DateTimeFormatter myDateFormatter;
+	private transient DateTimeFormatter myTimeFormatter;
 
 	/**
 	 * Creates a new job date at the specified local date and time.
@@ -235,6 +236,13 @@ public class JobDateTime implements Serializable, Comparable<JobDateTime> {
 	public int compareTo(final JobDateTime date) {
 		return myDate.compareTo(date.myDate);
 	}
+	
+	private void readObject(java.io.ObjectInputStream stream)
+            throws IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+        myDateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+		myTimeFormatter = DateTimeFormatter.ofPattern(TIME_FORMAT);
+    }
 	
 	/**
 	 * Checks if two date ranges intersect each other.

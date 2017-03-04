@@ -5,6 +5,8 @@
 package presentation;
 
 import java.text.ParseException;
+
+import exceptions.ExceedsMaxVolunteersException;
 import model.JobController;
 import model.JobDateTime;
 import model.ParkController;
@@ -57,7 +59,10 @@ public final class VolunteerForJobAndViewListingsUserStoryRunOnce {
 			jc.addJob(litter);
 			jc.addJob(painting);
 			jc.addJob(collectFrogs);
-		} catch (ParseException e) { System.out.println("FAIL"); }
+		} catch (ParseException e) { System.out.println("FAIL"); } catch (ExceedsMaxVolunteersException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		uc.addUser(manager);
 		uc.addUser(volunteer);

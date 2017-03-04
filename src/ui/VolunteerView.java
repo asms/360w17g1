@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import exceptionsWithLongNames.AllreadySignedUpForJobOnThisDateException;
+import exceptions.AllreadySignedUpForJobOnThisDateException;
 import model.JobController;
 import model.Job;
 import model.Job.WorkDuty;
@@ -125,6 +125,7 @@ public class VolunteerView extends AbstractView<Volunteer> {
 										WorkDuty.values(), x -> x.toString(), new String[] { "Cancel" });
 								if (duty != null) {
 									myJobController.signUp((Volunteer) myUser, job, duty);
+									print("You have successfully signed up for the job.");
 								}
 							} else {
 								print("You cannot sign up for this job.");
@@ -136,11 +137,7 @@ public class VolunteerView extends AbstractView<Volunteer> {
 						} 
 						catch (final IllegalStateException theException) {
 							
-							printError(theException.getMessage()); // TODO:
-							// Handle
-							// different
-							// illegal
-							// states.
+							printError(theException.getMessage());
 						}
 
 					} else {

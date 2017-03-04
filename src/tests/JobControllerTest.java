@@ -15,7 +15,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-
+import exceptions.ExceedsMaxVolunteersException;
 import model.Job;
 import model.Job.WorkDuty;
 import model.JobController;
@@ -68,11 +68,12 @@ public class JobControllerTest
     @Test
     public void GetUpcomingJobs_NoUpcomingJobs_ExpectedReturnEmptyList()
     {
-        for (int i = 1; i < 30; i++)
+        for (int i = 1; i < JobController.MAX_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_CREATION; i++)
         {
             JobDateTime date = new JobDateTime();
             final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), date, date,  date,  date, 
-                    "This job involves a lot of walking", 1, 2, 4);
+                        "This job involves a lot of walking", 1, 2, 4);
+            
             myJobController.addJob(job);
         }
         final List<Job> UpcomingJobs = myJobController.getUpcomingJobs();
@@ -91,7 +92,7 @@ public class JobControllerTest
         {
             JobDateTime date = new JobDateTime().addDays(i);
             final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), date, date,  date,  date, 
-                    "This job involves a lot of walking", i, 2, 4);
+                    "This job involves a lot of walking", Job.MAX_VOLUNTEERS, 0, 0);
             jobs.add(job);
             myJobController.addJob(job);
         }
@@ -113,14 +114,14 @@ public class JobControllerTest
             if(i % 2 == 0){
                 jobDate = new JobDateTime().addDays(i);
                 final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), jobDate, jobDate,  jobDate,  jobDate, 
-                                        "This job involves a lot of walking", i, 2, 4);
+                                        "This job involves a lot of walking", Job.MAX_VOLUNTEERS, 0, 0);
                 jobs.add(job);
                 myJobController.addJob(job);
             }
             else{
                 jobDate = new JobDateTime();
                 final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), jobDate, jobDate,  jobDate,  jobDate, 
-                                       "This job involves a lot of walking", i, 2, 4);
+                                       "This job involves a lot of walking", Job.MAX_VOLUNTEERS, 0, 0);
                 myJobController.addJob(job);
             }
                  
@@ -167,7 +168,7 @@ public class JobControllerTest
         {
             JobDateTime date = new JobDateTime().addDays(i);
             final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), date, date, date,  date, 
-                    "This job involves a lot of walking", i, 2, 4);
+                    "This job involves a lot of walking", Job.MAX_VOLUNTEERS, 0, 0);
             myJobController.addJob(job);
         }
         final List<Job> pastJobs = myJobController.getPastJobs();
@@ -205,19 +206,19 @@ public class JobControllerTest
     {
         JobDateTime jobDate;
         final ArrayList<Job> jobs = new ArrayList<Job>();
-        for (int i = 1; i < 30; i++)
+        for (int i = 1; i < JobController.DEFAULT_MAX_PENDING_JOBS; i++)
         {
             if(i % 2 == 0){
                 jobDate = new JobDateTime().addDays(i);
                 final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), jobDate, jobDate,  jobDate,  jobDate, 
-                                        "This job involves a lot of walking", i, 2, 4);
+                                        "This job involves a lot of walking", 0, Job.MAX_VOLUNTEERS, 0);
                 
                 myJobController.addJob(job);
             }
             else{
                 jobDate = new JobDateTime();
                 final Job job = new Job(new ParkManager("pm"), "Trail Clearing" + i, new Park("BirchCreek Park", "address"), jobDate, jobDate,  jobDate,  jobDate, 
-                                       "This job involves a lot of walking", i, 2, 4);
+                                       "This job involves a lot of walking", Job.MAX_VOLUNTEERS, 0, 0);
                 jobs.add(job);
                 myJobController.addJob(job);
             }    
@@ -352,7 +353,7 @@ public class JobControllerTest
     public void assertSigningUp_JobHasMaxVolunteers(){
 	    JobDateTime date = new JobDateTime().addDays(5);
 	    final Job jobWithMaxVolunteers = new Job(new ParkManager("pm"), "Trail Clearing", new Park("BirchCreek Park", "address"), date, date, date, date, 
-                                     "This job involves a lot of walking", 30, 0, 0);
+                                     "This job involves a lot of walking", Job.MAX_VOLUNTEERS, 0, 0);
 	    final Volunteer jackson = new Volunteer("jackson", "Jackson", "Howard", "360-641-6734", "jackson@outlook.com");
         
         final Volunteer[] volunteers = {
@@ -367,7 +368,7 @@ public class JobControllerTest
                 new Volunteer("edward", "Edward",   "Johnson",  "253-119-7654", "word@yahoo.com"),
                 new Volunteer("alan",   "Alan",     "Johnson",  "253-110-4567", "name@yahoo.com"),
         };
-        for (int i = 0; i < volunteers.length; i++){
+        for (int i = 0; i < Math.min(volunteers.length, Job.MAX_VOLUNTEERS); i++){
             jobWithMaxVolunteers.addVolunteer(volunteers[i], WorkDuty.LIGHT);
         }
         myJobController.assertSigningUp(jackson, jobWithMaxVolunteers);

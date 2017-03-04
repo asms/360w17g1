@@ -316,7 +316,7 @@ public abstract class AbstractView<T extends AbstractUser> {
 		while (!validated) {
 			try {
 				date = date.setFromDateString(getString(Objects.requireNonNull(thePrompt)));
-				if (date.between(theMin, theMax)) {
+				if (JobDateTime.intersects(date, date, theMin, theMax)) {
 					validated = true;
 				} else {
 					printError("The date must be between " + theMin.toDateString() + " and " + theMax.toDateString() + ".");

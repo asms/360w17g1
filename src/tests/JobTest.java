@@ -40,7 +40,7 @@ public class JobTest {
         
     	
     	final JobDateTime date = new JobDateTime();
-        jobToUseForTests = new Job(new ParkManager("pm"), "Park Cleanup", new Park("Cherry Park", "Park Location"), date, date, date, date, "Cleaning up litter", 30, 1, 0);
+        jobToUseForTests = new Job(new ParkManager("pm"), "Park Cleanup", new Park("Cherry Park", "Park Location"), date, date, date, date, "Cleaning up litter", 1, 1, 1);
         
         //represent volunteers sign up for light work category
         volunteerLight = new HashMap<String, WorkDuty>();

@@ -11,6 +11,8 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.function.Function;
+
+import exceptions.ExceedsMaxVolunteersException;
 import model.JobController;
 import model.JobDateTime;
 import model.Job;
@@ -120,19 +122,23 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 			final int numLightVolunteers = getInteger("Enter number of light-duty volunteers", 0, Job.MAX_VOLUNTEERS);
 			final int numMediumVolunteers = getInteger("Enter number of medium-duty volunteers", 0, Job.MAX_VOLUNTEERS - numLightVolunteers);
 			final int numHeavyVolunteers = getInteger("Enter number of heavy-duty volunteers", 0, Job.MAX_VOLUNTEERS - numLightVolunteers - numMediumVolunteers);
-			final Job job = new Job((ParkManager) myUser, name, park, startDate, endDate, startTime, endTime, description, numLightVolunteers, numMediumVolunteers, numHeavyVolunteers);
-			displayLine();
-			print(JobUIFormatter.format(job));
-			displayLine();
-			final boolean shouldSubmit = getBooleanYesNo("Are you sure you want to submit this job (Y/N)");
-			if (shouldSubmit) {
-//		        park.associateWithJob(job);
-		        myParkController.addPark(park);
-				myJobController.addJob(job);
-				print("Job added.");
-			} else {
-				print("Job not added.");
+			try {
+				final Job job = new Job((ParkManager) myUser, name, park, startDate, endDate, startTime, endTime, description, numLightVolunteers, numMediumVolunteers, numHeavyVolunteers);
+				displayLine();
+				print(JobUIFormatter.format(job));
+				displayLine();
+				final boolean shouldSubmit = getBooleanYesNo("Are you sure you want to submit this job (Y/N)");
+				if (shouldSubmit) {
+			        myParkController.addPark(park);
+					myJobController.addJob(job);
+					print("Job added.");
+				} else {
+					print("Job not added.");
+				}
+			} catch(final ExceedsMaxVolunteersException e) {
+				//TODO: SOMETHING
 			}
+			
 		} else {
 			printError("The maximum number of pending jobs has already been reached.");
 		}
@@ -179,7 +185,7 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 	private JobDateTime promptForJobStartDate() {
 		JobDateTime date;
 		JobDateTime maxFutureDate = new JobDateTime()
-				.addMonths(JobController.MAX_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_CREATION);
+				.addDays(JobController.MAX_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_CREATION);
 		boolean validDate = false;
 		do {
 			print(":::Note::: Job date must be at least "
@@ -205,15 +211,13 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 	 */
 	private JobDateTime promptForJobEndDate(final JobDateTime theStartDate) {
 		JobDateTime date;
-		JobDateTime maxFutureDate = new JobDateTime()
-				.addMonths(JobController.MAX_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_CREATION);
+		JobDateTime maxFutureDate = theStartDate.getStartOfDate().addDays(JobController.MAX_JOB_DURATION_DAYS - 1);
 		boolean validDate = false;
 		do {
 			print(":::Note::: Job date must be at least "
 					+ String.valueOf(JobController.MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP)
 					+ " days from now and no more than "
-					+ String.valueOf(JobController.MAX_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_CREATION)
-					+ " days from now.");
+					+ maxFutureDate.toDateString());
 			date = getDate("Enter end date(MM/DD/YYYY)",
 					new JobDateTime().getStartOfDate().addDays(JobController.MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP),
 					maxFutureDate);

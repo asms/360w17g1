@@ -1,4 +1,4 @@
-package exceptionsWithLongNames;
+package exceptions;
 
 public class AllreadySignedUpForJobOnThisDateException extends IllegalStateException {
 

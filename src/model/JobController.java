@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import exceptionsWithLongNames.AllreadySignedUpForJobOnThisDateException;
+import exceptions.AllreadySignedUpForJobOnThisDateException;
 import model.Job;
 import model.Job.WorkDuty;
 import model.Park;
@@ -27,6 +27,7 @@ public class JobController extends AbstractController<Job> {
 	public static final int DEFAULT_MAX_PENDING_JOBS = 20;
 	public static final int MAX_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_CREATION = 75;
 	public static final int MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP = 2;
+	public static final int MAX_JOB_DURATION_DAYS = 3;
 	
 	private int myMaximumNumberOfPendingJobs;
     
@@ -117,14 +118,18 @@ public class JobController extends AbstractController<Job> {
      * @return True if the date can take more jobs, false if max jobs are on that date.
      */
     public boolean isLessThanMaxJobsOnThisDate(final JobDateTime theDate) {
-    	Predicate<Job> dateSameAsJobDate = x -> JobDateTime.intersects(theDate, theDate, x.getStartDate(), x.getEndDate());
+    	Predicate<Job> dateSameAsJobDate = x -> {
+    		return JobDateTime.intersects(theDate, theDate, x.getStartDate(), x.getEndDate());
+    				};
+    	
     	final long numberOfJobs = myList.values().stream().filter(dateSameAsJobDate).count();
     	return numberOfJobs < MAX_JOBS_PER_DAY;
     }
     
 	public boolean isLessThanMaxJobsOnThisDateRange(JobDateTime theStartDate, JobDateTime theEndDate) {
 		Predicate<Job> dateSameAsJobDate = x -> JobDateTime.intersects(theStartDate, theEndDate, x.getStartDate(), x.getEndDate());
-    	return myList.values().stream().filter(dateSameAsJobDate).count() < MAX_JOBS_PER_DAY;
+    	final long numberOfJobs = myList.values().stream().filter(dateSameAsJobDate).count();
+		return numberOfJobs < MAX_JOBS_PER_DAY;
 	}
     
     /**
@@ -174,7 +179,7 @@ public class JobController extends AbstractController<Job> {
 	 * @throws IllegalStateException if the volunteer cannot sign up for the job
 	 * @throws NullPointerException if the job passed in is null
 	 */
-	public boolean assertSigningUp(final Volunteer theVolunteer, final Job theJob) throws IllegalStateException {
+	public boolean assertSigningUp(final Volunteer theVolunteer, final Job theJob) {
 		boolean canSignUp = false;
 		if (!volunteerCanSignUpOnDateRange(theVolunteer, theJob.getStartDate(), theJob.getEndDate())) {
 			throw new AllreadySignedUpForJobOnThisDateException();

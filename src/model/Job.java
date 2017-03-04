@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import exceptions.ExceedsMaxVolunteersException;
+
 
 /**
  * Job model class.
@@ -16,15 +18,12 @@ import java.util.Set;
  * @author Mohamed Mohamed
  * @version 1.0
  */
-public class Job implements UniqueObject {
+public final class Job implements UniqueObject {
 	/**
 	 * Generated serial version id.
 	 */
 	private static final long serialVersionUID = -4115864921352899827L;
 
-	/**
-	 * BR: A maximum of 30 volunteers for any job.
-	 */
 	public static final int MAX_VOLUNTEERS = 10;
 
 	/**
@@ -89,6 +88,7 @@ public class Job implements UniqueObject {
 	 *            the description of the job.
 	 * @param theDifficulty
 	 *            the difficulty of the job.
+	 * @throws ExceedsMaxVolunteersException if the number of volunteers exceeds the maximum number of volunteers
 	 */
 	public Job(final ParkManager theManager, final String theName, final Park thePark, final JobDateTime theStartDate,
 			final JobDateTime theEndDate, final JobDateTime theStartTime, final JobDateTime theEndTime,
@@ -106,24 +106,16 @@ public class Job implements UniqueObject {
 		myDescription = Objects.requireNonNull(theDescription);
 
 		neededVolunteers = new HashMap<WorkDuty, Integer>();
+		
+		if (theLightDuty + theMediumDuty + theHeavyDuty > MAX_VOLUNTEERS) {
+			throw new ExceedsMaxVolunteersException();
+		}
 		neededVolunteers.put(WorkDuty.LIGHT, theLightDuty);
 		neededVolunteers.put(WorkDuty.MEDIUM, theMediumDuty);
 		neededVolunteers.put(WorkDuty.HEAVY, theHeavyDuty);
 
 		volunteers = new HashMap<Volunteer, Job.WorkDuty>();
 	}
-
-//	/**
-//	 * A copy constructor that creates a copy of the existing job.
-//	 * 
-//	 * @param job
-//	 *            job to be cloned.
-//	 */
-//	public Job(Job job) {
-//		this(job.getManager(), job.getJobName(), job.getPark(), job.getDate(), job.getStartTime(), job.getEndTime(),
-//				job.getDescription(), job.neededVolunteers.get(WorkDuty.LIGHT),
-//				job.neededVolunteers.get(WorkDuty.MEDIUM), job.neededVolunteers.get(WorkDuty.HEAVY));
-//	}
 	
 
 	/**
@@ -256,8 +248,9 @@ public class Job implements UniqueObject {
 	}
 
 	public boolean hasMaxVolunteers() {
-		return volunteers.size() == MAX_VOLUNTEERS || volunteers.size() == neededVolunteers.size();
+		return volunteers.size() == MAX_VOLUNTEERS || volunteers.size() == getNumberOfPossibleVolunteers();
 	}
+	
 	/**
 	 * Returns whether or not the work duty offered by the Volunteer is needed for this job.
 	 * 

@@ -7,6 +7,8 @@ package presentation;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
+import exceptions.ExceedsMaxVolunteersException;
 import model.JobController;
 import model.JobDateTime;
 import model.ParkController;
@@ -77,15 +79,18 @@ public final class SubmitNewJobUserStoryRunOnce {
 		
 		try {
 			final Job litter = new Job(manager, "Cleaning up litter", sunset, new JobDateTime().addDays(FOUR_DAYS), new JobDateTime().addDays(FOUR_DAYS + FOUR_DAYS), new JobDateTime().setFromTimeString("10:00 am"),
-					new JobDateTime().setFromTimeString("2:00 pm"), "Cleaning up after yesterday's little league tournament.", 30, 0,
+					new JobDateTime().setFromTimeString("2:00 pm"), "Cleaning up after yesterday's little league tournament.", Job.MAX_VOLUNTEERS, 0,
 					0);
-			for (final Volunteer volunteer : volunteers) {
-				litter.addVolunteer(volunteer, WorkDuty.LIGHT);
-				volunteer.addJob(litter);
+			for (int i = 0; i < Job.MAX_VOLUNTEERS; i++) {
+				litter.addVolunteer(volunteers[i], WorkDuty.LIGHT);
+				volunteers[i].addJob(litter);
 			}
 			jc.addJob(litter);
 			
-		} catch (ParseException e) { System.out.println("FAIL"); }
+		} catch (ParseException e) { System.out.println("FAIL");
+		} catch (ExceedsMaxVolunteersException e) {
+			e.printStackTrace();
+		}
 		
 		uc.addUser(jackson);
 		uc.addUser(manager);

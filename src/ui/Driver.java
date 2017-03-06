@@ -75,6 +75,7 @@ public final class Driver {
 	}
 	
 	public static void clearAll() {
+		System.out.println("Clearing all persistent data.");
 		new JobController().clear();
 		new UserController().clear();
 		new ParkController().clear();

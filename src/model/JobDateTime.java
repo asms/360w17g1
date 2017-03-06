@@ -263,5 +263,23 @@ public class JobDateTime implements Serializable, Comparable<JobDateTime> {
 				|| sameDates(Objects.requireNonNull(theEndDate1), theStartDate2)
 				|| sameDates(theEndDate1, theEndDate2);
 	}
+	
+	/**
+	 * Returns the previous (lowest) of two dates, ignores time.
+	 * @param theDate1 a date
+	 * @param theDate2 a date
+	 * @return the previous date
+	 */
+	public static JobDateTime minDate(final JobDateTime theDate1, final JobDateTime theDate2) {
+		final JobDateTime date1 = Objects.requireNonNull(theDate1).getStartOfDate();
+		final JobDateTime date2 = Objects.requireNonNull(theDate2).getStartOfDate();
+		final JobDateTime min;
+		if (date1.before(date2)) {
+			min = theDate1;
+		} else {
+			min = theDate2;
+		}
+		return min;
+	}
 
 }

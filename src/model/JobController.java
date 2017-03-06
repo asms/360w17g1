@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import exceptions.AllreadySignedUpForJobOnThisDateException;
+import exceptions.JobFullException;
 import model.Job;
 import model.Job.WorkDuty;
 import model.Park;
@@ -184,7 +185,7 @@ public class JobController extends AbstractController<Job> {
 		if (!volunteerCanSignUpOnDateRange(theVolunteer, theJob.getStartDate(), theJob.getEndDate())) {
 			throw new AllreadySignedUpForJobOnThisDateException();
 		} else if(theJob.hasMaxVolunteers()) {
-			throw new IllegalStateException("JobFull");
+			throw new JobFullException();
 		} else {
 			canSignUp = true;
 		}
@@ -209,8 +210,7 @@ public class JobController extends AbstractController<Job> {
 	}
 	
 	/**
-	 * Returns the maximum number of pending jobs.
-	 * <p>BR: Not more than the maximum number of pending jobs at a time.</p>
+	 * Returns the maximum number of pending jobs (for the system).
 	 * @return the maximum number of pending jobs
 	 */
 	public int getMaximumNumberOfPendingJobs() {
@@ -239,6 +239,19 @@ public class JobController extends AbstractController<Job> {
 	public void clear() {
 		super.clear();
 		setMaximumNumberOfPendingJobs(DEFAULT_MAX_PENDING_JOBS);
+	}
 	
+	/**
+	 * Gets the maximum future date of a new job after a specific start date.
+	 * 
+	 * @param theStartDate a valid start date
+	 * @return the maximum future date
+	 */
+	public static JobDateTime getMaximumEndDateFromStartDate(JobDateTime theStartDate) {
+		final JobDateTime absoluteMaxFutureDate
+						= new JobDateTime().getStartOfDate().addDays(MAX_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_CREATION);
+		final JobDateTime relativeMaxNumberDaysFutureDate
+										= theStartDate.getStartOfDate().addDays(JobController.MAX_JOB_DURATION_DAYS);
+		return JobDateTime.minDate(absoluteMaxFutureDate, relativeMaxNumberDaysFutureDate);
 	}
 }

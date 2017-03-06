@@ -24,8 +24,6 @@ public class MaxJobPerDayRunOnce {
 		final Park chambers = new Park("Chambers", "1111 Chambers Drive, University Place, WA 98466");
 		
 		final ParkManager manager = new ParkManager("robertl");
-		manager.associateWithPark(sunset);
-		manager.associateWithPark(chambers);
 		
 		final Volunteer volunteer = new Volunteer("carlyo", "Carly", "O'Hara", "253-425-2375", "carlyo@yahoo.com");
 		

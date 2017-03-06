@@ -36,7 +36,6 @@ public final class VolunteerForJobAndViewListingsUserStoryRunOnce {
 
 		
 		final ParkManager manager = new ParkManager("robertl");
-		manager.associateWithPark(sunset);
 		pc.addPark(sunset);
 		final Volunteer volunteer = new Volunteer("carlyo", "Carly", "O'Hara", "253-425-2375", "carlyo@yahoo.com");
 		

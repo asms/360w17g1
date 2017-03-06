@@ -237,8 +237,9 @@ public abstract class AbstractView<T extends AbstractUser> {
 	 * @param theTitle the title of the list
 	 * @param thePrompt the prompt
 	 * @param theList the list
-	 * @param theAlternativeOption an alternative option
-	 * @return the object selected from the array
+	 * @param theToStringFunction a function that maps an object list to a string list
+	 * @param theAlternatives alternative options to the list (e.g. back)
+	 * @return the object selected from the array or null if an alternative option was chosen
 	 * @throws NullPointerException if any parameters are null
 	 */
 	protected <E> E getSelectionFromList(final String theTitle, final String thePrompt, final E[] theList,

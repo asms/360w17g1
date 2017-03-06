@@ -5,11 +5,9 @@
 package ui;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.function.Function;
 
 import exceptions.ExceedsMaxVolunteersException;
@@ -18,7 +16,6 @@ import model.JobDateTime;
 import model.Job;
 import model.Park;
 import model.ParkManager;
-import model.Volunteer;
 import ui.Command.CommandExecutor;
 
 /**
@@ -184,15 +181,16 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 	 */
 	private JobDateTime promptForJobStartDate() {
 		JobDateTime date;
+		JobDateTime minFutureDate = new JobDateTime().addDays(JobController.MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP);
 		JobDateTime maxFutureDate = new JobDateTime()
 				.addDays(JobController.MAX_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_CREATION);
 		boolean validDate = false;
 		do {
-			print(":::Note::: Job date must be at least "
-					+ String.valueOf(JobController.MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP)
-					+ " days from now and no more than "
-					+ String.valueOf(JobController.MAX_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_CREATION)
-					+ " days from now.");
+			print("Notice: Job start date must be at least "
+					+ minFutureDate.toDateString()
+					+ " and not later than "
+					+ maxFutureDate.toDateString()
+					+ ".");
 			date = getDate("Enter start date(MM/DD/YYYY)",
 					new JobDateTime().getStartOfDate().addDays(JobController.MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP),
 					maxFutureDate);
@@ -211,12 +209,13 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 	 */
 	private JobDateTime promptForJobEndDate(final JobDateTime theStartDate) {
 		JobDateTime date;
-		JobDateTime maxFutureDate = theStartDate.getStartOfDate().addDays(JobController.MAX_JOB_DURATION_DAYS - 1);
+		JobDateTime minFutureDate = theStartDate;
+		JobDateTime maxFutureDate = JobController.getMaximumEndDateFromStartDate(theStartDate);
 		boolean validDate = false;
 		do {
-			print(":::Note::: Job date must be at least "
-					+ String.valueOf(JobController.MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP)
-					+ " days from now and no more than "
+			print("Notice: Job end date must be at least "
+					+ minFutureDate.toDateString()
+					+ " and not later than "
 					+ maxFutureDate.toDateString());
 			date = getDate("Enter end date(MM/DD/YYYY)",
 					new JobDateTime().getStartOfDate().addDays(JobController.MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP),

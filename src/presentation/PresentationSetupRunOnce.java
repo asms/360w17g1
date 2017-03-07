@@ -4,7 +4,21 @@
  */
 package presentation;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.WindowConstants;
 
 import model.JobController;
 import model.JobDateTime;
@@ -15,6 +29,7 @@ import model.Park;
 import model.ParkManager;
 import model.Volunteer;
 import model.Job.WorkDuty;
+import ui.Driver;
 
 /**
  * Persistent data initialization.
@@ -22,7 +37,7 @@ import model.Job.WorkDuty;
  * @author Steven Smith
  * @version 1.0
  */
-public final class SubmitNewJobUserStoryRunOnce {
+public final class PresentationSetupRunOnce {
 
 	// Controllers
 	private static final UserController USER_CONTROLLER = new UserController();
@@ -36,9 +51,10 @@ public final class SubmitNewJobUserStoryRunOnce {
 			"1111 Chambers Drive, University Place, WA 98466"
 			};
 	private static final Park[] PARKS = new Park[PARK_NAME.length];
-	static {
+	private static void initParks() {
+		printGreen("Initializing parks...");
 		for (int i = 0; i < PARK_NAME.length; i++) {
-			System.out.println("Adding park: " + PARK_NAME[i]);
+			print("Adding park: " + PARK_NAME[i]);
 			PARKS[i] = new Park(PARK_NAME[i],  PARK_ADDRESS[i]);
 			PARK_CONTROLLER.addPark(PARKS[i]);
 		}
@@ -48,10 +64,11 @@ public final class SubmitNewJobUserStoryRunOnce {
 	// Park Manager
 	private static final String[] PARK_MANAGER_NAME = {"andy", "robert"};
 	private static final ParkManager[] PARK_MANAGER = new ParkManager[PARK_MANAGER_NAME.length];
-	static {
+	private static void initParkManagers() {
+		printGreen("Initializing park managers...");
 		for (int i = 0; i < PARK_MANAGER.length; i++) {
 			PARK_MANAGER[i] = new ParkManager(PARK_MANAGER_NAME[i]);
-			System.out.println("Adding Park Manager: " + PARK_MANAGER_NAME[i]);
+			print("Adding Park Manager: " + PARK_MANAGER_NAME[i]);
 			USER_CONTROLLER.addUser(PARK_MANAGER[i]);
 		}
 	}
@@ -89,15 +106,122 @@ public final class SubmitNewJobUserStoryRunOnce {
 			new Volunteer("mantha",	"Samantha",	"Lee", 		"253-451-1811", "samantha@yahoo.com"),
 			new Volunteer("steph", 	"Steph", 	"Lee", 		"253-111-1111", "steph@yahoo.com")
 	};
-	static {
+	private static void initVolunteers() {
+		printGreen("Initializing volunteers...");
 		for (int i = 0; i < VOLUNTEERS.length; i++) {
 			final String userName = VOLUNTEERS[i].getUserName();
-			System.out.println("Adding volunteer: " + userName);
+			print("Adding volunteer: " + userName);
 			USER_CONTROLLER.addUser(VOLUNTEERS[i]);
 		}
 	}
+	
+	private static final JDialog dialog = new JDialog();
+	private static final JPanel panel = new JPanel();
 
 	public static void main(final String... args) {
+		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		dialog.add(new JScrollPane(panel));
+		final JPanel buttonPanel = new JPanel();
+		final JButton runButton = new JButton("Run");
+		runButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if (runButton.getText().equals("Run")) {
+					new Thread(new Runnable() {
+						@Override
+						public void run() {
+							Driver.main(null);
+						}
+					}).start();
+					runButton.setEnabled(false);
+				}
+			}
+		});
+		final JButton clearButton = new JButton("Clear");
+		clearButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				panel.removeAll();
+				print("Clearing persitent data.");
+				Driver.clearAll();
+				dialog.pack();
+			}
+		});
+		
+		final JButton initButton = new JButton("Initialize");
+		initButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				initParks();
+				initParkManagers();
+				initVolunteers();
+				addJobWithMaxVolunteers();
+				addMaxJobsPerDay();
+				dialog.pack();
+			}
+		});
+		
+		buttonPanel.add(initButton);
+		buttonPanel.add(runButton);
+		buttonPanel.add(clearButton);
+		
+		dialog.add(buttonPanel, BorderLayout.SOUTH);
+		panel.setBackground(Color.white);
+
+		dialog.pack();
+		dialog.setVisible(true);
+	}
+	
+	private static void print(final String theString) {
+		panel.add(new JLabel(theString));
+	}
+	
+	private static void printGreen(final String theString) {
+		print("<html><span style=\"color:green;\">" + theString + "</span></html>");
+	}
+	
+	private static void addMaxJobsPerDay() {
+		final String[] jobNames = {
+				"Clearing trail",
+				"Trash cleanup",
+				"Spreading gravel",
+				"Janitorial work",
+				"Repairing fences",
+				"Searching for BigFoot"
+		};
+		int jobStartDateOffset = JobController.MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP
+								+ JobController.MAX_JOB_DURATION_DAYS + 1;
+		int jobEndDateOffset = jobStartDateOffset;
+		final JobDateTime jobStartDate = new JobDateTime().addDays(jobStartDateOffset);
+		final JobDateTime jobEndDate = new JobDateTime().addDays(jobEndDateOffset);
+		final String jobStartTimeString = "10:00 am";
+		final String jobEndTimeString = "11:00 am";
+		try {
+			printGreen("Adding maximum jobs per day to " + jobStartDate.toDateString() + ".");
+			for (int i = 0; i < JobController.MAX_JOBS_PER_DAY; i++) {
+				final String jobName = jobNames[i];
+				final Job litter = new Job(PARK_MANAGER[0],
+						jobName,
+						PARKS[0],
+						jobStartDate,
+						jobEndDate,
+						new JobDateTime().setFromTimeString(jobStartTimeString),
+						new JobDateTime().setFromTimeString(jobEndTimeString),
+						"Call park manager for more details.",
+						Math.floorDiv(Job.MAX_VOLUNTEERS, 3),
+						Math.floorDiv(Job.MAX_VOLUNTEERS, 3),
+						Math.floorDiv(Job.MAX_VOLUNTEERS, 3));
+				print("Adding job \"" + jobName + "\" [" + jobStartDate.toDateString() + ", " + jobEndDate.toDateString() + "].");
+				JOB_CONTROLLER.addJob(litter);
+			}
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private static void addJobWithMaxVolunteers() {
 		String jobName = "Rehabilitation and Relining Culverts";
 		String jobDescription = "Install a reinforced concrete invert to repair or replace a deteriorated invert in a "
 				+ "corrugated metal culvert pipe, slipline or install a new internal pipe inside the existing culvert, "
@@ -127,13 +251,12 @@ public final class SubmitNewJobUserStoryRunOnce {
 					Job.MAX_VOLUNTEERS,
 					0,
 					0);
-			System.out.println("Adding maximum number of volunteers (" + Job.MAX_VOLUNTEERS + ") to \"" + jobName + "\".");
+			printGreen("Adding job \"" + jobName + "\" [" + jobStartDate.toDateString() + ", " + jobEndDate.toDateString() + "] with maximum number of volunteers (" + Job.MAX_VOLUNTEERS + ").");
 			for (int i = 0; i < Job.MAX_VOLUNTEERS; i++) {
 				job.addVolunteer(VOLUNTEERS[i], WorkDuty.LIGHT);
 				VOLUNTEERS[i].addJob(job);
 			}
 			JOB_CONTROLLER.addJob(job);
-			System.out.println("Adding job: \"" + jobName + "\".");
 		} catch(final ParseException e) {
 			e.printStackTrace();
 		}

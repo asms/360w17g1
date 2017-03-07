@@ -37,14 +37,6 @@ public class MaxPendingJobsRunOnce {
 				jc.addJob(litter);
 			}
 			
-//			for (int i = 0; i < 4; i++) {
-//				final Job litter = new Job(manager, "Cleaning up stuff" + i, sunset, new JobDateTime().addDays(3), new JobDateTime().addDays(3), new JobDateTime().setFromTimeString("10:00 am"),
-//						new JobDateTime().setFromTimeString("2:00 pm"), "Cleaning up after yesterday's little league tournament.", 2, 2,
-//						2);
-//				litter.addVolunteer(volunteer, WorkDuty.LIGHT);
-//				jc.addJob(litter);
-//			}
-			
 		} catch (ParseException e) { System.out.println("FAIL"); } catch (ExceedsMaxVolunteersException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

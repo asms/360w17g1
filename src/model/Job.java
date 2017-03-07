@@ -262,6 +262,10 @@ public final class Job implements UniqueObject {
 		return volunteers.values().stream().filter(x -> x.equals(theWorkDuty)).count() < neededVolunteers.get(theWorkDuty);
 	}
 
+	/**
+	 * Returns the number of possible volunteers (or all work duties).
+	 * @return the number of possible volunteers
+	 */
 	public int getNumberOfPossibleVolunteers() {
 		return neededVolunteers.get(WorkDuty.LIGHT)
 				+ neededVolunteers.get(WorkDuty.MEDIUM)

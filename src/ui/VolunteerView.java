@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import exceptions.AllreadySignedUpForJobOnThisDateException;
 import exceptions.JobFullException;
+import exceptions.VolunteerWorkDutyNotNeededException;
 import model.JobController;
 import model.Job;
 import model.Job.WorkDuty;
@@ -92,9 +93,9 @@ public class VolunteerView extends AbstractView<Volunteer> {
 		while (myStatus == Status.RUN) {
 			clear();
 			displayHeader();
-			displayLineBreak();
-			// displayCurrentJobs();
-			displayLineBreak();
+//			displayLineBreak();
+//			 displayCurrentJobs();
+//			displayLineBreak();
 			COMMAND command = (COMMAND) getCommand("Enter a command", COMMAND.values());
 			if (command != null) {
 				commands.get(command).execute();
@@ -148,8 +149,13 @@ public class VolunteerView extends AbstractView<Volunteer> {
 				final WorkDuty duty = getSelectionFromList("Work Duty", "Select a skill level",
 						WorkDuty.values(), x -> x.toString(), new String[] { "Cancel" });
 				if (duty != null) {
-					myJobController.signUp((Volunteer) myUser, theJob, duty);
-					print(SUCCESSFUL_SIGN_UP);
+					try {
+						myJobController.signUp((Volunteer) myUser, theJob, duty);
+						print(SUCCESSFUL_SIGN_UP);
+					} catch (final VolunteerWorkDutyNotNeededException e) {
+						printError("Volunteers of that work duty are not needed.");
+					}
+					
 				}
 			} else {
 				print("You cannot sign up for this job.");

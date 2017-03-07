@@ -18,6 +18,7 @@ public class ParkController extends AbstractController<Park> {
 	
 	/**
 	 * Adds a park to the database.
+	 * @param thePark the park to be added
 	 */
 	public void addPark(final Park thePark) {
 		add(thePark);

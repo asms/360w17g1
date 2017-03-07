@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 
 import exceptions.AllreadySignedUpForJobOnThisDateException;
 import exceptions.JobFullException;
+import exceptions.VolunteerWorkDutyNotNeededException;
 import model.Job;
 import model.Job.WorkDuty;
 import model.Park;
@@ -32,6 +33,9 @@ public class JobController extends AbstractController<Job> {
 	
 	private int myMaximumNumberOfPendingJobs;
     
+	/**
+	 * Loads the previous state of the JobController.
+	 */
     public JobController() {
     	final Integer maxPendingJobs = deserializeFromDisk(getClass().getSimpleName() + "MAX_PENDING_JOBS", Integer.class);
     	if (maxPendingJobs == null) {
@@ -52,6 +56,7 @@ public class JobController extends AbstractController<Job> {
     
     /**
      * Returns all jobs that are after the current date.
+     * @return the list of upcoming jobs
      */
     public List<Job> getUpcomingJobs()
     {
@@ -59,7 +64,8 @@ public class JobController extends AbstractController<Job> {
     }
     
     /**
-     * Returns all jobs that are before the current date.s
+     * Returns all jobs that are before the current date.
+     * @return the list of all past jobs
      */
     public List<Job> getPastJobs() {
     	return new ArrayList<Job>(filterPastJobs(myList.values().stream()).collect(Collectors.toList()));
@@ -75,8 +81,8 @@ public class JobController extends AbstractController<Job> {
     }
     
     /**
-     * Filters a stream of jobs so that only the jobs that start {@link MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP}
-     * past the current date remain.
+     * Filters a stream of jobs so that only the jobs that start {@link JobController#MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP}
+     * past the current date.
      * @param theStream the stream of jobs
      * @return a stream of upcoming jobs
      */
@@ -97,7 +103,7 @@ public class JobController extends AbstractController<Job> {
     
     /**
      * Returns a job with a specific key.
-     * @param theName the name of a job
+     * @param theKey the key value for the job
      * @return the job that has the specified name
      */
     public Job getJob(final String theKey) {
@@ -127,6 +133,12 @@ public class JobController extends AbstractController<Job> {
     	return numberOfJobs < MAX_JOBS_PER_DAY;
     }
     
+    /**
+     * Checks if the dates within the range have less than the maximum number of jobs.
+     * @param theStartDate the start date of the range
+     * @param theEndDate the end date of the range
+     * @return true if all jobs within the range have less than the maximum number of jobs
+     */
 	public boolean isLessThanMaxJobsOnThisDateRange(JobDateTime theStartDate, JobDateTime theEndDate) {
 		Predicate<Job> dateSameAsJobDate = x -> JobDateTime.intersects(theStartDate, theEndDate, x.getStartDate(), x.getEndDate());
     	final long numberOfJobs = myList.values().stream().filter(dateSameAsJobDate).count();
@@ -142,28 +154,14 @@ public class JobController extends AbstractController<Job> {
     public boolean canAddWithNameAtPark(final String theName, final Park thePark) {
     	return !myList.containsKey(theName + thePark.getKey());
     }
-
-//    /**
-//     * Returns whether the volunteer is already working a job on that date.
-//     * 
-//     * @param theVolunteer the volunteer being looked at
-//     * @param theDate the date to be checked
-//     * @return false if volunteer is already working a job on that date, true otherwise.
-//     * @throws NullPointerException if null job date is passed in
-//     */
-//    public boolean volunteerCanSignUpOnDate(final Volunteer theVolunteer, final JobDateTime theDate) {
-//    	final Predicate<Job> dateSameAsJobDateAndJobContainsVolunteer = x -> x.getVolunteers().contains(theVolunteer)
-//    			&& theDate.between(x.getStartDate(), x.getEndDate());
-//    	return getUpcomingJobs().stream().filter(dateSameAsJobDateAndJobContainsVolunteer).count() == 0;
-//    }
     
     /**
-     * Returns whether the volunteer is already working a job on that date.
+     * Returns whether a volunteers can sign up on a date range.
      * 
      * @param theVolunteer the volunteer being looked at
-     * @param theDate the date to be checked
-     * @return false if volunteer is already working a job on that date, true otherwise.
-     * @throws NullPointerException if null job date is passed in
+     * @param theStartDate the start date
+     * @param theEndDate the end date
+     * @return false if volunteer is already working a job on one of the dates, true otherwise.
      */
     public boolean volunteerCanSignUpOnDateRange(final Volunteer theVolunteer, final JobDateTime theStartDate,
     		final JobDateTime theEndDate) {
@@ -198,14 +196,17 @@ public class JobController extends AbstractController<Job> {
 	 * @param theVolunteer the volunteer to be signed up
 	 * @param theJob the job to sign up the volunteer for
 	 * @param theWorkDuty the workload volunteer is signing up for.
-	 * @throws IllegalStateException if workload is not needed
+	 * @throws VolunteerWorkDutyNotNeededException if volunteer of that work duty is not needed
 	 * @throws NullPointerException if either job or work duty are null
 	 */
 	public void signUp(final Volunteer theVolunteer, final Job theJob, final WorkDuty theWorkDuty) {
-		if (assertSigningUp(theVolunteer, theJob) && theJob.needsWorkDuty(theWorkDuty) && theJob.addVolunteer(theVolunteer, theWorkDuty)) {
-			addJob(theJob);
-		} else {
-			throw new IllegalStateException("WorkerNotNeeded");
+		if (assertSigningUp(theVolunteer, theJob)) {
+			if (theJob.needsWorkDuty(theWorkDuty) && theJob.addVolunteer(theVolunteer, theWorkDuty)) {
+				addJob(theJob);
+			} else {
+				throw new VolunteerWorkDutyNotNeededException();
+			}
+			
 		}
 	}
 	
@@ -219,8 +220,8 @@ public class JobController extends AbstractController<Job> {
 
 	/**
 	 * Gets the Jobs at the park being looked at
-	 * @param the Park 
-	 * @return Jobs in that Park.
+	 * @param park the park 
+	 * @return jobs in that Park.
 	 */
 	public List<Job> getByPark(final Park park) {
 		return myList.values().stream().filter(x -> x.getPark().equals(park)).collect(Collectors.toList());

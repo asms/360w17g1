@@ -44,6 +44,10 @@ public abstract class AbstractView<T extends AbstractUser> {
 	private static final String HEADER = "Urban Parks"
 			+ System.lineSeparator()
 			+ "Welcome %s, logged in as a %s.";
+	
+	private static final String GUEST_HEADER = "Urban Parks"
+												+ System.lineSeparator()
+												+ "Welcome, guest.";
 
 	/** The format for a single line in a numbered list. */
 	private static final String NUMBERED_LIST_FORMAT = "[%d] %s";
@@ -86,6 +90,7 @@ public abstract class AbstractView<T extends AbstractUser> {
 	 * 	Concrete views also have access to various convenience methods that display information to the console and
 	 * 	prompt for user input.
 	 * </p>
+	 * @param theScanner a scanner object
 	 * @param theUser the user accessing the view
 	 * @throws NullPointerException if the scanner or user are null
 	 */
@@ -108,10 +113,10 @@ public abstract class AbstractView<T extends AbstractUser> {
 	 * Displays the header.
 	 */
 	protected void displayHeader() {
-		if (myUser != null) {
-			System.out.println(String.format(HEADER, myUser != null ? myUser.getUserName() : "guest", myUser.getClass().getSimpleName()));
+		if (myUser == AbstractUser.GUEST) {
+			System.out.println(GUEST_HEADER);
 		} else {
-			System.out.println("Urban Parks");
+			System.out.println(String.format(HEADER, myUser != null ? myUser.getUserName() : "guest", myUser.getClass().getSimpleName()));
 		}
 	}
 

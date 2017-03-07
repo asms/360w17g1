@@ -9,14 +9,11 @@ import java.util.ArrayList;
 
 import model.AbstractUser;
 
-
-
 /**
  * User Controller
  * 
  * @author Bryce
  * @version 1
- *
  */
 public class UserController extends AbstractController<AbstractUser> {
 
@@ -27,7 +24,6 @@ public class UserController extends AbstractController<AbstractUser> {
 	public void addUser(final AbstractUser theUser) {
 		add(theUser);
 	}
-	
 	
 	/**
 	 * Returns a User with a specific user name.
@@ -45,6 +41,4 @@ public class UserController extends AbstractController<AbstractUser> {
 	public ArrayList<AbstractUser> getAllUsers() {
 		return new ArrayList<AbstractUser>(myList.values());
 	}
-
-
 }

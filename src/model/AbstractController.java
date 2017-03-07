@@ -19,6 +19,7 @@ import model.UniqueObject;
  * 
  * @author Steven Smith
  * @version 1.0
+ * @param <T> the type of controller
  */
 public abstract class AbstractController<T extends UniqueObject> {
 

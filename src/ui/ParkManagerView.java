@@ -119,21 +119,17 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 			final int numLightVolunteers = getInteger("Enter number of light-duty volunteers", 0, Job.MAX_VOLUNTEERS);
 			final int numMediumVolunteers = getInteger("Enter number of medium-duty volunteers", 0, Job.MAX_VOLUNTEERS - numLightVolunteers);
 			final int numHeavyVolunteers = getInteger("Enter number of heavy-duty volunteers", 0, Job.MAX_VOLUNTEERS - numLightVolunteers - numMediumVolunteers);
-			try {
-				final Job job = new Job((ParkManager) myUser, name, park, startDate, endDate, startTime, endTime, description, numLightVolunteers, numMediumVolunteers, numHeavyVolunteers);
-				displayLine();
-				print(JobUIFormatter.format(job));
-				displayLine();
-				final boolean shouldSubmit = getBooleanYesNo("Are you sure you want to submit this job (Y/N)");
-				if (shouldSubmit) {
-			        myParkController.addPark(park);
-					myJobController.addJob(job);
-					print("Job added.");
-				} else {
-					print("Job not added.");
-				}
-			} catch(final ExceedsMaxVolunteersException e) {
-				//TODO: SOMETHING
+			final Job job = new Job((ParkManager) myUser, name, park, startDate, endDate, startTime, endTime, description, numLightVolunteers, numMediumVolunteers, numHeavyVolunteers);
+			displayLine();
+			print(JobUIFormatter.format(job));
+			displayLine();
+			final boolean shouldSubmit = getBooleanYesNo("Are you sure you want to submit this job (Y/N)");
+			if (shouldSubmit) {
+		        myParkController.addPark(park);
+				myJobController.addJob(job);
+				print("The job was successfully added.");
+			} else {
+				print("You chose not to submit the job.");
 			}
 			
 		} else {

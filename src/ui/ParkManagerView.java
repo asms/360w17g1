@@ -10,7 +10,6 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.util.function.Function;
 
-import exceptions.ExceedsMaxVolunteersException;
 import model.JobController;
 import model.JobDateTime;
 import model.Job;

@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
+import exceptions.ExceedsMaxVolunteersException;
 import model.JobController;
 import model.JobDateTime;
 import model.ParkController;
@@ -143,12 +144,11 @@ public final class PresentationSetupRunOnce {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				panel.removeAll();
-				print("Clearing persitent data.");
+				print("Clearing persistent data.");
 				Driver.clearAll();
 				dialog.pack();
 			}
 		});
-		
 		final JButton initButton = new JButton("Initialize");
 		initButton.addActionListener(new ActionListener() {
 			@Override
@@ -156,15 +156,33 @@ public final class PresentationSetupRunOnce {
 				initParks();
 				initParkManagers();
 				initVolunteers();
+				dialog.pack();
+			}
+		});
+		final JButton initPersistentData = new JButton("Max Volunteers & Max Jobs Per Day");
+		initPersistentData.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
 				addJobWithMaxVolunteers();
 				addMaxJobsPerDay();
 				dialog.pack();
 			}
 		});
+		final JButton maxPendingButton = new JButton("Max Pending Jobs");
+		maxPendingButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				initMaxPendingJobs();
+				dialog.pack();
+			}
+		});
 		
 		buttonPanel.add(initButton);
+		buttonPanel.add(initPersistentData);
+		buttonPanel.add(maxPendingButton);
 		buttonPanel.add(runButton);
 		buttonPanel.add(clearButton);
+		
 		
 		dialog.add(buttonPanel, BorderLayout.SOUTH);
 		panel.setBackground(Color.white);
@@ -179,6 +197,54 @@ public final class PresentationSetupRunOnce {
 	
 	private static void printGreen(final String theString) {
 		print("<html><span style=\"color:green;\">" + theString + "</span></html>");
+	}
+	
+	private static void initMaxPendingJobs() {
+		final String[] jobNames = {
+				"Rodent extermination",
+				"Parking facilitation",
+				"Debris cleanup",
+				"Event security",
+				"Watering foliage",
+				"Landscaping assistance",
+				"Lawn mowing",
+				"Poo-poo bag dispenser refilling",
+				"Janitorial work",
+				"Apple picking",
+				"Clearing trail",
+				"Sanitizing benches",
+				"Relocating the homeless",
+				"Painting parking lines",
+				"Spreading gravel",
+				"Community outreach event staffing",
+				"Cleaning barbeque grills",
+				"Cleaning picnic tables",
+				"Trimming bushes",
+				"Parking lot security",
+				"Batchroom stall cleaning"
+		};
+		try {
+			printGreen("Initializing maximum pending jobs("+JobController.DEFAULT_MAX_PENDING_JOBS+")...");
+			for (int i = 0; i < JobController.DEFAULT_MAX_PENDING_JOBS; i++) {
+				print("Adding job: " + jobNames[i]);
+				final Job litter = new Job(PARK_MANAGER[0],
+						jobNames[i],
+						PARKS[0],
+						new JobDateTime().addDays(JobController.MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP + i),
+						new JobDateTime().addDays(JobController.MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP + i),
+						new JobDateTime().setFromTimeString("10:00 am"),
+						new JobDateTime().setFromTimeString("2:00 pm"),
+						"Email park manager for more details...",
+						Math.floorDiv(Job.MAX_VOLUNTEERS, 3),
+						Math.floorDiv(Job.MAX_VOLUNTEERS, 3),
+						Math.floorDiv(Job.MAX_VOLUNTEERS, 3));
+				JOB_CONTROLLER.addJob(litter);
+			}
+			
+		} catch (ParseException e) { System.out.println("FAIL"); } catch (ExceedsMaxVolunteersException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	private static void addMaxJobsPerDay() {

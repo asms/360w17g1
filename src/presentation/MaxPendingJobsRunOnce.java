@@ -29,7 +29,7 @@ public class MaxPendingJobsRunOnce {
 		
 		
 		try {
-			for (int i = 0; i < JobController.DEFAULT_MAX_PENDING_JOBS; i++) {
+			for (int i = 0; i < JobController.DEFAULT_MAX_PENDING_JOBS - 1; i++) {
 				final Job litter = new Job(manager, "Cleaning up litter" + i, sunset, new JobDateTime().addDays(4 + i), new JobDateTime().addDays(4 + i), new JobDateTime().setFromTimeString("10:00 am"),
 						new JobDateTime().setFromTimeString("2:00 pm"), "Cleaning up after yesterday's little league tournament.", 2, 2,
 						2);

@@ -178,7 +178,7 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 	private JobDateTime promptForJobStartDate() {
 		JobDateTime date;
 		JobDateTime minFutureDate = new JobDateTime().addDays(JobController.MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP);
-		JobDateTime maxFutureDate = new JobDateTime()
+		JobDateTime maxFutureDate = new JobDateTime().getStartOfDate()
 				.addDays(JobController.MAX_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_CREATION);
 		boolean validDate = false;
 		do {
@@ -205,8 +205,8 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 	 */
 	private JobDateTime promptForJobEndDate(final JobDateTime theStartDate) {
 		JobDateTime date;
-		JobDateTime minFutureDate = theStartDate;
-		JobDateTime maxFutureDate = JobController.getMaximumEndDateFromStartDate(theStartDate);
+		final JobDateTime minFutureDate = theStartDate;
+		final JobDateTime maxFutureDate = JobController.getMaximumEndDateFromStartDate(theStartDate);
 		boolean validDate = false;
 		do {
 			print("Notice: Job end date must be at least "
@@ -214,7 +214,7 @@ public class ParkManagerView extends AbstractView<ParkManager> {
 					+ " and not later than "
 					+ maxFutureDate.toDateString());
 			date = getDate("Enter end date(MM/DD/YYYY)",
-					new JobDateTime().getStartOfDate().addDays(JobController.MIN_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_SIGNUP),
+					minFutureDate,
 					maxFutureDate);
 			if (myJobController.isLessThanMaxJobsOnThisDateRange(theStartDate, date)) {
 				validDate = true;

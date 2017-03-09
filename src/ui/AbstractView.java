@@ -317,7 +317,7 @@ public abstract class AbstractView<T extends AbstractUser> {
 		if (Objects.requireNonNull(theMin).after(Objects.requireNonNull(theMax))) {
 			throw new IllegalArgumentException();
 		}
-		JobDateTime date = new JobDateTime();
+		JobDateTime date = new JobDateTime().getStartOfDate();
 		boolean validated = false;
 		while (!validated) {
 			try {

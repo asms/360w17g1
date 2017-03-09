@@ -16,6 +16,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import exceptions.ExceedsMaxVolunteersException;
+import exceptions.VolunteerWorkDutyNotNeededException;
 import model.Job;
 import model.Job.WorkDuty;
 import model.JobController;
@@ -399,7 +400,7 @@ public class JobControllerTest
        myJobController.signUp(eli, null, WorkDuty.LIGHT);
    }
    
-	@Test (expected = IllegalStateException.class)
+	@Test (expected = VolunteerWorkDutyNotNeededException.class)
 	public void signUp_VolunteerTypeIsNotNeeded(){
 	    final Volunteer eli = new Volunteer("eli", "Eli", "Ile", "253-123-4567", "eli@gmail.com");
         JobDateTime date = new JobDateTime().addDays(5);

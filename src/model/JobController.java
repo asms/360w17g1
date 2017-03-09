@@ -252,7 +252,7 @@ public class JobController extends AbstractController<Job> {
 		final JobDateTime absoluteMaxFutureDate
 						= new JobDateTime().getStartOfDate().addDays(MAX_FUTURE_DATE_DAYS_FROM_NOW_FOR_JOB_CREATION);
 		final JobDateTime relativeMaxNumberDaysFutureDate
-										= theStartDate.getStartOfDate().addDays(JobController.MAX_JOB_DURATION_DAYS);
+										= theStartDate.getStartOfDate().addDays(JobController.MAX_JOB_DURATION_DAYS - 1);
 		return JobDateTime.minDate(absoluteMaxFutureDate, relativeMaxNumberDaysFutureDate);
 	}
 }
